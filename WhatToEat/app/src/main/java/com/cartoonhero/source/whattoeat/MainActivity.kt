@@ -3,6 +3,7 @@ package com.cartoonhero.source.whattoeat
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.cartoonhero.source.actors.inlineCls.addFragment
 import com.cartoonhero.source.stage.scene.entrance.SignFragment
 import com.cartoonhero.source.stage.scenery.NavigationActivity
 
@@ -14,7 +15,7 @@ class MainActivity : NavigationActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        initFragment(SignFragment(), R.id.contentFrameLayout)
+        addFragment(SignFragment(), R.id.contentFrameLayout)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

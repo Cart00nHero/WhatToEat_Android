@@ -3,6 +3,7 @@ package com.cartoonhero.source.whattoeat
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.cartoonhero.source.stage.scene.entrance.SignFragment
 import com.cartoonhero.source.stage.scenery.NavigationActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -13,6 +14,7 @@ class MainActivity : NavigationActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        initFragment(SignFragment(), R.id.contentFrameLayout)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -20,7 +22,6 @@ class MainActivity : NavigationActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long

@@ -16,11 +16,13 @@ open class NavigationActivity : AppCompatActivity() {
         addFragment(fragment, resourceId)
         fragmentList.add(0, fragment)
     }
+
     fun goForwardPage(fragments: List<Fragment>, resourceId: Int) {
         currentPage += fragments.size
         fragmentList.addAll(fragments)
         replaceFragment(fragments.last(), resourceId)
     }
+
     fun backToPreviousPage(resourceId: Int) {
         if (currentPage > 0) {
             val currentFragment = fragmentList[currentPage]
@@ -39,11 +41,11 @@ open class NavigationActivity : AppCompatActivity() {
         }
     }
 
-    fun getCurrentFragment(): Fragment{
+    fun currentFragment(): Fragment{
         return fragmentList.last()
     }
-    fun stashCount(): Int {
-        return fragmentList.size
 
+    fun childFragments(): List<Fragment> {
+        return fragmentList.clone() as List<Fragment>
     }
 }

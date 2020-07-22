@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.cartoonhero.source.actors.agent.ActivityStateDelegate
-import com.cartoonhero.source.actors.inlineCls.addFragment
 import com.cartoonhero.source.redux.appStore
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.entrance.SignFragment
@@ -20,7 +19,7 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        addFragment(SignFragment(), R.id.contentFrameLayout)
+        initFragment(SignFragment(),R.id.contentFrameLayout)
     }
 
     override fun onStart() {

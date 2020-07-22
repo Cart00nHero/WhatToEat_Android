@@ -4,15 +4,20 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.inlineCls.addFragment
+import com.cartoonhero.source.actors.inlineCls.removeFragment
 import com.cartoonhero.source.actors.inlineCls.replaceFragment
 
 @SuppressLint("Registered")
 open class NavigationActivity : AppCompatActivity() {
 
-    var currentPage = 0
+    private var currentPage = 0
     private val fragmentList = ArrayList<Fragment>()
 
     fun initFragment(fragment: Fragment, resourceId: Int) {
+        if (fragmentList.size > 0) {
+            removeFragment(currentFragment(),resourceId)
+            fragmentList.clear()
+        }
         addFragment(fragment, resourceId)
         fragmentList.add(0, fragment)
     }

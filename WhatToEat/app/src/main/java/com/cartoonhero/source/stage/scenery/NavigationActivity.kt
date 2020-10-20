@@ -31,10 +31,10 @@ open class NavigationActivity : AppCompatActivity() {
     fun backToPreviousPage(resourceId: Int) {
         if (currentPage > 0) {
             val currentFragment = fragmentList[currentPage]
-            val previosFragment = fragmentList[currentPage-1]
+            val previousFragment = fragmentList[currentPage-1]
             fragmentList.remove(currentFragment)
             currentPage -= 1
-            replaceFragment(previosFragment, resourceId)
+            replaceFragment(previousFragment, resourceId)
         } else {
             finish()
         }
@@ -52,5 +52,13 @@ open class NavigationActivity : AppCompatActivity() {
 
     fun childFragments(): List<Fragment> {
         return fragmentList.clone() as List<Fragment>
+    }
+
+    private fun clearFragmentBackStack() {
+        if (supportFragmentManager.fragments.size > 0) {
+            for (fragment in supportFragmentManager.fragments) {
+                supportFragmentManager.beginTransaction().remove(fragment!!).commit()
+            }
+        }
     }
 }

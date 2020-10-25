@@ -1,0 +1,9 @@
+package com.cartoonhero.source.redux.reducers
+
+import com.cartoonhero.source.redux.states.ActivityState
+import org.rekotlin.Action
+
+fun activityReducer(action: Action, state: ActivityState?): ActivityState {
+    val actState = state?: ActivityState()
+    return actState.copy(currentAction = action)
+}

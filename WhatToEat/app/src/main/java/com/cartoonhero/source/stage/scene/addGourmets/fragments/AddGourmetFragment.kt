@@ -60,7 +60,6 @@ class AddGourmetFragment: Fragment() {
         }
         private val vhListener = object : ViewHolderListener {
             override fun onBindViewHolder(itemView: View) {
-                itemView.textView.text = "aaaa"
             }
         }
     }

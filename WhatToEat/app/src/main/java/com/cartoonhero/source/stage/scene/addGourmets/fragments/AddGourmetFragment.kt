@@ -1,6 +1,5 @@
 package com.cartoonhero.source.stage.scene.addGourmets.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import com.cartoonhero.source.stage.scenery.bounceRecyclerView.makeBounceEffect
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
 import kotlinx.android.synthetic.main.fragment_add_gourmet.*
-import kotlinx.android.synthetic.main.rvitem_input.view.*
 
 class AddGourmetFragment: Fragment() {
 
@@ -30,7 +28,6 @@ class AddGourmetFragment: Fragment() {
             false)
     }
 
-    @SuppressLint("UseRequireInsteadOfGet")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         agRecyclerView.adapter = RecyclerAdapter()

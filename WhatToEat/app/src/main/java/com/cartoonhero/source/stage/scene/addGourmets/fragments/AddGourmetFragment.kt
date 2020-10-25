@@ -14,6 +14,7 @@ import com.cartoonhero.source.stage.scenery.bounceRecyclerView.makeBounceEffect
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
 import kotlinx.android.synthetic.main.fragment_add_gourmet.*
+import kotlinx.android.synthetic.main.rvitem_input.view.*
 
 class AddGourmetFragment: Fragment() {
 
@@ -42,6 +43,7 @@ class AddGourmetFragment: Fragment() {
     }
     inner class RecyclerAdapter: BounceRecyclerAdapter() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            addViewHolderListener(vhListener)
             val itemView =
                 LayoutInflater.from(parent.context).inflate(R.layout.rvitem_input, parent, false)
             return ViewHolder(itemView)
@@ -55,6 +57,11 @@ class AddGourmetFragment: Fragment() {
             super.onBindViewHolder(holder, position)
             holder.itemView.tag = position
             holder.itemView.layoutParams.height = 44
+        }
+        private val vhListener = object : ViewHolderListener {
+            override fun onBindViewHolder(itemView: View) {
+                itemView.textView.text = "aaaa"
+            }
         }
     }
 

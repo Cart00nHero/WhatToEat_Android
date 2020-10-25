@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.cartoonhero.source.actors.agent.ActivityStateDelegate
+import com.cartoonhero.source.actors.agent.ActivityStateListener
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
@@ -18,15 +18,15 @@ class SearchLocFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
-        (activity as MainActivity).setOnStateChangedDelegate(stateChangedListener)
+        (activity as MainActivity).addStateListener(stateChangedListener)
     }
     override fun onStop() {
         super.onStop()
-        (activity as MainActivity).removeDelegate()
+        (activity as MainActivity).removeListener()
     }
 
-    private val stateChangedListener = object : ActivityStateDelegate {
-        override fun receiveNewState(state: ActivityState) {
+    private val stateChangedListener = object : ActivityStateListener {
+        override fun onNewState(state: ActivityState) {
         }
     }
 }

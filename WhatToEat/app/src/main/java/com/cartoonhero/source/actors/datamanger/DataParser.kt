@@ -1,2 +1,2 @@
-package com.cartoonhero.source.actors.datamanger
+package com.cartoonhero.source.actors.dataManger
 

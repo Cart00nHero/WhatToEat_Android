@@ -6,8 +6,10 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 
-open class BounceRecyclerAdapter: RecyclerView.Adapter<BounceRecyclerAdapter.ViewHolder>() {
+open class BounceRecyclerAdapter(): RecyclerView.Adapter<BounceRecyclerAdapter.ViewHolder>() {
 
+    interface ViewHolderListener {
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         TODO("Not yet implemented")
     }
@@ -17,7 +19,6 @@ open class BounceRecyclerAdapter: RecyclerView.Adapter<BounceRecyclerAdapter.Vie
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

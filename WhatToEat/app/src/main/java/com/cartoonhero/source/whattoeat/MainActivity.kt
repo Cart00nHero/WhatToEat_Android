@@ -8,6 +8,7 @@ import com.cartoonhero.source.redux.appStore
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.entrance.SignFragment
 import com.cartoonhero.source.stage.scenery.NavigationActivity
+import com.cartoonhero.source.stage.scenery.bounceRecyclerView.BounceRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.rekotlin.StoreSubscriber
 

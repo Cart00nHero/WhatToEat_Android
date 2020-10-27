@@ -3,24 +3,23 @@ package com.cartoonhero.source.whattoeat
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.cartoonhero.source.actors.agent.ActivityStateDelegate
+import com.cartoonhero.source.actors.agent.ActivityStateListener
 import com.cartoonhero.source.redux.appStore
 import com.cartoonhero.source.redux.states.ActivityState
-import com.cartoonhero.source.stage.scene.entrance.SignFragment
+import com.cartoonhero.source.stage.scene.addGourmets.fragments.AddGourmetFragment
 import com.cartoonhero.source.stage.scenery.NavigationActivity
-import com.cartoonhero.source.stage.scenery.bounceRecyclerView.BounceRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.rekotlin.StoreSubscriber
 
 class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
 
 //    lateinit var receiveNewState: (state: ActivityState) -> Unit
-    var delegate: ActivityStateDelegate? = null
+    var listener: ActivityStateListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        initFragment(SignFragment(),R.id.contentFrameLayout)
+        initFragment(AddGourmetFragment(),R.id.contentFrameLayout)
     }
 
     override fun onStart() {
@@ -51,20 +50,17 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
         }
     }
 
-//    fun receiveNewStateListener(callback: (ActivityState) -> Unit) {
-//        receiveNewState = callback
-//    }
-    fun setOnStateChangedDelegate(delegate: ActivityStateDelegate) {
-        this.delegate = delegate
+    fun addStateListener(listener: ActivityStateListener) {
+        this.listener = listener
     }
-    fun removeDelegate() {
-        this.delegate = null
+    fun removeListener() {
+        this.listener = null
     }
 
     override fun newState(state: ActivityState?) {
         state.apply {
 //            state?.let { receiveNewState(it) }
-            state?.let { this@MainActivity.delegate?.receiveNewState(it) }
+            state?.let { this@MainActivity.listener?.onNewState(it) }
         }
     }
 }

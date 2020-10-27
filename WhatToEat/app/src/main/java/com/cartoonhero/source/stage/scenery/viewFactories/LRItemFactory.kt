@@ -1,6 +1,5 @@
-package com.cartoonhero.source.stage.scenery.itemTemplates
+package com.cartoonhero.source.stage.scenery.viewFactories
 
-import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout

@@ -14,7 +14,7 @@ import org.rekotlin.StoreSubscriber
 class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
 
 //    lateinit var receiveNewState: (state: ActivityState) -> Unit
-    var listener: ActivityStateListener? = null
+    var mListener: ActivityStateListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,8 +24,8 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
 
     override fun onStart() {
         super.onStart()
-        appStore.subscribe(this) {
-            it.select { it ->
+        appStore.subscribe(this) { it ->
+            it.select {
                 it.activityState
             }
         }
@@ -51,16 +51,16 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
     }
 
     fun addStateListener(listener: ActivityStateListener) {
-        this.listener = listener
+        this.mListener = listener
     }
     fun removeListener() {
-        this.listener = null
+        this.mListener = null
     }
 
     override fun newState(state: ActivityState?) {
         state.apply {
 //            state?.let { receiveNewState(it) }
-            state?.let { this@MainActivity.listener?.onNewState(it) }
+            state?.let { this@MainActivity.mListener?.onNewState(it) }
         }
     }
 }

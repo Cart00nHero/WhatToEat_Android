@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.agent.ActivityStateListener
+import com.cartoonhero.source.actors.inlineCls.screenSizeInDp
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.BounceRecyclerAdapter
@@ -42,7 +43,7 @@ class AddGourmetFragment: Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             addViewHolderListener(vhListener)
             val itemView =
-                LayoutInflater.from(parent.context).inflate(R.layout.rvitem_input, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.rvitem_lr_itemview, parent, false)
             return ViewHolder(itemView)
         }
 
@@ -53,7 +54,9 @@ class AddGourmetFragment: Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             super.onBindViewHolder(holder, position)
             holder.itemView.tag = position
-            holder.itemView.layoutParams.height = 44
+            activity?.screenSizeInDp?.apply {
+                holder.itemView.layoutParams.height = x * 100/375
+            }
         }
         private val vhListener = object : ViewHolderListener {
             override fun onBindViewHolder(itemView: View) {

@@ -11,9 +11,12 @@ import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.BounceRecyclerAdapter
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.makeBounceEffect
+import com.cartoonhero.source.stage.scenery.customLayouts.ToolBarCenterLayout
 import com.cartoonhero.source.stage.scenery.listItems.LRItemLayout
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_add_gourmet.*
 
 class AddGourmetFragment: Fragment() {
@@ -34,7 +37,8 @@ class AddGourmetFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         agRecyclerView.adapter = RecyclerAdapter()
         agRecyclerView.edgeEffectFactory = makeBounceEffect(requireContext())
-        (activity as MainActivity).toolBar()
+        val textView = (activity as MainActivity).toolbarCenter.createTextView()
+        textView.text = "assacacac"
     }
 
     override fun onStart() {
@@ -45,7 +49,7 @@ class AddGourmetFragment: Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             addViewHolderListener(vhListener)
             val itemView =
-                LayoutInflater.from(parent.context).inflate(R.layout.layout_lr_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.view_lr_item, parent, false)
             return ViewHolder(itemView)
         }
 

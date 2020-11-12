@@ -24,7 +24,6 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="#228B22"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-
                 <com.cartoonhero.source.stage.scenery.customLayouts.ToolBarCenterLayout
                     android:id="@+id/toolbarCenter"
                     android:layout_width="match_parent"

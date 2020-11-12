@@ -22,7 +22,6 @@ val Activity.displayMetrics: DisplayMetrics
             // getMetrics() method was deprecated in api level 30
             windowManager.defaultDisplay.getMetrics(displayMetrics)
         }
-
         return displayMetrics
     }
 
@@ -38,6 +37,5 @@ val Activity.screenSizeInDp: Point
             // screen height in dp
             point.y = (heightPixels / density).roundToInt()
         }
-
         return point
     }

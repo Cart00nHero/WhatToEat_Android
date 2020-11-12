@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.agent.ActivityStateListener
-import com.cartoonhero.source.actors.inlineCls.screenSizeInDp
+import com.cartoonhero.source.actors.toolMan.inlineCls.screenSizeInDp
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.BounceRecyclerAdapter
@@ -34,6 +34,7 @@ class AddGourmetFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         agRecyclerView.adapter = RecyclerAdapter()
         agRecyclerView.edgeEffectFactory = makeBounceEffect(requireContext())
+        (activity as MainActivity).toolBar()
     }
 
     override fun onStart() {
@@ -44,7 +45,7 @@ class AddGourmetFragment: Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             addViewHolderListener(vhListener)
             val itemView =
-                LayoutInflater.from(parent.context).inflate(R.layout.item_lr_layout, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.layout_lr_item, parent, false)
             return ViewHolder(itemView)
         }
 

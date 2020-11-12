@@ -7,8 +7,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import com.cartoonhero.source.actors.toolMan.match
 import com.cartoonhero.source.whattoeat.R
-import kotlinx.android.synthetic.main.lr_item_layout.view.*
+import kotlinx.android.synthetic.main.layout_lr_item.view.*
 
 class LRItemLayout: ConstraintLayout {
 
@@ -23,7 +24,7 @@ class LRItemLayout: ConstraintLayout {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         // inflate the layout into "this" component
-        inflater.inflate(R.layout.lr_item_layout, this)
+        inflater.inflate(R.layout.layout_lr_item, this)
     }
 
     fun createTextView() {
@@ -34,12 +35,6 @@ class LRItemLayout: ConstraintLayout {
         val set = ConstraintSet()
         set.clone(this.leftLayout)
         set.match(textView,this.leftLayout)
-    }
-
-    private fun ConstraintSet.match(view: View, parentView: View) {
-        this.connect(view.id, ConstraintSet.TOP, parentView.id, ConstraintSet.TOP)
-        this.connect(view.id, ConstraintSet.START, parentView.id, ConstraintSet.START)
-        this.connect(view.id, ConstraintSet.END, parentView.id, ConstraintSet.END)
-        this.connect(view.id, ConstraintSet.BOTTOM, parentView.id, ConstraintSet.BOTTOM)
+        set.applyTo(this.leftLayout)
     }
 }

@@ -3,6 +3,7 @@ package com.cartoonhero.source.whattoeat
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 import com.cartoonhero.source.actors.agent.ActivityStateListener
 import com.cartoonhero.source.redux.appStore
 import com.cartoonhero.source.redux.states.ActivityState
@@ -55,6 +56,10 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
     }
     fun removeListener() {
         this.mListener = null
+    }
+
+    fun toolBar(): Toolbar {
+        return toolbar
     }
 
     override fun newState(state: ActivityState?) {

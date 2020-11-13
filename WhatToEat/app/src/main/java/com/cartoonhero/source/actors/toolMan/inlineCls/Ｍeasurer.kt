@@ -1,11 +1,17 @@
 package com.cartoonhero.source.actors.toolMan.inlineCls
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Point
 import android.os.Build
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import kotlin.math.roundToInt
 
+// Extension method to convert pixels to dp
+fun Int.toDp(context: Context):Int = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),context.resources.displayMetrics
+).toInt()
 // extension property to get display metrics instance
 val Activity.displayMetrics: DisplayMetrics
     get() {

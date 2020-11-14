@@ -1,4 +1,4 @@
-package com.cartoonhero.source.actors.datamanger.lrItemData
+package com.cartoonhero.source.actors.dataManger.lrItemData
 
 enum class ItemStyle {
     LeftRight,Button,RadarMap

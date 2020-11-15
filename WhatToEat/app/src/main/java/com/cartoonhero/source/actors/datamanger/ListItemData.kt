@@ -10,18 +10,18 @@ enum class ItemContentType {
 interface ItemTemplateInterface {
     val itemStyle: ItemStyle
 }
-
-data class LRItemTemplate(
-    override val itemStyle: ItemStyle = ItemStyle.LeftRight,
+data class LRItemTemplate (
     val leftInterface: ItemInterface,
     val rightInterface: ItemInterface
-) : ItemTemplateInterface
+): ItemTemplateInterface {
+    override val itemStyle: ItemStyle
+        get() = ItemStyle.LeftRight
+}
 
 interface ItemInterface {
     val contentType: ItemContentType
     val itemHeight: Int
 }
-
 data class TextViewItem (
     var text: String = "",
     var numberOfLines: Int = 1
@@ -30,7 +30,6 @@ data class TextViewItem (
         get() = ItemContentType.TextView
     override var itemHeight: Int = 48
 }
-
 data class EditTextItem (
     var hint: String = "",
     var text: String = ""

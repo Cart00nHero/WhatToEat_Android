@@ -1,6 +1,7 @@
 package com.cartoonhero.source.stage.scenery.listItems
 
 import android.content.Context
+import android.graphics.Color
 import android.transition.TransitionManager
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.cartoonhero.source.actors.dataManger.LRItemTemplate
+import com.cartoonhero.source.actors.dataManger.TextViewItem
 import com.cartoonhero.source.actors.toolMan.match
 import com.cartoonhero.source.whattoeat.R
 import kotlinx.android.synthetic.main.layout_lr_item.view.*
@@ -32,9 +34,26 @@ open class LRItemLayout: ConstraintLayout {
         // get the inflater service from the android system
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         // inflate the layout into "this" component
-        inflater.inflate(R.layout.layout_lr_item, this)
+        inflater.inflate(R.layout.layout_lr_item, this,false)
     }
 
+    fun testMethod() {
+        val textView = TextView(context)
+        val data = itemTemplate?.leftInterface as TextViewItem
+        val parentLayout = this.leftLayout
+        parentLayout.removeAllViews()
+        textView.id = View.generateViewId()
+        parentLayout.addView(textView)
+        textView.text = "蓋"
+        textView.setTextColor(Color.BLACK)
+        textView.setBackgroundColor(Color.parseColor("#00ffffff"))
+        val set = ConstraintSet()
+        set.clone(parentLayout)
+        set.match(textView,parentLayout)
+//        // optionally, apply the constraints smoothly
+//        TransitionManager.beginDelayedTransition(this)
+//        set.applyTo(parentLayout)
+    }
     fun buildItemContent (content: View, side: ContentSide) {
         val parentLayout = when(side) {
             ContentSide.Left -> this.leftLayout

@@ -18,9 +18,6 @@ class AddGLRItemLayout @JvmOverloads constructor(
 ) : LRItemLayout(context, attrs, defStyleAttr) {
 
 
-    init {
-    }
-
     // MARK: - build content
     fun buildItem() {
         createLeft()

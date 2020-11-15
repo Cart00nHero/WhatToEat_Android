@@ -14,6 +14,7 @@ import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.BounceRecyclerAdapter
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.makeBounceEffect
+import com.cartoonhero.source.stage.scenery.listItems.AddGLRItemLayout
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,7 +50,7 @@ class AddGourmetFragment: Fragment() {
             addViewHolderListener(vhListener)
             val itemView =
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.layout_lr_item, parent, false)
+                    R.layout.view_addgourmet_item, parent, false)
             return ViewHolder(itemView)
         }
 
@@ -62,6 +63,7 @@ class AddGourmetFragment: Fragment() {
             holder.itemView.tag = position
             val data =
                 presenter.GourmetsTableData().dataSource[position]
+            (holder.itemView as AddGLRItemLayout).createTextView()
             activity?.screenSizeInDp?.apply {
                 holder.itemView.layoutParams.height = x * (100/375).toDp(context!!)
             }

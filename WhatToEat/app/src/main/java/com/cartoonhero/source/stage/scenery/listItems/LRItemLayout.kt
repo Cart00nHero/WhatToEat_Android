@@ -37,22 +37,15 @@ open class LRItemLayout: ConstraintLayout {
         inflater.inflate(R.layout.layout_lr_item, this,false)
     }
 
-    fun testMethod() {
+    fun createTextView() {
+        this.leftLayout.removeAllViews()
         val textView = TextView(context)
-        val data = itemTemplate?.leftInterface as TextViewItem
-        val parentLayout = this.leftLayout
-        parentLayout.removeAllViews()
         textView.id = View.generateViewId()
-        parentLayout.addView(textView)
-        textView.text = "蓋"
-        textView.setTextColor(Color.BLACK)
-        textView.setBackgroundColor(Color.parseColor("#00ffffff"))
+        this.leftLayout.addView(textView)
         val set = ConstraintSet()
-        set.clone(parentLayout)
-        set.match(textView,parentLayout)
-//        // optionally, apply the constraints smoothly
-//        TransitionManager.beginDelayedTransition(this)
-//        set.applyTo(parentLayout)
+        set.clone(this.leftLayout)
+        set.match(textView,this.leftLayout)
+        set.applyTo(this.leftLayout)
     }
     fun buildItemContent (content: View, side: ContentSide) {
         val parentLayout = when(side) {

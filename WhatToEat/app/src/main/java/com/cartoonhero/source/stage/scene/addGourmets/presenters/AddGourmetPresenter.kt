@@ -6,8 +6,8 @@ class AddGourmetPresenter {
 
     inner class GourmetsTableData {
         var dataSource: MutableList<ItemTemplateInterface> = mutableListOf(
-                    LRItemTemplate(TextViewItem(text = "aaa"),EditTextItem(text = "")),
-                    LRItemTemplate(TextViewItem(text = "aaa"),EditTextItem(text = ""))
+                    LRItemTemplate(TextViewItem(text = "aaa"),EditTextItem(hint = "")),
+                    LRItemTemplate(TextViewItem(text = "aaa"),EditTextItem(hint = ""))
                 )
 
 //        var dataSource: MutableList<MutableList<ItemTemplateInterface>> =

@@ -44,7 +44,7 @@ class AddGourmetFragment: Fragment() {
             addViewHolderListener(vhListener)
             val itemView =
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.view_lr_addg_item, parent, false)
+                    R.layout.layout_lr_item, parent, false)
             return ViewHolder(itemView)
         }
 

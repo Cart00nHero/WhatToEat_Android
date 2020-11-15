@@ -4,11 +4,12 @@ enum class ItemStyle {
     LeftRight,Button,RadarMap
 }
 enum class ItemContentType {
-    TextView,EditText, DropDown, Range, AddressInput
+    TextView,EditText, Spinner, Range, AddressInput
 }
 
 interface ItemTemplateInterface {
     val itemStyle: ItemStyle
+    val itemHeight: Int
 }
 data class LRItemTemplate (
     val leftInterface: ItemInterface,
@@ -16,11 +17,11 @@ data class LRItemTemplate (
 ): ItemTemplateInterface {
     override val itemStyle: ItemStyle
         get() = ItemStyle.LeftRight
+    override var itemHeight: Int = 48
 }
 
 interface ItemInterface {
     val contentType: ItemContentType
-    val itemHeight: Int
 }
 data class TextViewItem (
     var text: String = "",
@@ -28,7 +29,6 @@ data class TextViewItem (
 ): ItemInterface {
     override val contentType: ItemContentType
         get() = ItemContentType.TextView
-    override var itemHeight: Int = 48
 }
 data class EditTextItem (
     var hint: String = "",
@@ -36,5 +36,12 @@ data class EditTextItem (
 ): ItemInterface {
     override val contentType: ItemContentType
         get() = ItemContentType.EditText
-    override var itemHeight: Int = 48
+}
+
+data class SpinnerItem (
+    var hint: String = "",
+    var text: String = ""
+): ItemInterface {
+    override val contentType: ItemContentType
+        get() = ItemContentType.Spinner
 }

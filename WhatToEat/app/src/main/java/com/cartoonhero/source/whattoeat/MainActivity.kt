@@ -3,7 +3,6 @@ package com.cartoonhero.source.whattoeat
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
 import com.cartoonhero.source.actors.agent.ActivityStateListener
 import com.cartoonhero.source.redux.appStore
 import com.cartoonhero.source.redux.states.ActivityState
@@ -38,8 +37,9 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+//        menuInflater.inflate(R.menu.menu_main, menu)
+        toolbar.inflateMenu(R.menu.menu_tool_bar)
+        return super.onCreateOptionsMenu(menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
@@ -56,10 +56,6 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
     }
     fun removeListener() {
         this.mListener = null
-    }
-
-    fun toolBar(): Toolbar {
-        return toolbar
     }
 
     override fun newState(state: ActivityState?) {

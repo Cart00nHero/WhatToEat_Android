@@ -49,7 +49,8 @@ class AddGourmetFragment: Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             addViewHolderListener(vhListener)
             val itemView =
-                LayoutInflater.from(parent.context).inflate(R.layout.view_lr_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.view_addgourmet_item, parent, false)
             return ViewHolder(itemView)
         }
 

@@ -3,9 +3,9 @@ package com.cartoonhero.source.stage.scenery
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.cartoonhero.source.actors.inlineCls.addFragment
-import com.cartoonhero.source.actors.inlineCls.removeFragment
-import com.cartoonhero.source.actors.inlineCls.replaceFragment
+import com.cartoonhero.source.actors.toolMan.inlineCls.addFragment
+import com.cartoonhero.source.actors.toolMan.inlineCls.removeFragment
+import com.cartoonhero.source.actors.toolMan.inlineCls.replaceFragment
 
 @SuppressLint("Registered")
 open class NavigationActivity : AppCompatActivity() {

@@ -17,7 +17,6 @@ class AddGLRItemLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LRItemLayout(context, attrs, defStyleAttr) {
 
-    var itemHeight = 0
     fun buildLayout() {
         this.leftLayout.setBackgroundColor(Color.parseColor("#F5FFFA"))
         createLeft()

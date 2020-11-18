@@ -1,13 +1,16 @@
 package com.cartoonhero.source.stage.scene.addGourmets.presenters
 
-import com.cartoonhero.source.actors.dataManger.*
+import com.cartoonhero.source.actors.datamanger.EditTextItem
+import com.cartoonhero.source.actors.datamanger.ItemTemplateInterface
+import com.cartoonhero.source.actors.datamanger.LRItemTemplate
+import com.cartoonhero.source.actors.datamanger.TextViewItem
 
 class AddGourmetPresenter {
 
     inner class GourmetsTableData {
         var dataSource: MutableList<ItemTemplateInterface> = mutableListOf(
-                    LRItemTemplate(TextViewItem(text = "aaa"),EditTextItem(hint = "")),
-                    LRItemTemplate(TextViewItem(text = "aaa"),EditTextItem(hint = ""))
+                    LRItemTemplate(TextViewItem(text = "aaa"), EditTextItem(hint = "")),
+                    LRItemTemplate(TextViewItem(text = "aaa"), EditTextItem(hint = ""))
                 )
 
 //        var dataSource: MutableList<MutableList<ItemTemplateInterface>> =

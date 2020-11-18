@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import com.cartoonhero.source.actors.dataManger.LRItemTemplate
+import com.cartoonhero.source.actors.datamanger.LRItemTemplate
 import com.cartoonhero.source.actors.toolMan.match
 import com.cartoonhero.source.whattoeat.R
 import kotlinx.android.synthetic.main.layout_lr_item.view.*
@@ -22,7 +22,7 @@ open class LRItemLayout: ConstraintLayout {
     enum class LayoutSide {
         Left,Right
     }
-    var itemPosition : Int = 0
+
     var itemTemplate: LRItemTemplate? = null
 
     init {

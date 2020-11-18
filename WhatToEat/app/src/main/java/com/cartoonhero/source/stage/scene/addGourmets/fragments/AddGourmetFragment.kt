@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.agent.ActivityStateListener
-import com.cartoonhero.source.actors.dataManger.LRItemTemplate
+import com.cartoonhero.source.actors.datamanger.LRItemTemplate
 import com.cartoonhero.source.actors.toolMan.inlineCls.screenSizeInDp
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter

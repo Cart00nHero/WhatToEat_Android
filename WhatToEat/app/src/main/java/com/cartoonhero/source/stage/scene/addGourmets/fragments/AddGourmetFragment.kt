@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.agent.ActivityStateListener
-import com.cartoonhero.source.actors.datamanger.LRItemTemplate
+import com.cartoonhero.source.actors.dataManger.LRTemplate
+import com.cartoonhero.source.actors.dataManger.TabMenuTemplate
 import com.cartoonhero.source.actors.toolMan.inlineCls.screenSizeInDp
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
+import com.cartoonhero.source.stage.scene.entrance.OptionalFragment
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.BounceRecyclerAdapter
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.makeBounceEffect
+import com.cartoonhero.source.stage.scenery.customLayouts.TestTabMenuLayout
 import com.cartoonhero.source.stage.scenery.listItems.AddGLRItemLayout
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
@@ -40,13 +44,17 @@ class AddGourmetFragment: Fragment() {
     override fun onStart() {
         super.onStart()
         (activity as MainActivity).addStateListener(stateChangedListener)
+        agRecyclerView.adapter?.notifyDataSetChanged()
     }
     inner class RecyclerAdapter: BounceRecyclerAdapter() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             addViewHolderListener(vhListener)
+//            val itemView =
+//                LayoutInflater.from(parent.context).inflate(
+//                    R.layout.view_addgourmet_lr_item, parent, false)
             val itemView =
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.view_addgourmet_lr_item, parent, false)
+                    R.layout.view_addg_tabmenu_item, parent, false)
             return ViewHolder(itemView)
         }
 
@@ -59,10 +67,11 @@ class AddGourmetFragment: Fragment() {
             holder.itemView.tag = position
             val data =
                 presenter.GourmetsTableData().dataSource[position]
-            (holder.itemView as AddGLRItemLayout).itemTemplate = data as LRItemTemplate
-            holder.itemView.buildLayout()
+            (holder.itemView as TestTabMenuLayout).template = data as TabMenuTemplate
+            holder.itemView.attachedActivity = activity as AppCompatActivity
+            holder.itemView.initializeLayout()
             activity?.screenSizeInDp?.apply {
-                holder.itemView.layoutParams.height = x * 100/375
+                holder.itemView.layoutParams.height = x * 2000/375
             }
         }
         private val vhListener = object : ViewHolderListener {

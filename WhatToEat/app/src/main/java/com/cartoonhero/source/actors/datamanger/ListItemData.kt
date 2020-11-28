@@ -1,7 +1,8 @@
-package com.cartoonhero.source.actors.datamanger
+package com.cartoonhero.source.actors.dataManger
 
 import android.graphics.Color
 import android.view.View
+import androidx.fragment.app.Fragment
 
 enum class ItemStyle {
     LeftRight,TabViewPager
@@ -11,7 +12,7 @@ enum class ItemStyle {
 interface ItemTemplateInterface {
     val itemStyle: ItemStyle
 }
-data class LRItemTemplate (
+data class LRTemplate (
     val leftInterface: ItemInterface?,
     val rightInterface: ItemInterface?,
     var leftLayoutWidth: Int = 64
@@ -21,8 +22,9 @@ data class LRItemTemplate (
         get() = ItemStyle.LeftRight
 }
 
-data class TabViewPagerItemTemplate(
-    val tabOptItems: MutableList<String> = mutableListOf()
+data class TabMenuTemplate(
+    val tabItems: MutableList<String> = mutableListOf(),
+    val vpFragments: MutableList<Fragment> = mutableListOf()
 ): ItemTemplateInterface {
     override val itemStyle: ItemStyle
         get() = ItemStyle.TabViewPager

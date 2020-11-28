@@ -1,4 +1,4 @@
-package com.cartoonhero.source.stage.scenery.listItems
+package com.cartoonhero.source.stage.scenery.templates
 
 import android.content.Context
 import android.transition.TransitionManager
@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import com.cartoonhero.source.actors.datamanger.LRItemTemplate
+import com.cartoonhero.source.actors.dataManger.LRTemplate
 import com.cartoonhero.source.actors.toolMan.match
 import com.cartoonhero.source.whattoeat.R
 import kotlinx.android.synthetic.main.layout_lr_item.view.*
@@ -23,7 +23,7 @@ open class LRItemLayout: ConstraintLayout {
         Left,Right
     }
 
-    var itemTemplate: LRItemTemplate? = null
+    var template: LRTemplate? = null
 
     init {
         inflate(context, R.layout.layout_lr_item, this)

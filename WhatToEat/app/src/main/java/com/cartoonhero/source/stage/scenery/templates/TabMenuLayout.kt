@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.cartoonhero.source.actors.dataManger.LRTemplate
 import com.cartoonhero.source.actors.dataManger.TabMenuTemplate
 import com.cartoonhero.source.actors.toolMan.inlineCls.removeFragment
 import com.cartoonhero.source.whattoeat.R

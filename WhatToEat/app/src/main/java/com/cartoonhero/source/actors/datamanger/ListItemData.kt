@@ -2,11 +2,10 @@ package com.cartoonhero.source.actors.dataManger
 
 import android.graphics.Color
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 enum class ItemStyle {
-    LeftRight,TabViewPager
+    LeftRight,TabViewPager,FragmentContainer
 }
 
 /***** Templates ******/
@@ -31,12 +30,12 @@ data class TabMenuTemplate(
         get() = ItemStyle.TabViewPager
 }
 data class FragmentContainerTemplate(
-    val attachActivity: AppCompatActivity,
     val fragment: Fragment
-):ItemTemplateInterface{
+): ItemTemplateInterface {
     override val itemStyle: ItemStyle
         get() = ItemStyle.FragmentContainer
 }
+
 
 /***** Items ******/
 enum class ItemContentType {
@@ -70,11 +69,4 @@ data class SpinnerItem (
 ): ItemInterface {
     override val contentType: ItemContentType
         get() = ItemContentType.Spinner
-}
-
-data class HorizontalTextViewsItem (
-    val textItems: MutableList<TextViewItem>
-): ItemInterface {
-    override val contentType: ItemContentType
-        get() = ItemContentType.HorizontalTextViews
 }

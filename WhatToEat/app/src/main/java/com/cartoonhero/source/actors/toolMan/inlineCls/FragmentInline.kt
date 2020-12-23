@@ -24,3 +24,6 @@ fun AppCompatActivity.removeFragment(fragment: Fragment) {
         remove(fragment)
     }
 }
+fun AppCompatActivity.findFragment(containerId: Int): Fragment? {
+    return supportFragmentManager.findFragmentById(containerId)
+}

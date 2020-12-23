@@ -5,9 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.dataManger.FragmentContainerTemplate
-import com.cartoonhero.source.actors.dataManger.TabMenuTemplate
 import com.cartoonhero.source.actors.toolMan.inlineCls.addFragment
 import com.cartoonhero.source.actors.toolMan.inlineCls.findFragment
 import com.cartoonhero.source.actors.toolMan.inlineCls.removeFragment
@@ -21,6 +19,7 @@ class FragmentContainerLayout @JvmOverloads constructor(
 
     lateinit var attachedActivity: AppCompatActivity
     lateinit var template: FragmentContainerTemplate
+
     init {
         inflate(context, R.layout.layout_fragment_container, this)
     }
@@ -37,5 +36,4 @@ class FragmentContainerLayout @JvmOverloads constructor(
             attachedActivity.replaceFragment(template.fragment,newContainerId)
         }
     }
-
 }

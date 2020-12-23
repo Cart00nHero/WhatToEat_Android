@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.cartoonhero.source.actors.dataManger.LRTemplate
 import com.cartoonhero.source.actors.dataManger.TabMenuTemplate
 import com.cartoonhero.source.actors.toolMan.inlineCls.removeFragment
 import com.cartoonhero.source.whattoeat.R
@@ -16,8 +17,8 @@ open class TabMenuLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    lateinit var attachedActivity: AppCompatActivity
-    lateinit var template: TabMenuTemplate
+    var template: TabMenuTemplate? = null
+    var attachedActivity: AppCompatActivity? = null
     private val vpFragments = mutableListOf<Fragment>()
 
     init {
@@ -25,16 +26,14 @@ open class TabMenuLayout @JvmOverloads constructor(
     }
     open fun initializeLayout() {
         removeAllFragments()
-        this.tabViewPager.adapter = attachedActivity.let { VP2FragmentStateAdapter(it) }
+        this.tabViewPager.adapter = attachedActivity?.let { VP2FragmentStateAdapter(it) }
         TabLayoutMediator(this.tabOptLayout, this.tabViewPager) { tab, position ->
-            val tvItem = template.contentItem.tabItems[position]
-            tab.text = tvItem.text
-            this.tabOptLayout.setTabTextColors(tvItem.textColor,tvItem.selectColor)
+            tab.text = template?.tabItems?.get(position)
         }.attach()
     }
 
     private fun removeAllFragments() {
-        if (template.contentItem.vpItem.vpFragments.size > 0) {
+        if (template?.vpFragments?.isNotEmpty() == true) {
             for (fragment in vpFragments) {
                 if (fragment.isAdded && fragment.activity != null) {
                     (fragment.activity as AppCompatActivity).removeFragment(fragment)
@@ -47,7 +46,7 @@ open class TabMenuLayout @JvmOverloads constructor(
             }
         }
         vpFragments.clear()
-        vpFragments.addAll(template.contentItem.vpItem.vpFragments)
+        template?.let { vpFragments.addAll(it?.vpFragments) }
     }
 
 

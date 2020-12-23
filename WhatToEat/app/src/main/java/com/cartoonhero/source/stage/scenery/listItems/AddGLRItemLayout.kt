@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.cartoonhero.source.actors.datamanger.EditTextItem
-import com.cartoonhero.source.actors.datamanger.HorizontalTextViewsItem
-import com.cartoonhero.source.actors.datamanger.ContentItemType
-import com.cartoonhero.source.actors.datamanger.TextViewItem
+import com.cartoonhero.source.actors.dataManger.EditTextItem
+import com.cartoonhero.source.actors.dataManger.HorizontalTextViewsItem
+import com.cartoonhero.source.actors.dataManger.ItemContentType
+import com.cartoonhero.source.actors.dataManger.TextViewItem
 import com.cartoonhero.source.actors.toolMan.inlineCls.toDp
 import com.cartoonhero.source.stage.scenery.templates.LRItemLayout
 import com.cartoonhero.source.whattoeat.R
@@ -29,8 +29,8 @@ class AddGLRItemLayout @JvmOverloads constructor(
         createRight()
     }
     private fun createLeft() {
-        when(template?.leftInterface?.itemType) {
-            ContentItemType.TextView -> {
+        when(template?.leftInterface?.contentType) {
+            ItemContentType.TextView -> {
                 val textView = TextView(context)
                 buildConstraints(textView, LayoutSide.Left)
                 textView.layoutParams.width = 0
@@ -45,8 +45,8 @@ class AddGLRItemLayout @JvmOverloads constructor(
         }
     }
     private fun createRight() {
-        when(template?.rightInterface?.itemType) {
-            ContentItemType.TextView -> {
+        when(template?.rightInterface?.contentType) {
+            ItemContentType.TextView -> {
                 val textView = TextView(context)
                 buildConstraints(textView, LayoutSide.Left)
                 val data = template?.leftInterface as TextViewItem
@@ -55,7 +55,7 @@ class AddGLRItemLayout @JvmOverloads constructor(
                 textView.setTextColor(
                     Color.parseColor("#4A4A4A"))
             }
-            ContentItemType.EditText -> {
+            ItemContentType.EditText -> {
                 val editText = EditText(context)
                 buildConstraints(editText,LayoutSide.Right)
                 editText.layoutParams.width = 0
@@ -63,7 +63,7 @@ class AddGLRItemLayout @JvmOverloads constructor(
                 val data = template?.rightInterface as EditTextItem
                 editText.hint = data.hint
             }
-            ContentItemType.HorizontalTextViews -> {
+            ItemContentType.HorizontalTextViews -> {
                 val hzlView = LayoutInflater.from(context).inflate(
                     R.layout.layout_horizontal_textviews,this,false)
                 buildConstraints(hzlView, LayoutSide.Right)

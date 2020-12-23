@@ -1,25 +1,22 @@
-package com.cartoonhero.source.actors.datamanger
+package com.cartoonhero.source.actors.dataManger
 
 import android.graphics.Color
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
 
 enum class ItemStyle {
-    LeftRight,TabViewPager,FragmentContainer
+    LeftRight,TabViewPager
 }
 
 /***** Templates ******/
 interface ItemTemplateInterface {
     val itemStyle: ItemStyle
-    var itemHeight: Int
 }
 data class LRTemplate (
     val leftInterface: ItemInterface?,
     val rightInterface: ItemInterface?,
-    var leftLayoutWidth: Int = 64,
-    override var itemHeight: Int = 100
+    var leftLayoutWidth: Int = 64
 
 ): ItemTemplateInterface {
     override val itemStyle: ItemStyle
@@ -27,11 +24,11 @@ data class LRTemplate (
 }
 
 data class TabMenuTemplate(
-    val contentItem: TabMenuItem,
-    override var itemHeight: Int = 100
+    val tabItems: MutableList<String> = mutableListOf(),
+    val vpFragments: MutableList<Fragment> = mutableListOf()
 ): ItemTemplateInterface {
     override val itemStyle: ItemStyle
-        get() = ItemStyle.TabMenu
+        get() = ItemStyle.TabViewPager
 }
 data class FragmentContainerTemplate(
     val attachActivity: AppCompatActivity,
@@ -41,21 +38,14 @@ data class FragmentContainerTemplate(
         get() = ItemStyle.FragmentContainer
 }
 
-data class FragmentVPTemplate(
-    val vpItem: FragmentVPItem,
-    override var itemHeight: Int = 100
-): ItemTemplateInterface {
-    override val itemStyle: ItemStyle
-        get() = ItemStyle.FragmentVP
-}
-
 /***** Items ******/
-enum class ContentItemType {
-    TextView,TabText,EditText,Spinner,HorizontalTextViews,TabMenu,FragmentVP
+enum class ItemContentType {
+    TextView,EditText, Spinner,
+    StockStatus, StockTransaction, HorizontalTextViews
 }
 
 interface ItemInterface {
-    val itemType: ContentItemType
+    val contentType: ItemContentType
 }
 data class TextViewItem (
     var text: String = "",
@@ -63,29 +53,28 @@ data class TextViewItem (
     var textColor: Int = Color.WHITE,
     var alignment: Int = View.TEXT_ALIGNMENT_CENTER
 ): ItemInterface {
-    override val itemType: ContentItemType
-        get() = ContentItemType.TextView
+    override val contentType: ItemContentType
+        get() = ItemContentType.TextView
 }
-
 data class EditTextItem (
     var hint: String = "",
     var text: String = ""
 ): ItemInterface {
-    override val itemType: ContentItemType
-        get() = ContentItemType.EditText
+    override val contentType: ItemContentType
+        get() = ItemContentType.EditText
 }
 
 data class SpinnerItem (
     var hint: String = "",
     var text: String = ""
 ): ItemInterface {
-    override val itemType: ContentItemType
-        get() = ContentItemType.Spinner
+    override val contentType: ItemContentType
+        get() = ItemContentType.Spinner
 }
 
 data class HorizontalTextViewsItem (
-    val textItems: MutableList<TextViewItem> = mutableListOf()
+    val textItems: MutableList<TextViewItem>
 ): ItemInterface {
-    override val itemType: ContentItemType
-        get() = ContentItemType.HorizontalTextViews
+    override val contentType: ItemContentType
+        get() = ItemContentType.HorizontalTextViews
 }

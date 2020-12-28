@@ -5,6 +5,10 @@ import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cartoonhero.source.actors.dataManger.TabMenuTemplate
 import com.cartoonhero.source.actors.toolMan.inlineCls.removeFragment
@@ -45,7 +49,7 @@ open class TabMenuLayout @JvmOverloads constructor(
             }
         }
         vpFragments.clear()
-        template?.let { vpFragments.addAll(it?.vpFragments) }
+        template?.let { vpFragments.addAll(it.vpFragments) }
     }
 
 
@@ -56,6 +60,21 @@ open class TabMenuLayout @JvmOverloads constructor(
 
         override fun createFragment(position: Int): Fragment {
             return vpFragments[position]
+        }
+
+    }
+    private inner class VP2FragmentPagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(
+        fragmentManager,FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
+        override fun getCount(): Int {
+            return vpFragments.size
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return vpFragments[position]
+        }
+
+        override fun getItemPosition(`object`: Any): Int {
+            return PagerAdapter.POSITION_NONE;
         }
 
     }

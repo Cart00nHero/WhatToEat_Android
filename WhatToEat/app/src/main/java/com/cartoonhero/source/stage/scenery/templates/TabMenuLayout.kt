@@ -2,6 +2,7 @@ package com.cartoonhero.source.stage.scenery.templates
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cartoonhero.source.actors.dataManger.TabMenuTemplate
+import com.cartoonhero.source.actors.toolMan.inlineCls.findFragment
 import com.cartoonhero.source.actors.toolMan.inlineCls.removeFragment
 import com.cartoonhero.source.whattoeat.R
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,31 +25,32 @@ open class TabMenuLayout @JvmOverloads constructor(
     var template: TabMenuTemplate? = null
     var attachedActivity: AppCompatActivity? = null
     private val vpFragments = mutableListOf<Fragment>()
+    private val fragmentIds = mutableListOf<Long>() //用于存储更新fragment的特定标识
+    private val createdIds = hashSetOf<Long>() // //得用HashSet防重，用于存储adapter内的顺序
 
     init {
         inflate(context, R.layout.layout_tab_menu, this)
     }
     open fun initializeLayout() {
-        removeAllFragments()
+        cleanFragments()
         this.tabViewPager.adapter = attachedActivity?.let { VP2FragmentStateAdapter(it) }
         TabLayoutMediator(this.tabOptLayout, this.tabViewPager) { tab, position ->
             tab.text = template?.tabItems?.get(position)
         }.attach()
     }
 
-    private fun removeAllFragments() {
+    private fun cleanFragments() {
+        fragmentIds.clear()
         if (template?.vpFragments?.isNotEmpty() == true) {
-            for (fragment in vpFragments) {
+            for (fragment in template?.vpFragments!!) {
                 if (fragment.isAdded && fragment.activity != null) {
                     (fragment.activity as AppCompatActivity).removeFragment(fragment)
                 }
+                val newId = View.generateViewId()
+                fragmentIds.add(newId.toLong())
             }
         }
-        for (fragment in vpFragments) {
-            if (fragment.isAdded && fragment.activity != null) {
-                (fragment.activity as AppCompatActivity).removeFragment(fragment)
-            }
-        }
+
         vpFragments.clear()
         template?.let { vpFragments.addAll(it.vpFragments) }
     }
@@ -58,23 +61,20 @@ open class TabMenuLayout @JvmOverloads constructor(
             return vpFragments.size
         }
 
+        override fun containsItem(itemId: Long): Boolean {
+            return createdIds.contains(itemId)
+        }
+
+        override fun getItemId(position: Int): Long {
+            val fragment = attachedActivity?.findFragment(fragmentIds[position].toInt())
+            if (fragment != null && fragment.isAdded) {
+                attachedActivity?.removeFragment(fragment)
+            }
+            return fragmentIds[position]
+        }
         override fun createFragment(position: Int): Fragment {
+            createdIds.add(fragmentIds[position])
             return vpFragments[position]
-        }
-
-    }
-    private inner class VP2FragmentPagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(
-        fragmentManager,FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
-        override fun getCount(): Int {
-            return vpFragments.size
-        }
-
-        override fun getItem(position: Int): Fragment {
-            return vpFragments[position]
-        }
-
-        override fun getItemPosition(`object`: Any): Int {
-            return PagerAdapter.POSITION_NONE;
         }
 
     }

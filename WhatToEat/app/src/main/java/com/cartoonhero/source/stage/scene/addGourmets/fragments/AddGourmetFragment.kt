@@ -7,16 +7,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.agent.ActivityStateListener
-import com.cartoonhero.source.actors.dataManger.LRTemplate
 import com.cartoonhero.source.actors.dataManger.TabMenuTemplate
 import com.cartoonhero.source.actors.toolMan.inlineCls.screenSizeInDp
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
-import com.cartoonhero.source.stage.scene.entrance.OptionalFragment
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.BounceRecyclerAdapter
 import com.cartoonhero.source.stage.scenery.bounceRecyclerView.makeBounceEffect
 import com.cartoonhero.source.stage.scenery.customLayouts.TestTabMenuLayout
-import com.cartoonhero.source.stage.scenery.listItems.AddGLRItemLayout
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
 import kotlinx.android.synthetic.main.fragment_add_gourmet.*

@@ -26,14 +26,16 @@ class FragmentContainerLayout @JvmOverloads constructor(
 
     open fun initializeLayout() {
         val oldFragment = attachedActivity.findFragment(this.fragmentContainer.id)
-        val newContainerId = View.generateViewId()
+        var containerId = 0
         if (oldFragment == null) {
-            this.fragmentContainer.id = View.generateViewId()
-            attachedActivity.addFragment(template.fragment,newContainerId)
+            containerId = View.generateViewId()
+            this.fragmentContainer.id = containerId
+            attachedActivity.addFragment(template.fragment,containerId)
         } else {
+            containerId = oldFragment.id
             attachedActivity.removeFragment(oldFragment)
-            this.fragmentContainer.id = View.generateViewId()
-            attachedActivity.replaceFragment(template.fragment,newContainerId)
+            this.fragmentContainer.id = containerId
+            attachedActivity.replaceFragment(template.fragment,containerId)
         }
     }
 }

@@ -43,9 +43,9 @@ open class TabMenuLayout @JvmOverloads constructor(
         fragmentIds.clear()
         if (template?.vpFragments?.isNotEmpty() == true) {
             for (fragment in template?.vpFragments!!) {
-                val fragment = attachedActivity?.findFragment(fragment.id)
-                if (fragment != null && fragment.isAdded) {
-                    attachedActivity?.removeFragment(fragment)
+                val oldFragment = attachedActivity?.findFragment(fragment.id)
+                if (oldFragment != null && oldFragment.isAdded) {
+                    attachedActivity?.removeFragment(oldFragment)
                 }
                 val newId = View.generateViewId()
                 fragmentIds.add(newId.toLong())
@@ -73,6 +73,5 @@ open class TabMenuLayout @JvmOverloads constructor(
             createdIds.add(fragmentIds[position])
             return vpFragments[position]
         }
-
     }
 }

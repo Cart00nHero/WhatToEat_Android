@@ -43,8 +43,9 @@ open class TabMenuLayout @JvmOverloads constructor(
         fragmentIds.clear()
         if (template?.vpFragments?.isNotEmpty() == true) {
             for (fragment in template?.vpFragments!!) {
-                if (fragment.isAdded && fragment.activity != null) {
-                    (fragment.activity as AppCompatActivity).removeFragment(fragment)
+                val fragment = attachedActivity?.findFragment(fragment.id)
+                if (fragment != null && fragment.isAdded) {
+                    attachedActivity?.removeFragment(fragment)
                 }
                 val newId = View.generateViewId()
                 fragmentIds.add(newId.toLong())
@@ -66,10 +67,6 @@ open class TabMenuLayout @JvmOverloads constructor(
         }
 
         override fun getItemId(position: Int): Long {
-            val fragment = attachedActivity?.findFragment(fragmentIds[position].toInt())
-            if (fragment != null && fragment.isAdded) {
-                attachedActivity?.removeFragment(fragment)
-            }
             return fragmentIds[position]
         }
         override fun createFragment(position: Int): Fragment {

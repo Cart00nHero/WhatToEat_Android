@@ -6,8 +6,8 @@ import com.cartoonhero.source.stage.scene.entrance.OptionalFragment
 import com.cartoonhero.source.stage.scene.entrance.SignFragment
 
 class AddGourmetPresenter {
-
-    inner class GourmetsTableData {
+    val listData = GourmetsData()
+    inner class GourmetsData {
         var dataSource: MutableList<ItemTemplateInterface> = mutableListOf(
 //                    LRTemplate(TextViewItem(text = "aaa"), EditTextItem(hint = "")),
 //                    LRTemplate(TextViewItem(text = "aaa"), EditTextItem(hint = "")),

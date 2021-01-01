@@ -30,6 +30,7 @@ data class TabMenuTemplate(
         get() = ItemStyle.TabViewPager
 }
 data class FragmentContainerTemplate(
+    val containerId: Int,
     val fragment: Fragment
 ): ItemTemplateInterface {
     override val itemStyle: ItemStyle

@@ -41,6 +41,7 @@ open class TabMenuLayout @JvmOverloads constructor(
 
     private fun cleanFragments() {
         fragmentIds.clear()
+        createdIds.clear()
         if (template?.vpFragments?.isNotEmpty() == true) {
             for (fragment in template?.vpFragments!!) {
                 val oldFragment = attachedActivity?.findFragment(fragment.id)

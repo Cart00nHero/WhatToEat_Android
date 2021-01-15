@@ -93,7 +93,8 @@ data class SpinnerItem (
 data class StockStatusItem (
     var isStockRise: Boolean = true,
     var price: TextViewItem = TextViewItem(),
-    var rate: TextViewItem = TextViewItem()
+    var rate: TextViewItem = TextViewItem(),
+    var stockClass: TextViewItem = TextViewItem()
 ): ItemInterface {
     override val itemType: ContentItemType
         get() = ContentItemType.StockStatus
@@ -106,7 +107,7 @@ data class StockTransactionItem (
     var bTradingVolume: TextViewItem = TextViewItem(),
     // s = selling
     var sTradingVolume: TextViewItem = TextViewItem(),
-    var averageVolume: TextViewItem = TextViewItem()
+    var bottomText: TextViewItem = TextViewItem()
 ): ItemInterface {
     override val itemType: ContentItemType
         get() = ContentItemType.StockTransaction
@@ -130,8 +131,8 @@ data class TabMenuItem(
 data class TabTextItem (
     var text: String = "",
     var numberOfLines: Int = 1,
-    var textColor: Int = Color.WHITE,
-    var selectColor: Int = Color.WHITE,
+    var textColor: Int = Color.parseColor("#60f3f3f3"),
+    var selectColor: Int = Color.parseColor("#24adf6"),
     var alignment: Int = View.TEXT_ALIGNMENT_CENTER
 ): ItemInterface {
     override val itemType: ContentItemType

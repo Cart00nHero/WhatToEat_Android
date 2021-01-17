@@ -4,18 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.agent.ActivityStateListener
 import com.cartoonhero.source.actors.dataManger.FragmentContainerTemplate
 import com.cartoonhero.source.actors.dataManger.ItemStyle
-import com.cartoonhero.source.actors.dataManger.TabMenuTemplate
 import com.cartoonhero.source.actors.toolMan.inlineCls.screenSizeInDp
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
 import com.cartoonhero.source.actors.specialEffectsArtist.bounceRecyclerView.BounceRecyclerAdapter
 import com.cartoonhero.source.actors.specialEffectsArtist.bounceRecyclerView.makeBounceEffect
-import com.cartoonhero.source.stage.scenery.customLayouts.TestTabMenuLayout
 import com.cartoonhero.source.stage.scenery.templates.FragmentContainerLayout
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
@@ -52,7 +49,7 @@ class AddGourmetFragment: Fragment() {
             val itemData = presenter.listData.dataSource[viewType]
             val itemView =
                 when(itemData.itemStyle) {
-                    ItemStyle.TabViewPager -> LayoutInflater.from(parent.context).inflate(
+                    ItemStyle.TabMenu -> LayoutInflater.from(parent.context).inflate(
                         R.layout.view_addg_tabmenu_item, parent, false)
                     ItemStyle.FragmentContainer -> LayoutInflater.from(parent.context).inflate(
                         R.layout.view_addgourmet_lr_item, parent, false)
@@ -78,11 +75,6 @@ class AddGourmetFragment: Fragment() {
                 val data =
                     presenter.listData.dataSource[position]
                 when(data.itemStyle) {
-                    ItemStyle.TabViewPager -> {
-                        (itemView as TestTabMenuLayout).template = data as TabMenuTemplate
-                        itemView.attachedActivity = activity as AppCompatActivity
-                        itemView.initializeLayout()
-                    }
                     ItemStyle.FragmentContainer -> {
                         (itemView as FragmentContainerLayout).template = data as FragmentContainerTemplate
                     }

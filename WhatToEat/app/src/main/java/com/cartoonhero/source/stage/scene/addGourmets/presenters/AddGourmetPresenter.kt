@@ -10,12 +10,7 @@ class AddGourmetPresenter {
     inner class GourmetsData {
         var dataSource: MutableList<ItemTemplateInterface> = mutableListOf(
 //                    LRTemplate(TextViewItem(text = "aaa"), EditTextItem(hint = "")),
-//                    LRTemplate(TextViewItem(text = "aaa"), EditTextItem(hint = "")),
-                    TabMenuTemplate(
-                        tabItems = mutableListOf("First","Second","Third"),
-                        vpFragments = mutableListOf(
-                            SignFragment(),UITestFragment(),OptionalFragment())
-                    )
+//                    LRTemplate(TextViewItem(text = "aaa"), EditTextItem(hint = ""))
                 )
 
 //        var dataSource: MutableList<MutableList<ItemTemplateInterface>> =

@@ -49,10 +49,6 @@ class AddGourmetFragment: Fragment() {
             val itemData = presenter.listData.dataSource[viewType]
             val itemView =
                 when(itemData.templateStyle) {
-                    TemplateStyle.TabMenu -> LayoutInflater.from(parent.context).inflate(
-                        R.layout.view_addg_tabmenu_item, parent, false)
-                    TemplateStyle.FragmentContainer -> LayoutInflater.from(parent.context).inflate(
-                        R.layout.view_addgourmet_lr_item, parent, false)
                     else -> LayoutInflater.from(parent.context).inflate(
                         R.layout.view_addgourmet_lr_item, parent, false)
                 }

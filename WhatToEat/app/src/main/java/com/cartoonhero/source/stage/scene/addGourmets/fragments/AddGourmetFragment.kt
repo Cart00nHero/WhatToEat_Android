@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.agent.ActivityStateListener
 import com.cartoonhero.source.actors.dataManger.FragmentContainerTemplate
+import com.cartoonhero.source.actors.dataManger.LRTemplate
 import com.cartoonhero.source.actors.dataManger.TemplateStyle
 import com.cartoonhero.source.actors.toolMan.inlineCls.screenSizeInDp
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
 import com.cartoonhero.source.actors.specialEffectsArtist.bounceRecyclerView.BounceRecyclerAdapter
 import com.cartoonhero.source.actors.specialEffectsArtist.bounceRecyclerView.makeBounceEffect
+import com.cartoonhero.source.stage.scenery.listItems.AddGourmetLRItem
 import com.cartoonhero.source.stage.scenery.templates.FragmentContainerLayout
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
@@ -71,10 +73,9 @@ class AddGourmetFragment: Fragment() {
                 val data =
                     presenter.listData.dataSource[position]
                 when(data.templateStyle) {
-                    TemplateStyle.FragmentContainer -> {
-                        (itemView as FragmentContainerLayout).template = data as FragmentContainerTemplate
+                    else -> {
+                        (itemView as AddGourmetLRItem).template = data as LRTemplate
                     }
-                    else -> {}
                 }
             }
         }

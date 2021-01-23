@@ -1,14 +1,11 @@
 package com.cartoonhero.source.stage.scene.addGourmets.presenters
 
 import com.cartoonhero.source.actors.dataManger.*
-import com.cartoonhero.source.stage.scene.UITestFragment
-import com.cartoonhero.source.stage.scene.entrance.OptionalFragment
-import com.cartoonhero.source.stage.scene.entrance.SignFragment
 
 class AddGourmetPresenter {
     val listData = GourmetsData()
     inner class GourmetsData {
-        var dataSource: MutableList<ItemTemplateInterface> = mutableListOf(
+        var dataSource: MutableList<TemplateInterface> = mutableListOf(
 //                    LRTemplate(TextViewItem(text = "aaa"), EditTextItem(hint = "")),
 //                    LRTemplate(TextViewItem(text = "aaa"), EditTextItem(hint = ""))
                 )

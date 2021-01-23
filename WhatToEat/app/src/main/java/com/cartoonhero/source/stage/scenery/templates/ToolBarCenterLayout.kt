@@ -12,10 +12,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import com.mitake.base.R
-import com.mitake.base.amSrc.actors.toolMan.inlineCls.toDp
-import com.mitake.base.amSrc.actors.toolMan.match
-import com.mitake.base.amSrc.stage.scenery.customLayouts.ToolBarDPadLayout
+import com.cartoonhero.source.actors.toolMan.inlineCls.toDp
+import com.cartoonhero.source.actors.toolMan.match
+import com.cartoonhero.source.whattoeat.R
+
 
 class ToolBarCenterLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -39,7 +39,7 @@ class ToolBarCenterLayout @JvmOverloads constructor(
         TransitionManager.beginDelayedTransition(this)
         constraintSet.applyTo(this)
         textView.setTextColor(Color.WHITE)
-        textView.setSingleLine(true)
+        textView.isSingleLine = true
         textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20f)
         textView.setPadding(textView.paddingLeft,textView.paddingTop,
@@ -50,23 +50,6 @@ class ToolBarCenterLayout @JvmOverloads constructor(
         return textView
     }
     @SuppressLint("NewApi")
-    fun createDPadLayout(): ToolBarDPadLayout {
-        this.removeAllViews()
-        val dPadLayout = ToolBarDPadLayout(this.context)
-        dPadLayout.id = View.generateViewId()
-        this.addView(dPadLayout)
-        val constraintSet = ConstraintSet()
-        constraintSet.clone(this)
-        constraintSet.match(dPadLayout, this)
-        TransitionManager.beginDelayedTransition(this)
-        constraintSet.applyTo(this)
-        dPadLayout.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        dPadLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        dPadLayout.setPadding(36.toDp(context),
-                dPadLayout.paddingRight,dPadLayout.paddingTop,dPadLayout.paddingBottom)
-        centerView = dPadLayout
-        return dPadLayout
-    }
     fun barCenterView(): View {
         return centerView
     }

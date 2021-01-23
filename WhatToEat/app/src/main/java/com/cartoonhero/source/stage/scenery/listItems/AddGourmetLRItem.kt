@@ -7,29 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import com.cartoonhero.source.actors.dataManger.EditTextItem
-import com.cartoonhero.source.actors.dataManger.ItemContentType
-import com.cartoonhero.source.actors.dataManger.TextViewItem
-import com.cartoonhero.source.stage.scenery.templates.LRItemLayout
+import com.cartoonhero.source.actors.dataManger.EditTextViewItem
+import com.cartoonhero.source.actors.dataManger.TextViewViewItem
+import com.cartoonhero.source.actors.dataManger.ViewType
+import com.cartoonhero.source.stage.scenery.templates.LRLayout
 import kotlinx.android.synthetic.main.layout_lr_item.view.*
 
-class AddGLRItemLayout @JvmOverloads constructor(
+class AddGourmetLRItem @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LRItemLayout(context, attrs, defStyleAttr) {
+) : LRLayout(context, attrs, defStyleAttr) {
 
-    fun buildLayout() {
+    override fun initializeLayout() {
+        super.initializeLayout()
+        buildLayout()
+    }
+    private fun buildLayout() {
         this.leftLayout.setBackgroundColor(Color.parseColor("#F5FFFA"))
         createLeft()
         createRight()
     }
     private fun createLeft() {
-        when(template?.leftInterface?.contentType) {
-            ItemContentType.TextView -> {
+        when(template.leftViewItem?.viewType) {
+            ViewType.TextView -> {
                 val textView = TextView(context)
                 buildConstraints(textView, LayoutSide.Left)
                 textView.layoutParams.width = 0
                 textView.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                val data = template?.leftInterface as TextViewItem
+                val data = template.leftViewItem as TextViewViewItem
                 textView.text = data.text
                 textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
                 textView.setTextColor(
@@ -39,22 +43,22 @@ class AddGLRItemLayout @JvmOverloads constructor(
         }
     }
     private fun createRight() {
-        when(template?.rightInterface?.contentType) {
-            ItemContentType.TextView -> {
+        when(template.rightViewItem?.viewType) {
+            ViewType.TextView -> {
                 val textView = TextView(context)
                 buildConstraints(textView, LayoutSide.Left)
-                val data = template?.leftInterface as TextViewItem
+                val data = template?.leftViewItem as TextViewViewItem
                 textView.text = data.text
                 textView.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
                 textView.setTextColor(
                     Color.parseColor("#4A4A4A"))
             }
-            ItemContentType.EditText -> {
+            ViewType.EditText -> {
                 val editText = EditText(context)
                 buildConstraints(editText,LayoutSide.Right)
                 editText.layoutParams.width = 0
                 editText.layoutParams.height = 0
-                val data = template?.rightInterface as EditTextItem
+                val data = template.rightViewItem as EditTextViewItem
                 editText.hint = data.hint
             }
             else -> {}

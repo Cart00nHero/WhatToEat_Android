@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cartoonhero.source.actors.agent.ActivityStateListener
 import com.cartoonhero.source.actors.dataManger.FragmentContainerTemplate
-import com.cartoonhero.source.actors.dataManger.ItemStyle
+import com.cartoonhero.source.actors.dataManger.TemplateStyle
 import com.cartoonhero.source.actors.toolMan.inlineCls.screenSizeInDp
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
@@ -48,10 +48,10 @@ class AddGourmetFragment: Fragment() {
             addViewHolderListener(vhListener)
             val itemData = presenter.listData.dataSource[viewType]
             val itemView =
-                when(itemData.itemStyle) {
-                    ItemStyle.TabMenu -> LayoutInflater.from(parent.context).inflate(
+                when(itemData.templateStyle) {
+                    TemplateStyle.TabMenu -> LayoutInflater.from(parent.context).inflate(
                         R.layout.view_addg_tabmenu_item, parent, false)
-                    ItemStyle.FragmentContainer -> LayoutInflater.from(parent.context).inflate(
+                    TemplateStyle.FragmentContainer -> LayoutInflater.from(parent.context).inflate(
                         R.layout.view_addgourmet_lr_item, parent, false)
                     else -> LayoutInflater.from(parent.context).inflate(
                         R.layout.view_addgourmet_lr_item, parent, false)
@@ -74,8 +74,8 @@ class AddGourmetFragment: Fragment() {
             override fun onBindViewHolder(itemView: View, position: Int) {
                 val data =
                     presenter.listData.dataSource[position]
-                when(data.itemStyle) {
-                    ItemStyle.FragmentContainer -> {
+                when(data.templateStyle) {
+                    TemplateStyle.FragmentContainer -> {
                         (itemView as FragmentContainerLayout).template = data as FragmentContainerTemplate
                     }
                     else -> {}

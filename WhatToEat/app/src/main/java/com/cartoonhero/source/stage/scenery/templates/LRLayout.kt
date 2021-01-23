@@ -14,7 +14,7 @@ import com.cartoonhero.source.actors.toolMan.match
 import com.cartoonhero.source.whattoeat.R
 import kotlinx.android.synthetic.main.layout_lr_item.view.*
 
-open class LRItemLayout: ConstraintLayout {
+open class LRLayout: ConstraintLayout {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -34,12 +34,12 @@ open class LRItemLayout: ConstraintLayout {
 
     open fun initializeLayout() {
         when {
-            template.leftInterface == null ->
+            template.leftViewItem == null ->
                 this.leftLayout.visibility = View.GONE
-            template.rightInterface == null ->
+            template.rightViewItem == null ->
                 this.rightLayout.visibility = View.GONE
         }
-        if (template.leftInterface != null) {
+        if (template.leftViewItem != null) {
             val width = template.leftLayoutWidth
             this.leftLayout.layoutParams.width = width.toDp(context)
         }

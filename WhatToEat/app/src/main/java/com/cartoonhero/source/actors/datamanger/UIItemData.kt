@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 
 enum class TemplateStyle {
-    LeftRight,TabMenu,FragmentVP,FragmentContainer
+    LeftRight,TabMenu,ViewPager,FragmentContainer
 }
 
 /***** Templates ******/
@@ -33,12 +33,12 @@ data class TabMenuTemplate(
         get() = TemplateStyle.TabMenu
 }
 
-data class FragmentVPTemplate(
-    val viewPagerItem: ViewPagerItem,
+data class ViewPagerTemplate(
+    val vpItem: ViewPagerItem,
     override var itemHeight: Int = 100
 ): TemplateInterface {
     override val templateStyle: TemplateStyle
-        get() = TemplateStyle.FragmentVP
+        get() = TemplateStyle.ViewPager
 }
 data class FragmentContainerTemplate(
     val containerId: Int,
@@ -51,8 +51,8 @@ data class FragmentContainerTemplate(
 
 /***** Items ******/
 enum class ViewType {
-    TextView,TabText,EditText,ImageView,Spinner,StockStatus,
-    StockTransaction,HorizontalTextViews,TabMenu,ViewPager
+    TextView,TabText,EditText,ImageView,
+    Spinner,HorizontalTextViews,TabMenu,ViewPager
 }
 
 interface ViewItemInterface {

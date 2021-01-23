@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import com.cartoonhero.source.actors.dataManger.FragmentVPTemplate
+import com.cartoonhero.source.actors.dataManger.ViewPagerTemplate
 import com.cartoonhero.source.whattoeat.R
 
 open class ViewPagerLayout @JvmOverloads constructor(
@@ -16,7 +16,7 @@ open class ViewPagerLayout @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     lateinit var attachedActivity: AppCompatActivity
-    lateinit var template: FragmentVPTemplate
+    lateinit var template: ViewPagerTemplate
     private val vpFragments = mutableListOf<Fragment>()
     private val fragmentIds = mutableListOf<Long>()
     private val createdIds = hashSetOf<Long>()
@@ -29,7 +29,7 @@ open class ViewPagerLayout @JvmOverloads constructor(
     open fun initializeLayout() {
         // clean previous state first
         cleanData()
-        vpFragments.addAll(template.viewPagerItem.vpFragments)
+        vpFragments.addAll(template.vpItem.vpFragments)
     }
 
     fun getFragments(): List<Fragment> {
@@ -48,7 +48,7 @@ open class ViewPagerLayout @JvmOverloads constructor(
     private fun cleanData() {
         fragmentIds.clear()
         createdIds.clear()
-        for (fragment in template.viewPagerItem.vpFragments) {
+        for (fragment in template.vpItem.vpFragments) {
             val newId = View.generateViewId()
             fragmentIds.add(newId.toLong())
         }

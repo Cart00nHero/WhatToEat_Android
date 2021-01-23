@@ -17,8 +17,8 @@ class CustomViewPager @JvmOverloads constructor(
     override fun initializeLayout() {
         super.initializeLayout()
         this.tmpViewPager.adapter = null
-        this.tmpViewPager.isUserInputEnabled = template.viewPagerItem.isUserInputEnabled
-        this.tmpViewPager.orientation = template.viewPagerItem.vpOrientation
+        this.tmpViewPager.isUserInputEnabled = template.vpItem.isUserInputEnabled
+        this.tmpViewPager.orientation = template.vpItem.vpOrientation
         this.tmpViewPager.adapter = VP2FragmentStateAdapter(attachedActivity)
         this.tmpViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

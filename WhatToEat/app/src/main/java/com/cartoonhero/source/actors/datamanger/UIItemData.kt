@@ -58,7 +58,7 @@ enum class ViewType {
 interface ViewItemInterface {
     val viewType: ViewType
 }
-data class TextViewViewItem (
+data class TextViewItem (
     var text: String = "",
     var numberOfLines: Int = 1,
     var textColor: Int = Color.WHITE,
@@ -68,7 +68,7 @@ data class TextViewViewItem (
         get() = ViewType.TextView
 }
 
-data class EditTextViewItem (
+data class EditTextItem (
     var hint: String = "",
     var text: String = ""
 ): ViewItemInterface {
@@ -91,7 +91,7 @@ data class SpinnerViewItem (
 }
 
 data class HorizontalTextViewsViewItem (
-    val textItems: MutableList<TextViewViewItem> = mutableListOf()
+    val textItems: MutableList<TextViewItem> = mutableListOf()
 ): ViewItemInterface {
     override val viewType: ViewType
         get() = ViewType.HorizontalTextViews

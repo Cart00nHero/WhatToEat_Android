@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import com.cartoonhero.source.actors.dataManger.EditTextViewItem
-import com.cartoonhero.source.actors.dataManger.TextViewViewItem
+import com.cartoonhero.source.actors.dataManger.EditTextItem
+import com.cartoonhero.source.actors.dataManger.TextViewItem
 import com.cartoonhero.source.actors.dataManger.ViewType
 import com.cartoonhero.source.stage.scenery.templates.LRLayout
 import kotlinx.android.synthetic.main.layout_lr_item.view.*
@@ -33,7 +33,7 @@ class AddGourmetLRItem @JvmOverloads constructor(
                 buildConstraints(textView, LayoutSide.Left)
                 textView.layoutParams.width = 0
                 textView.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                val data = template.leftViewItem as TextViewViewItem
+                val data = template.leftViewItem as TextViewItem
                 textView.text = data.text
                 textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
                 textView.setTextColor(
@@ -46,8 +46,8 @@ class AddGourmetLRItem @JvmOverloads constructor(
         when(template.rightViewItem?.viewType) {
             ViewType.TextView -> {
                 val textView = TextView(context)
-                buildConstraints(textView, LayoutSide.Left)
-                val data = template?.leftViewItem as TextViewViewItem
+                buildConstraints(textView, LayoutSide.Right)
+                val data = template.rightViewItem as TextViewItem
                 textView.text = data.text
                 textView.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
                 textView.setTextColor(
@@ -58,7 +58,7 @@ class AddGourmetLRItem @JvmOverloads constructor(
                 buildConstraints(editText,LayoutSide.Right)
                 editText.layoutParams.width = 0
                 editText.layoutParams.height = 0
-                val data = template.rightViewItem as EditTextViewItem
+                val data = template.rightViewItem as EditTextItem
                 editText.hint = data.hint
             }
             else -> {}

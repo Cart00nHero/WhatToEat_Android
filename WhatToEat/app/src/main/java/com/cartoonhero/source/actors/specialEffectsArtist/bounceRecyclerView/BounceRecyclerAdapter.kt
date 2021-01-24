@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.helper.ItemTouchHelperAdapter
 
-open class BounceRecyclerAdapter : RecyclerView.Adapter<BounceRecyclerAdapter.ViewHolder>() {
+open class BounceRecyclerAdapter :
+    RecyclerView.Adapter<BounceRecyclerAdapter.ViewHolder>(), ItemTouchHelperAdapter {
 
     interface ViewHolderListener {
         fun onBindViewHolder(itemView: View, position: Int)
@@ -37,5 +39,13 @@ open class BounceRecyclerAdapter : RecyclerView.Adapter<BounceRecyclerAdapter.Vi
         fun bindViewHolderListener(listener: ViewHolderListener,position: Int) {
             listener.onBindViewHolder(itemView,position)
         }
+    }
+
+    override fun onMoveItem(from: Int, to: Int) {
+        notifyItemMoved(from, to)
+    }
+
+    override fun onRemoveItem(from: Int) {
+        TODO("Not yet implemented")
     }
 }

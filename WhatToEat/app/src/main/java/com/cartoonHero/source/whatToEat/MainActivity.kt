@@ -7,14 +7,16 @@ import com.cartoonHero.source.actors.agent.ActivityStateListener
 import com.cartoonHero.source.redux.actions.ActivityOnBackPressed
 import com.cartoonHero.source.redux.actions.SceneGoBackAction
 import com.cartoonHero.source.redux.actions.SceneGoForwardAction
+import com.cartoonHero.source.redux.actions.SetRootSceneAction
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
 import com.cartoonHero.source.stage.scene.entrance.SignFragment
 import com.cartoonHero.source.stage.scene.NavigationActivity
+import com.cartoonHero.source.stage.scene.entrance.OptionalFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.rekotlin.StoreSubscriber
 
-const val mainFragmentContainerId = R.id.mainFragmentContainer
+const val mainFragmentContainerId = R.id.main_container
 
 class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
 
@@ -24,7 +26,7 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        setRootFragment(SignFragment(),R.id.mainFragmentContainer)
+        setRootFragment(SignFragment(),R.id.main_container)
     }
 
     override fun onStart() {
@@ -73,6 +75,10 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
     override fun newState(state: ActivityState?) {
         state.apply {
             when(state?.currentAction) {
+                is SetRootSceneAction -> {
+                    val action = state.currentAction as SetRootSceneAction
+                    setRootFragment(action.rootFragment, mainFragmentContainerId)
+                }
                 is SceneGoForwardAction -> {
                     val action = state.currentAction as SceneGoForwardAction
                     goForward(action.fragments, mainFragmentContainerId)

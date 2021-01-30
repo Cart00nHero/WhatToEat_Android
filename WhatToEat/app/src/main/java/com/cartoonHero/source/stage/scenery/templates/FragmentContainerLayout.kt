@@ -28,7 +28,7 @@ class FragmentContainerLayout @JvmOverloads constructor(
             attachedActivity.removeFragment(oldFragment)
         }
         val containerId = template.containerId
-        this.fragmentContainer.id = containerId
+        this.fragment_container.id = containerId
         attachedActivity.replaceFragment(template.fragment,containerId)
     }
 }

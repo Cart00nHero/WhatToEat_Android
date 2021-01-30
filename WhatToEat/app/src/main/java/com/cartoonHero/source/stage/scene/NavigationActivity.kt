@@ -15,6 +15,7 @@ open class NavigationActivity : AppCompatActivity() {
         if (fragmentList.size > 0) {
             removeFragment(currentFragment())
             fragmentList.clear()
+            clearFragmentBackStack()
         }
         addFragment(fragment, resourceId)
         fragmentList.add(0, fragment)

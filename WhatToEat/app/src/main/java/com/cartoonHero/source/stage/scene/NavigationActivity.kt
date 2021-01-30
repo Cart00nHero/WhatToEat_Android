@@ -1,13 +1,11 @@
-package com.cartoonHero.source.stage.scenery
+package com.cartoonHero.source.stage.scene
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.cartoonHero.source.actors.toolMan.inlineCls.addFragment
 import com.cartoonHero.source.actors.toolMan.inlineCls.removeFragment
 import com.cartoonHero.source.actors.toolMan.inlineCls.replaceFragment
 
-@SuppressLint("Registered")
 open class NavigationActivity : AppCompatActivity() {
 
     private var currentPage = 0
@@ -51,7 +49,7 @@ open class NavigationActivity : AppCompatActivity() {
     }
 
     fun childFragments(): List<Fragment> {
-        return fragmentList.clone() as List<Fragment>
+        return fragmentList.toList()
     }
 
     private fun clearFragmentBackStack() {

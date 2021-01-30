@@ -10,7 +10,7 @@ import com.cartoonHero.source.redux.actions.SceneGoForwardAction
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
 import com.cartoonHero.source.stage.scene.entrance.SignFragment
-import com.cartoonHero.source.stage.scenery.NavigationActivity
+import com.cartoonHero.source.stage.scene.NavigationActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.rekotlin.StoreSubscriber
 

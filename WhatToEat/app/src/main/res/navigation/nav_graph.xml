@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.cartoonhero.source.whattoeat.FirstFragment"
+        android:name="com.cartoonHero.source.whatToEat.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.cartoonhero.source.whattoeat.SecondFragment"
+        android:name="com.cartoonHero.source.whatToEat.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.cartoonHero.source.stage.scenery.customLayouts.CustomTabLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/customTabLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</com.cartoonHero.source.stage.scenery.customLayouts.CustomTabLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

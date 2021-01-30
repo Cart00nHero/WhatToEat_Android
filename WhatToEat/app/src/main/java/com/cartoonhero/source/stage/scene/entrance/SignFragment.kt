@@ -9,6 +9,7 @@ import com.cartoonhero.source.actors.agent.ActivityStateListener
 import com.cartoonhero.source.redux.states.ActivityState
 import com.cartoonhero.source.whattoeat.MainActivity
 import com.cartoonhero.source.whattoeat.R
+import com.cartoonhero.source.whattoeat.mainFragmentContainerId
 import kotlinx.android.synthetic.main.fragment_sign.*
 
 class SignFragment: Fragment() {
@@ -20,18 +21,22 @@ class SignFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fbSignButton.setOnClickListener { _ ->
-            (activity as MainActivity).goForwardPage(listOf(OptionalFragment()), R.id.contentFrameLayout)
+            (activity as MainActivity).goForward(listOf(OptionalFragment()), mainFragmentContainerId)
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        (activity as MainActivity).addStateListener(stateChangedListener)
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity)
+            .addStateListener(stateChangedListener)
     }
-    override fun onStop() {
-        super.onStop()
-        (activity as MainActivity).removeListener()
+
+    override fun onPause() {
+        super.onPause()
+        (activity as MainActivity)
+            .removeStateListener(stateChangedListener)
     }
+
     private val stateChangedListener = object : ActivityStateListener {
         override fun onNewState(state: ActivityState) {
         }

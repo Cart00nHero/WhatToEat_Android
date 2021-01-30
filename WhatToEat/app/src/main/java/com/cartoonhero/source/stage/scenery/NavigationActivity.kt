@@ -13,7 +13,7 @@ open class NavigationActivity : AppCompatActivity() {
     private var currentPage = 0
     private val fragmentList = ArrayList<Fragment>()
 
-    fun initFragment(fragment: Fragment, resourceId: Int) {
+    fun setRootFragment(fragment: Fragment, resourceId: Int) {
         if (fragmentList.size > 0) {
             removeFragment(currentFragment())
             fragmentList.clear()
@@ -22,13 +22,13 @@ open class NavigationActivity : AppCompatActivity() {
         fragmentList.add(0, fragment)
     }
 
-    fun goForwardPage(fragments: List<Fragment>, resourceId: Int) {
+    fun goForward(fragments: List<Fragment>, resourceId: Int) {
         currentPage += fragments.size
         fragmentList.addAll(fragments)
         replaceFragment(fragments.last(), resourceId)
     }
 
-    fun backToPreviousPage(resourceId: Int) {
+    fun goBack(resourceId: Int) {
         if (currentPage > 0) {
             val currentFragment = fragmentList[currentPage]
             val previousFragment = fragmentList[currentPage-1]

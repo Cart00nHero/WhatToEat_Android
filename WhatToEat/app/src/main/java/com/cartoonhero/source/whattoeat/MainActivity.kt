@@ -4,22 +4,25 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.cartoonhero.source.actors.agent.ActivityStateListener
+import com.cartoonhero.source.redux.actions.GoForwardAction
 import com.cartoonhero.source.redux.appStore
 import com.cartoonhero.source.redux.states.ActivityState
-import com.cartoonhero.source.stage.scene.addGourmets.fragments.AddGourmetFragment
+import com.cartoonhero.source.stage.scene.entrance.SignFragment
 import com.cartoonhero.source.stage.scenery.NavigationActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.rekotlin.StoreSubscriber
 
+const val mainFragmentContainerId = R.id.mainFragmentContainer
+
 class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
 
-//    lateinit var receiveNewState: (state: ActivityState) -> Unit
-    var mListener: ActivityStateListener? = null
+    private val stateListeners = hashSetOf<ActivityStateListener>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        initFragment(AddGourmetFragment(),R.id.contentFrameLayout)
+        setRootFragment(SignFragment(),R.id.mainFragmentContainer)
     }
 
     override fun onStart() {
@@ -52,16 +55,25 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
     }
 
     fun addStateListener(listener: ActivityStateListener) {
-        this.mListener = listener
+        if (!stateListeners.contains(listener)) {
+            stateListeners.add(listener)
+        }
     }
-    fun removeListener() {
-        this.mListener = null
+    fun removeStateListener(listener: ActivityStateListener) {
+        stateListeners.remove(listener)
     }
 
     override fun newState(state: ActivityState?) {
         state.apply {
-//            state?.let { receiveNewState(it) }
-            state?.let { this@MainActivity.mListener?.onNewState(it) }
+            when(state?.currentAction) {
+                is GoForwardAction -> {
+                    val action = state.currentAction as GoForwardAction
+                    goForward(action.fragments, mainFragmentContainerId)
+                }
+            }
+            for (listener in stateListeners) {
+                state?.let { listener.onNewState(it) }
+            }
         }
     }
 }

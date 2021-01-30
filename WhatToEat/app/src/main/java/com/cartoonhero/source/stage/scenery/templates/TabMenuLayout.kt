@@ -1,4 +1,4 @@
-package com.mitake.base.amSrc.stage.scenery.templates
+package com.cartoonhero.source.stage.scenery.templates
 
 import android.content.Context
 import android.util.AttributeSet

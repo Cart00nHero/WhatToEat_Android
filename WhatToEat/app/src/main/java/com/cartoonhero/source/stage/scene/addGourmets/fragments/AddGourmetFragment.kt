@@ -44,8 +44,16 @@ class AddGourmetFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
-        (activity as MainActivity).addStateListener(stateChangedListener)
         agRecyclerView.adapter?.notifyDataSetChanged()
+    }
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).addStateListener(stateChangedListener)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as MainActivity).removeStateListener(stateChangedListener)
     }
     private inner class RecyclerAdapter: BounceRecyclerAdapter() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

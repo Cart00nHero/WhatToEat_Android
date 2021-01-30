@@ -17,13 +17,16 @@ class OptionalFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_optional,container,false)
     }
 
-    override fun onStart() {
-        super.onStart()
-        (activity as MainActivity).addStateListener(stateChangedListener)
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity)
+            .addStateListener(stateChangedListener)
     }
-    override fun onStop() {
-        super.onStop()
-        (activity as MainActivity).removeListener()
+
+    override fun onPause() {
+        super.onPause()
+        (activity as MainActivity)
+            .removeStateListener(stateChangedListener)
     }
 
     private val stateChangedListener = object : ActivityStateListener {

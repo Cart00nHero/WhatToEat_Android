@@ -16,14 +16,16 @@ class SearchLocFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_searchloc,container,false)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         (activity as MainActivity).addStateListener(stateChangedListener)
     }
-    override fun onStop() {
-        super.onStop()
-        (activity as MainActivity).removeListener()
+
+    override fun onPause() {
+        super.onPause()
+        (activity as MainActivity).removeStateListener(stateChangedListener)
     }
+
 
     private val stateChangedListener = object : ActivityStateListener {
         override fun onNewState(state: ActivityState) {

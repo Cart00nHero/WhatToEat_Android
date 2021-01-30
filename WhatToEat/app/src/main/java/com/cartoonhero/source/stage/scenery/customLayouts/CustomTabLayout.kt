@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.mitake.base.amSrc.stage.scenery.templates.TabMenuLayout
+import com.cartoonhero.source.stage.scenery.templates.TabMenuLayout
 import kotlinx.android.synthetic.main.layout_tab_menu.view.*
 
 class CustomTabLayout @JvmOverloads constructor(

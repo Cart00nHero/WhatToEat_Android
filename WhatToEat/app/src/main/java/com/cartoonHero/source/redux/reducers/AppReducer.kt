@@ -1,6 +1,6 @@
-package com.cartoonhero.source.redux.reducers
+package com.cartoonHero.source.redux.reducers
 
-import com.cartoonhero.source.redux.states.AppState
+import com.cartoonHero.source.redux.states.AppState
 import org.rekotlin.Action
 
 fun appReducer(action: Action, state: AppState?): AppState {

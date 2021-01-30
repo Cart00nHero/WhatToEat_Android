@@ -1,4 +1,4 @@
-package com.cartoonhero.source.stage.scenery.customLayouts
+package com.cartoonHero.source.stage.scenery.customLayouts
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.cartoonhero.source.actors.toolMan.inlineCls.toDp
-import com.cartoonhero.source.stage.scenery.templates.ViewPagerLayout
+import com.cartoonHero.source.actors.toolMan.inlineCls.toDp
+import com.cartoonHero.source.stage.scenery.templates.ViewPagerLayout
 import kotlinx.android.synthetic.main.layout_viewpager.view.*
 
 class CustomViewPager @JvmOverloads constructor(

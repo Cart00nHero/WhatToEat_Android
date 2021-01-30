@@ -1,4 +1,4 @@
-package com.cartoonhero.source.stage.scene.addGourmets.fragments
+package com.cartoonHero.source.stage.scene.addGourmets.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,17 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.cartoonhero.source.actors.agent.ActivityStateListener
-import com.cartoonhero.source.actors.dataManger.LRTemplate
-import com.cartoonhero.source.actors.toolMan.inlineCls.screenSizeInDp
-import com.cartoonhero.source.redux.states.ActivityState
-import com.cartoonhero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
-import com.cartoonhero.source.actors.specialEffectsArtist.bounceRecyclerView.BounceRecyclerAdapter
-import com.cartoonhero.source.actors.specialEffectsArtist.bounceRecyclerView.makeBounceEffect
-import com.cartoonhero.source.actors.specialEffectsArtist.rvItemDragDrop.ItemTouchHelperCallback
-import com.cartoonhero.source.stage.scenery.listItems.AddGourmetLRItem
-import com.cartoonhero.source.whattoeat.MainActivity
-import com.cartoonhero.source.whattoeat.R
+import com.cartoonHero.source.actors.agent.ActivityStateListener
+import com.cartoonHero.source.actors.dataManger.LRTemplate
+import com.cartoonHero.source.actors.toolMan.inlineCls.screenSizeInDp
+import com.cartoonHero.source.redux.states.ActivityState
+import com.cartoonHero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
+import com.cartoonHero.source.actors.specialEffectsArtist.bounceRecyclerView.BounceRecyclerAdapter
+import com.cartoonHero.source.actors.specialEffectsArtist.bounceRecyclerView.makeBounceEffect
+import com.cartoonHero.source.actors.specialEffectsArtist.rvItemDragDrop.ItemTouchHelperCallback
+import com.cartoonHero.source.stage.scenery.listItems.AddGourmetLRItem
+import com.cartoonHero.source.whatToEat.MainActivity
+import com.cartoonHero.source.whatToEat.R
 import kotlinx.android.synthetic.main.fragment_add_gourmet.*
 
 class AddGourmetFragment: Fragment() {

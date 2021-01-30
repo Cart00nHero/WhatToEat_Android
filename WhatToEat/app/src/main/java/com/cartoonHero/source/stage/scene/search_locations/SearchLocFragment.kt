@@ -1,14 +1,14 @@
-package com.cartoonhero.source.stage.scene.search_locations
+package com.cartoonHero.source.stage.scene.search_locations
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.cartoonhero.source.actors.agent.ActivityStateListener
-import com.cartoonhero.source.redux.states.ActivityState
-import com.cartoonhero.source.whattoeat.MainActivity
-import com.cartoonhero.source.whattoeat.R
+import com.cartoonHero.source.actors.agent.ActivityStateListener
+import com.cartoonHero.source.redux.states.ActivityState
+import com.cartoonHero.source.whatToEat.MainActivity
+import com.cartoonHero.source.whatToEat.R
 
 class SearchLocFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

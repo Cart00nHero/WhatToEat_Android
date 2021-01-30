@@ -1,4 +1,4 @@
-package com.cartoonhero.source.actors.toolMan.inlineCls
+package com.cartoonHero.source.actors.toolMan.inlineCls
 
 import android.app.Activity
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.cartoonhero.source.redux.actions
+package com.cartoonHero.source.redux.actions
 
 import CreateGourmetMutation
 import DislikeGourmetMutation
@@ -7,10 +7,10 @@ import UpdateGourmetMutation
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
-import com.cartoonhero.source.actors.dataManger.GQCreateObject
-import com.cartoonhero.source.actors.dataManger.GQUpdateObject
-import com.cartoonhero.source.actors.network.apolloClient
-import com.cartoonhero.source.redux.appStore
+import com.cartoonHero.source.actors.dataManger.GQCreateObject
+import com.cartoonHero.source.actors.dataManger.GQUpdateObject
+import com.cartoonHero.source.actors.network.apolloClient
+import com.cartoonHero.source.redux.appStore
 import org.rekotlin.Action
 import type.SignData
 
@@ -32,12 +32,10 @@ fun signFoodieAction(signData: SignData):SignFoodieAction {
             action.status = NetWorkStatus.SUCCESS
             appStore.dispatch(action)
         }
-
         override fun onFailure(e: ApolloException) {
             action.status = NetWorkStatus.FAILED
             appStore.dispatch(action)
         }
-
     })
     return action
 }

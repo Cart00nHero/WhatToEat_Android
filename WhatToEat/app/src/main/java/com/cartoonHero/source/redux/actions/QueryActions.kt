@@ -1,11 +1,11 @@
-package com.cartoonhero.source.redux.actions
+package com.cartoonHero.source.redux.actions
 
 import LocationsDynamicQuery
 import SearchForRangeQuery
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
-import com.cartoonhero.source.actors.network.apolloClient
-import com.cartoonhero.source.redux.appStore
+import com.cartoonHero.source.actors.network.apolloClient
+import com.cartoonHero.source.redux.appStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

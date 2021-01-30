@@ -1,18 +1,17 @@
-package com.cartoonhero.source.stage.scenery.customLayouts
+package com.cartoonHero.source.stage.scenery.customLayouts
 
 import android.content.Context
 import android.graphics.Color
 import android.transition.TransitionManager
 import android.util.AttributeSet
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import com.cartoonhero.source.actors.toolMan.match
-import com.cartoonhero.source.whattoeat.R
+import com.cartoonHero.source.actors.toolMan.match
+import com.cartoonHero.source.whatToEat.R
 
 class ToolBarCenterLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

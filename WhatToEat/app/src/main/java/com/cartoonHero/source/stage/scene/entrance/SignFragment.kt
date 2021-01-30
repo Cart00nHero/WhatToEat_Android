@@ -1,16 +1,22 @@
-package com.cartoonhero.source.stage.scene.entrance
+package com.cartoonHero.source.stage.scene.entrance
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.cartoonhero.source.actors.agent.ActivityStateListener
-import com.cartoonhero.source.redux.states.ActivityState
-import com.cartoonhero.source.whattoeat.MainActivity
-import com.cartoonhero.source.whattoeat.R
-import com.cartoonhero.source.whattoeat.mainFragmentContainerId
+import com.cartoonHero.source.actors.agent.ActivityStateListener
+import com.cartoonHero.source.redux.actions.NetWorkStatus
+import com.cartoonHero.source.redux.actions.SceneGoForwardAction
+import com.cartoonHero.source.redux.actions.SignFoodieAction
+import com.cartoonHero.source.redux.actions.signFoodieAction
+import com.cartoonHero.source.redux.appStore
+import com.cartoonHero.source.redux.states.ActivityState
+import com.cartoonHero.source.whatToEat.MainActivity
+import com.cartoonHero.source.whatToEat.R
 import kotlinx.android.synthetic.main.fragment_sign.*
+import type.InputToken
+import type.SignData
 
 class SignFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -21,7 +27,15 @@ class SignFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fbSignButton.setOnClickListener { _ ->
-            (activity as MainActivity).goForward(listOf(OptionalFragment()), mainFragmentContainerId)
+            val signData = SignData(
+                email = "anroidTest@gmail",
+                name = "Morris",
+                token = InputToken(
+                    token = "asdmalkdm",
+                    type = "FaceBook"
+                )
+            )
+            appStore.dispatch(signFoodieAction(signData))
         }
     }
 
@@ -39,6 +53,17 @@ class SignFragment: Fragment() {
 
     private val stateChangedListener = object : ActivityStateListener {
         override fun onNewState(state: ActivityState) {
+            when(state.currentAction) {
+                is SignFoodieAction -> {
+                    val action = state.currentAction as SignFoodieAction
+                    when(action.status) {
+                        NetWorkStatus.SUCCESS -> {
+                            appStore.dispatch(SceneGoForwardAction(listOf(OptionalFragment())))
+                        }
+                        else -> {}
+                    }
+                }
+            }
         }
     }
 }

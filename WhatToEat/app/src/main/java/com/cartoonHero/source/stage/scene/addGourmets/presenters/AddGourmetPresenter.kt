@@ -1,6 +1,6 @@
-package com.cartoonhero.source.stage.scene.addGourmets.presenters
+package com.cartoonHero.source.stage.scene.addGourmets.presenters
 
-import com.cartoonhero.source.actors.dataManger.*
+import com.cartoonHero.source.actors.dataManger.*
 
 class AddGourmetPresenter {
     val listData = GourmetsData()

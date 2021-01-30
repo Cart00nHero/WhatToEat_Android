@@ -1,4 +1,4 @@
-package com.cartoonhero.source.stage.scenery.listItems
+package com.cartoonHero.source.stage.scenery.listItems
 
 import android.content.Context
 import android.graphics.Color
@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import com.cartoonhero.source.actors.dataManger.EditTextItem
-import com.cartoonhero.source.actors.dataManger.TextViewItem
-import com.cartoonhero.source.actors.dataManger.ViewType
-import com.cartoonhero.source.stage.scenery.templates.LRLayout
+import com.cartoonHero.source.actors.dataManger.EditTextItem
+import com.cartoonHero.source.actors.dataManger.TextViewItem
+import com.cartoonHero.source.actors.dataManger.ViewType
+import com.cartoonHero.source.stage.scenery.templates.LRLayout
 import kotlinx.android.synthetic.main.layout_lr_item.view.*
 
 class AddGourmetLRItem @JvmOverloads constructor(

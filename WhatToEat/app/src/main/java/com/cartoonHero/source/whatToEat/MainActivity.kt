@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.rekotlin.StoreSubscriber
 
 const val mainFragmentContainerId = R.id.main_container
+const val RootSceneBundleKey = "rootSceneBundleKey"
 
 class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
 
@@ -26,7 +27,10 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        setRootFragment(SignFragment(),R.id.main_container)
+        val sceneName = intent.getStringExtra(RootSceneBundleKey)
+        if (sceneName.isNullOrEmpty()) {
+            setRootFragment(SignFragment(),R.id.main_container)
+        }
     }
 
     override fun onStart() {

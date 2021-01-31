@@ -55,9 +55,7 @@ open class LRLayout: ConstraintLayout {
                 set.clone(this.leftLayout)
                 set.match(content, this.leftLayout)
                 // optionally, apply the constraints smoothly
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    TransitionManager.beginDelayedTransition(this)
-                }
+                TransitionManager.beginDelayedTransition(this)
                 set.applyTo(this.leftLayout)
             }
             LayoutSide.Right -> {

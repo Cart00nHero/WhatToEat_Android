@@ -131,7 +131,9 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback {
                     val action = state.currentAction as LocationsDynamicQueryAction
                     when(action.status) {
                         NetWorkStatus.SUCCESS -> {
-
+                            if (action.responseData?.size ?: 0 > 0) {
+                                print("parse to input")
+                            }
                         }
                         else -> {}
                     }

@@ -1,4 +1,4 @@
-package com.cartoonHero.source.actors.agent
+package com.cartoonHero.source.agent
 
 import com.cartoonHero.source.redux.states.ActivityState
 

@@ -1,4 +1,4 @@
-package com.cartoonHero.source.actors.specialEffectsArtist.rvItemDragDrop
+package com.cartoonHero.source.stage.scenery.specialEffects.rvItemDragDrop
 
 interface ItemMoveSwipeListener {
     /**

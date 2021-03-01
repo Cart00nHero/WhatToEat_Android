@@ -6,7 +6,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import com.cartoonHero.source.inlineMethods.toDp
+import com.cartoonHero.source.extensionTools.toDp
 import com.cartoonHero.source.actors.toolMan.match
 import com.cartoonHero.source.redux.actions.ViewOnClickAction
 import com.cartoonHero.source.redux.appStore

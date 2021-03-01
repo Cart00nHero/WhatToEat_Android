@@ -1,4 +1,4 @@
-package com.cartoonHero.source.inlineMethods
+package com.cartoonHero.source.extensionTools
 
 import android.app.Activity
 import android.content.Context

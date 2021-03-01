@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.cartoonHero.source.actors.agent.ActivityStateListener
-import com.cartoonHero.source.inlineMethods.startActivity
+import com.cartoonHero.source.agent.ActivityStateListener
+import com.cartoonHero.source.extensionTools.startActivity
 import com.cartoonHero.source.redux.states.ActivityState
 import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.MapsActivity

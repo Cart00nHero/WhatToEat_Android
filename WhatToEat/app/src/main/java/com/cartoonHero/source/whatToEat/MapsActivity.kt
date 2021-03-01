@@ -1,7 +1,7 @@
 package com.cartoonHero.source.whatToEat
 
 import android.os.Bundle
-import com.cartoonHero.source.actors.agent.ActivityStateListener
+import com.cartoonHero.source.agent.ActivityStateListener
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
 import com.cartoonHero.source.stage.scene.NavigationActivity

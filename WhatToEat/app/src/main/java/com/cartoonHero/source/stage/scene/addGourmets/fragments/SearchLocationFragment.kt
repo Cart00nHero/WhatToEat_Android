@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import com.cartoonHero.source.actors.agent.ActivityStateListener
+import com.cartoonHero.source.agent.ActivityStateListener
 import com.cartoonHero.source.redux.actions.*
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
@@ -18,7 +18,6 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_search_location.*
-import type.AddressDqCmd
 
 class SearchLocationFragment: Fragment(), OnMapReadyCallback {
 

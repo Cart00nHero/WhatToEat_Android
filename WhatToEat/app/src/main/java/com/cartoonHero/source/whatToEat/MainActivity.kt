@@ -3,7 +3,7 @@ package com.cartoonHero.source.whatToEat
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.cartoonHero.source.actors.agent.ActivityStateListener
+import com.cartoonHero.source.agent.ActivityStateListener
 import com.cartoonHero.source.redux.actions.ActivityOnBackPressed
 import com.cartoonHero.source.redux.actions.SceneGoBackAction
 import com.cartoonHero.source.redux.actions.SceneGoForwardAction
@@ -12,7 +12,6 @@ import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
 import com.cartoonHero.source.stage.scene.entrance.SignFragment
 import com.cartoonHero.source.stage.scene.NavigationActivity
-import com.cartoonHero.source.stage.scene.entrance.OptionalFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.rekotlin.StoreSubscriber
 

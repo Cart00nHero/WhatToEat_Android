@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import com.cartoonHero.source.inlineMethods.toDp
+import com.cartoonHero.source.extensionTools.toDp
 import com.cartoonHero.source.actors.toolMan.match
 import com.cartoonHero.source.whatToEat.R
 

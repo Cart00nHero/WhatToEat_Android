@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.cartoonHero.source.actors.agent.ActivityStateListener
+import com.cartoonHero.source.agent.ActivityStateListener
 import com.cartoonHero.source.redux.actions.NetWorkStatus
 import com.cartoonHero.source.redux.actions.SceneGoForwardAction
 import com.cartoonHero.source.redux.actions.SignFoodieAction
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
-import com.cartoonHero.source.stage.scene.addGourmets.fragments.SearchLocationFragment
 import com.cartoonHero.source.stage.scene.addGourmets.scenarios.AddGourmetScenario
 import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.R

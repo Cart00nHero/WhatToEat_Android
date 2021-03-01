@@ -14,7 +14,7 @@ interface Message
 class ActorStream {
     private val streamScope: CoroutineScope =
         CoroutineScope(EmptyCoroutineContext + SupervisorJob())
-    private val channel: BroadcastChannel<Message> = BroadcastChannel(500)
+    private val channel: BroadcastChannel<Message> = BroadcastChannel(100)
 
     fun send(event: Message) {
         streamScope.launch {

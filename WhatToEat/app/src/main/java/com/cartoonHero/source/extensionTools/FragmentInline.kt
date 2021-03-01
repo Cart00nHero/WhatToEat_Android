@@ -1,4 +1,4 @@
-package com.cartoonHero.source.inlineMethods
+package com.cartoonHero.source.extensionTools
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

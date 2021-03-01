@@ -1,4 +1,4 @@
-package com.cartoonHero.source.actors.specialEffectsArtist.bounceRecyclerView
+package com.cartoonHero.source.stage.scenery.specialEffects.bounceRecyclerView
 
 import android.content.Context
 import android.widget.EdgeEffect

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.cartoonHero.source.actors.agent.ActivityStateListener
-import com.cartoonHero.source.actors.dataManger.LRTemplate
-import com.cartoonHero.source.actors.toolMan.inlineCls.screenSizeInDp
+import com.cartoonHero.source.enities.LRTemplate
+import com.cartoonHero.source.inlineMethods.screenSizeInDp
 import com.cartoonHero.source.redux.states.ActivityState
 import com.cartoonHero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
 import com.cartoonHero.source.actors.specialEffectsArtist.bounceRecyclerView.BounceRecyclerAdapter

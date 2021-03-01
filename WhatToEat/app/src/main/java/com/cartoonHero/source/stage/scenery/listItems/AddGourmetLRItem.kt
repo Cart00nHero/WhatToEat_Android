@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import com.cartoonHero.source.actors.dataManger.EditTextItem
-import com.cartoonHero.source.actors.dataManger.TextViewItem
-import com.cartoonHero.source.actors.dataManger.ViewType
+import com.cartoonHero.source.enities.EditTextItem
+import com.cartoonHero.source.enities.TextViewItem
+import com.cartoonHero.source.enities.ViewType
 import com.cartoonHero.source.stage.scenery.templates.LRLayout
 import kotlinx.android.synthetic.main.layout_lr_item.view.*
 

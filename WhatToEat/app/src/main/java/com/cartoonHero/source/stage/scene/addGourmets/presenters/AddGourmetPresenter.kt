@@ -1,6 +1,8 @@
 package com.cartoonHero.source.stage.scene.addGourmets.presenters
 
-import com.cartoonHero.source.actors.dataManger.*
+import com.cartoonHero.source.enities.LRTemplate
+import com.cartoonHero.source.enities.TemplateInterface
+import com.cartoonHero.source.enities.TextViewItem
 
 class AddGourmetPresenter {
     val listData = GourmetsData()

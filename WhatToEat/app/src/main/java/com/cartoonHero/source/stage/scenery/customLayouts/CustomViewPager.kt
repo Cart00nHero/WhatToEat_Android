@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.cartoonHero.source.actors.toolMan.inlineCls.toDp
+import com.cartoonHero.source.inlineMethods.toDp
 import com.cartoonHero.source.stage.scenery.templates.ViewPagerLayout
 import kotlinx.android.synthetic.main.layout_viewpager.view.*
 

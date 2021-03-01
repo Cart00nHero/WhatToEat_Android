@@ -1,6 +1,5 @@
 package com.cartoonHero.source.actorModel
 
-import com.cartoonHero.source.actorModel.AppStream.messages
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.flow.collect
@@ -10,27 +9,48 @@ import kotlinx.coroutines.flow.collect
 abstract class Actor {
 
     private val scope = CoroutineScope(Dispatchers.Default + Job())
-    protected lateinit var actorSendBack: () -> Unit
+    private val stream = ActorStream()
+    private lateinit var actorSend: () -> Unit
+    private lateinit var actorSendBack: () -> Unit
 
-    fun start() = scope.launch {
+    init {
+        start()
+    }
+
+    private fun start() = scope.launch {
         val actor = actor<Message>(scope.coroutineContext) {
             for (msg in channel) {
                 act(msg)
             }
         }
-        messages.collect(actor::send)
+        stream.messages.collect(actor::send)
     }
 
-    fun stop() {
+    fun cancel() {
         scope.cancel()
     }
 
+    fun send(sender: () -> Unit) {
+        actorSend = sender
+        sendMessage(SendActorMessage(CompletableDeferred()))
+    }
     fun sendBack(sender: () -> Unit) {
         actorSendBack = sender
-        send(SendBackMessage(CompletableDeferred()))
+        sendMessage(SendBackMessage(CompletableDeferred()))
     }
-    protected fun send(message: Message) = AppStream.send(message)
-    protected open suspend fun act(message: Message) {}
-    protected data class SendBackMessage(
-        val response: CompletableDeferred<Unit>):Message
+
+    private fun sendMessage(message: Message) = stream.send(message)
+    private fun act(message: Message) {
+        when(message) {
+            is SendActorMessage -> actorSend()
+            is SendBackMessage -> actorSendBack()
+        }
+    }
 }
+
+private data class SendActorMessage(
+    val response: CompletableDeferred<Unit>
+): Message
+private data class SendBackMessage(
+    val response: CompletableDeferred<Unit>
+): Message

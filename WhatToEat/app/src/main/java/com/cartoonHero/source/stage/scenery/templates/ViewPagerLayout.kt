@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import com.cartoonHero.source.actors.dataManger.ViewPagerTemplate
+import com.cartoonHero.source.enities.ViewPagerTemplate
 import com.cartoonHero.source.whatToEat.R
 
 open class ViewPagerLayout @JvmOverloads constructor(

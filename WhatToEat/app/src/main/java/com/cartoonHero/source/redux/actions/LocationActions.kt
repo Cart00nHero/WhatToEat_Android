@@ -5,7 +5,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import com.apollographql.apollo.api.Input
-import com.cartoonHero.source.actors.dataManger.GQCreateObject
+import com.cartoonHero.source.enities.GQCreateObject
 import com.cartoonHero.source.redux.appStore
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions

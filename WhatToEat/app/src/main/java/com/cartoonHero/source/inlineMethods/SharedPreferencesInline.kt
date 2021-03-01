@@ -1,4 +1,4 @@
-package com.cartoonHero.source.actors.toolMan.inlineCls
+package com.cartoonHero.source.inlineMethods
 
 import android.content.SharedPreferences
 

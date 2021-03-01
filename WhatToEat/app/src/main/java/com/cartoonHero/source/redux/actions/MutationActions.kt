@@ -7,8 +7,8 @@ import UpdateGourmetMutation
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
-import com.cartoonHero.source.actors.dataManger.GQCreateObject
-import com.cartoonHero.source.actors.dataManger.GQUpdateObject
+import com.cartoonHero.source.enities.GQCreateObject
+import com.cartoonHero.source.enities.GQUpdateObject
 import com.cartoonHero.source.actors.network.apolloClient
 import com.cartoonHero.source.redux.appStore
 import org.rekotlin.Action

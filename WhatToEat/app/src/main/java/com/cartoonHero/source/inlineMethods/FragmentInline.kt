@@ -1,4 +1,4 @@
-package com.cartoonHero.source.actors.toolMan.inlineCls
+package com.cartoonHero.source.inlineMethods
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

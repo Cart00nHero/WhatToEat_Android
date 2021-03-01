@@ -1,4 +1,4 @@
-package com.cartoonHero.source.actors.dataManger
+package com.cartoonHero.source.enities
 
 import android.graphics.Color
 import android.view.View
@@ -77,7 +77,7 @@ data class EditTextItem (
 }
 data class ImageViewItem(
     var imageDrawable: Int = 0
-):ViewItemInterface {
+): ViewItemInterface {
     override val viewType: ViewType
         get() = ViewType.ImageView
 }
@@ -100,7 +100,7 @@ data class TabMenuViewItem(
     val tabItems: MutableList<TabTextViewItem> = mutableListOf(),
     var vpItem: ViewPagerItem = ViewPagerItem(),
     var selectedIndex: Int = 0
-):ViewItemInterface {
+): ViewItemInterface {
     override val viewType: ViewType
         get() = ViewType.TabMenu
 }

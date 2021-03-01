@@ -1,4 +1,4 @@
-package com.cartoonHero.source.actors.dataManger
+package com.cartoonHero.source.enities
 
 import com.apollographql.apollo.api.Input
 import type.InputAddress

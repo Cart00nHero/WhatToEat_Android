@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cartoonHero.source.actors.agent.ActivityStateListener
-import com.cartoonHero.source.actors.toolMan.inlineCls.startActivity
 import com.cartoonHero.source.redux.actions.NetWorkStatus
 import com.cartoonHero.source.redux.actions.SceneGoForwardAction
-import com.cartoonHero.source.redux.actions.SetRootSceneAction
 import com.cartoonHero.source.redux.actions.SignFoodieAction
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
 import com.cartoonHero.source.stage.scene.addGourmets.fragments.SearchLocationFragment
+import com.cartoonHero.source.stage.scene.addGourmets.scenarios.AddGourmetScenario
 import com.cartoonHero.source.whatToEat.MainActivity
-import com.cartoonHero.source.whatToEat.MapsActivity
 import com.cartoonHero.source.whatToEat.R
 import kotlinx.android.synthetic.main.fragment_sign.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 class SignFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -25,19 +25,12 @@ class SignFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_sign, container, false)
     }
 
+    @ObsoleteCoroutinesApi
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fb_sign_button.setOnClickListener { _ ->
-            appStore.dispatch(SceneGoForwardAction(listOf(SearchLocationFragment())))
-//            val signData = SignData(
-//                email = "anroidTest@gmail",
-//                name = "Morris",
-//                token = InputToken(
-//                    token = "asdmalkdm",
-//                    type = "FaceBook"
-//                )
-//            )
-//            appStore.dispatch(signFoodieAction(signData))
+            AddGourmetScenario().sendTestMessage()
         }
     }
 

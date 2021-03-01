@@ -1,11 +1,9 @@
-package se.accepted.watcher.ui.main
+package com.cartoonHero.source.actorModel
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.flow.collect
-import se.accepted.watcher.AppStream
-import se.accepted.watcher.AppStream.messages
-import se.accepted.watcher.Message
+import com.cartoonHero.source.actorModel.AppStream.messages
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi

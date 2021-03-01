@@ -12,16 +12,16 @@ interface Message
 
 @ExperimentalCoroutinesApi
 class ActorStream {
-    private val appScope: CoroutineScope =
+    private val streamScope: CoroutineScope =
         CoroutineScope(EmptyCoroutineContext + SupervisorJob())
-    private val messageChannel: BroadcastChannel<Message> = BroadcastChannel(100)
+    private val channel: BroadcastChannel<Message> = BroadcastChannel(500)
 
     fun send(event: Message) {
-        appScope.launch {
-            messageChannel.send(event)
+        streamScope.launch {
+            channel.send(event)
         }
     }
 
     val messages: Flow<Message>
-        get() = flow { emitAll(messageChannel.openSubscription()) }
+        get() = flow { emitAll(channel.openSubscription()) }
 }

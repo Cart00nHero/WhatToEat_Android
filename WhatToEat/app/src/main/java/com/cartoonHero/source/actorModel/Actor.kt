@@ -10,8 +10,6 @@ abstract class Actor {
 
     private val scope = CoroutineScope(Dispatchers.Default + Job())
     private val stream = ActorStream()
-    private lateinit var actorSend: () -> Unit
-    private lateinit var actorSendBack: () -> Unit
 
     init {
         start()
@@ -31,26 +29,17 @@ abstract class Actor {
     }
 
     fun send(sender: () -> Unit) {
-        actorSend = sender
-        sendMessage(SendActorMessage(CompletableDeferred()))
-    }
-    fun sendBack(sender: () -> Unit) {
-        actorSendBack = sender
-        sendMessage(SendBackMessage(CompletableDeferred()))
+        sendMessage(ActorMessage(sender))
     }
 
     private fun sendMessage(message: Message) = stream.send(message)
     private fun act(message: Message) {
         when(message) {
-            is SendActorMessage -> actorSend()
-            is SendBackMessage -> actorSendBack()
+            is ActorMessage -> message.send()
         }
     }
 }
 
-private data class SendActorMessage(
-    val response: CompletableDeferred<Unit>
-): Message
-private data class SendBackMessage(
-    val response: CompletableDeferred<Unit>
+private data class ActorMessage(
+    val send: () -> Unit
 ): Message

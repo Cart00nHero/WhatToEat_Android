@@ -1,7 +1,6 @@
 package com.cartoonHero.source.actors.express
 
 import com.cartoonHero.source.actorModel.Actor
-import com.cartoonHero.source.actorModel.Message
 import com.cartoonHero.source.enities.Parcel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
@@ -49,7 +48,7 @@ class Courier : Actor() {
         val key = recipient.javaClass.name
         val parcelSet = courierBag[key]?.toHashSet()
         courierBag.remove(key)
-        recipient.sendBack {
+        recipient.send {
             parcelSet?.let { complete(it) }
         }
     }

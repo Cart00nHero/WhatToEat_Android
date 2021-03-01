@@ -1,15 +1,14 @@
-package com.cartoonHero.source.actors
+package se.accepted.watcher.ui.main
 
-import com.cartoonHero.source.actors.model.AppStream
-import com.cartoonHero.source.actors.model.AppStream.messages
-import com.cartoonHero.source.actors.model.Message
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.flow.collect
+import se.accepted.watcher.AppStream
+import se.accepted.watcher.AppStream.messages
+import se.accepted.watcher.Message
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
-
 abstract class Actor {
 
     private val scope = CoroutineScope(Dispatchers.Default + Job())
@@ -17,7 +16,7 @@ abstract class Actor {
     fun start() = scope.launch {
         val actor = actor<Message>(scope.coroutineContext) {
             for (msg in channel) {
-                receive(msg)
+                act(msg)
             }
         }
         messages.collect(actor::send)
@@ -28,5 +27,6 @@ abstract class Actor {
     }
 
     protected fun send(message: Message) = AppStream.send(message)
-    protected open suspend fun receive(message: Message) {}
+
+    protected open suspend fun act(message: Message) {}
 }

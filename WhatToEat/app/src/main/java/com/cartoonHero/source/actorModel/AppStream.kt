@@ -1,4 +1,4 @@
-package com.cartoonHero.source.actors.model
+package se.accepted.watcher
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,6 +15,7 @@ interface State : Message
 
 @ExperimentalCoroutinesApi
 object AppStream {
+
     private val appScope: CoroutineScope = CoroutineScope(EmptyCoroutineContext + SupervisorJob())
 
     private val stream: BroadcastChannel<Message> = BroadcastChannel(100)
@@ -33,4 +34,5 @@ object AppStream {
         get() = flow {
             emitAll(stream.openSubscription())
         }.filterIsInstance()
+
 }

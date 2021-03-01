@@ -19,18 +19,19 @@ import kotlinx.android.synthetic.main.fragment_sign.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 
+@ObsoleteCoroutinesApi
+@ExperimentalCoroutinesApi
 class SignFragment: Fragment() {
+    private val sss = AddGourmetScenario()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.fragment_sign, container, false)
     }
 
-    @ObsoleteCoroutinesApi
-    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fb_sign_button.setOnClickListener { _ ->
-            AddGourmetScenario().sendTestMessage()
+            sss.sendTestMessage()
         }
     }
 

@@ -14,7 +14,7 @@ object LogisticsCenter {
         val typeName = T::class.java.name
         val senderName = sender.javaClass.name
         val parcel = Parcel(typeName,senderName, content!!)
-        courier.sendClaimParcel(recipient,parcel)
+        courier.toBeClaimParcel(recipient,parcel)
         return parcel
     }
 }

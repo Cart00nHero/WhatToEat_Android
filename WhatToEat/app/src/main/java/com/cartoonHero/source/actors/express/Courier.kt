@@ -9,23 +9,23 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 @ObsoleteCoroutinesApi
 class Courier : Actor() {
     private val courierBag: MutableMap<String, HashSet<Parcel>> = mutableMapOf()
-    fun sendBeClaimParcel(recipient: String, parcel: Parcel) {
+    fun sendClaimParcel(recipient: String, parcel: Parcel) {
         send {
             beClaimParcel(recipient,parcel)
         }
     }
-    fun sendBeCollect(
+    fun sendCollect(
         recipient: Actor,complete: (HashSet<Parcel>) -> Unit) {
         send {
             beCollect(recipient,complete)
         }
     }
-    fun sendBeCancel(recipient:String,parcel: Parcel) {
+    fun sendCancel(recipient:String,parcel: Parcel) {
         send {
             beCancel(recipient,parcel)
         }
     }
-    fun sendBeCleanBag() {
+    fun sendCleanBag() {
         send {
             beCleanBag()
         }

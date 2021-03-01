@@ -23,20 +23,18 @@ abstract class Actor {
         }
         stream.messages.collect(actor::send)
     }
-
-    fun cancel() {
-        scope.cancel()
-    }
-
-    fun send(sender: () -> Unit) {
-        sendMessage(ActorMessage(sender))
-    }
-
     private fun sendMessage(message: Message) = stream.send(message)
     private fun act(message: Message) {
         when(message) {
             is ActorMessage -> message.send()
         }
+    }
+
+    fun send(sender: () -> Unit) {
+        sendMessage(ActorMessage(sender))
+    }
+    fun cancel() {
+        scope.cancel()
     }
 }
 

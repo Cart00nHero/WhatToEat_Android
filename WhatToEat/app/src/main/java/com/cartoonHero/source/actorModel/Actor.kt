@@ -25,11 +25,11 @@ abstract class Actor {
         scope.cancel()
     }
 
-    protected fun send(message: Message) = AppStream.send(message)
-    fun sendBack(sendBack: () -> Unit) {
-        actorSendBack = sendBack
+    fun sendBack(sender: () -> Unit) {
+        actorSendBack = sender
         send(SendBackMessage(CompletableDeferred()))
     }
+    protected fun send(message: Message) = AppStream.send(message)
     protected open suspend fun act(message: Message) {}
     protected data class SendBackMessage(
         val response: CompletableDeferred<Unit>):Message

@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
-import com.cartoonHero.source.actorModel.Actor
+import com.cartoonhero.source.actormodel.Actor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 
@@ -27,7 +27,23 @@ class Pilot constructor(context: Context) : Actor() {
         }
     }
 
-    private fun beRequestPermission(activity: Activity){
+    private fun beCheckPermission(sender: Actor, complete: (Boolean) -> Unit) {
+        val accessCoarseLocation =
+            ActivityCompat.checkSelfPermission(mContext,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+        val accessFineLOCATION =
+            ActivityCompat.checkSelfPermission(mContext,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+        when {
+            accessCoarseLocation == PackageManager.PERMISSION_GRANTED ->
+                sender.send { complete(true) }
+            accessFineLOCATION == PackageManager.PERMISSION_GRANTED ->
+                sender.send { complete(true) }
+            else -> sender.send { complete(false) }
+        }
+    }
+
+    private fun beRequestPermission(activity: Activity) {
         val permissionId = 1000    //可隨意自訂一個唯一的整數
         ActivityCompat.requestPermissions(
             activity,
@@ -38,28 +54,13 @@ class Pilot constructor(context: Context) : Actor() {
         )
     }
 
-    private fun beCheckPermission(sender: Actor, complete: (Boolean) -> Unit) {
-        val accessCoarseLocation =
-            ActivityCompat.checkSelfPermission(mContext,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION)
-        val accessFineLOCATION =
-            ActivityCompat.checkSelfPermission(mContext,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION)
-        when {
-            accessCoarseLocation == PackageManager.PERMISSION_GRANTED ->
-                sender.send { complete(true) }
-            accessFineLOCATION == PackageManager.PERMISSION_GRANTED ->
-                sender.send { complete(true) }
-            else -> sender.send { complete(false) }
-        }
-    }
-
     private fun beRequestCurrentLocation() {
         val gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         val network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         if (gps || network) {
             when {
                 gps -> {
+//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER)
                 }
             }
         }

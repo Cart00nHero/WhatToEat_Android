@@ -3,6 +3,7 @@ package com.cartoonHero.source.enities
 import com.apollographql.apollo.api.Input
 import type.InputAddress
 import type.InputBranch
+import type.InputCoordinate
 import type.InputShop
 
 data class GQCreateObject (
@@ -18,4 +19,9 @@ data class GQUpdateObject (
     var address: Input<InputAddress>,
     var shopBranch: InputBranch,
     var shop: Input<InputShop>
+)
+
+data class GQSearchRange(
+    val max: InputCoordinate,
+    val min: InputCoordinate
 )

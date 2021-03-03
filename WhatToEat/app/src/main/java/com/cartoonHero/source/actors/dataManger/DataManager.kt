@@ -6,5 +6,5 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class DataParser: Actor() {
+class DataManager: Actor() {
 }

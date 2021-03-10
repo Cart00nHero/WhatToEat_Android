@@ -1,17 +1,22 @@
 package com.cartoonHero.source.stage.scene.addGourmets.fragments
 
-import android.location.Location
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import com.cartoonHero.source.actors.toolMan.match
 import com.cartoonHero.source.agent.ActivityStateListener
+import com.cartoonHero.source.dslMethods.toDp
 import com.cartoonHero.source.redux.actions.*
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
-import com.cartoonHero.source.stage.scene.addGourmets.presenters.SearchLocationPresenter
 import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.R
 import com.google.android.gms.maps.*
@@ -21,9 +26,12 @@ import kotlinx.android.synthetic.main.fragment_search_location.*
 
 class SearchLocationFragment: Fragment(), OnMapReadyCallback {
 
-    private val presenter = SearchLocationPresenter()
     private lateinit var mMap: GoogleMap
     private lateinit var mCoverView: View
+    private enum class SearchMode {
+        Map, Google
+    }
+    private var searchMode: SearchMode = SearchMode.Map
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +47,7 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mCoverView =
-            presenter.createCoverView(requireContext(),bottom_select_view)
+            createCoverView(requireContext(),bottom_select_view)
         initFragmentView()
     }
 
@@ -64,24 +72,55 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback {
     }
 
     private fun initFragmentView() {
-        top_select_view.setBackgroundColor(presenter.selectedBgColor())
-        bottom_select_view.setBackgroundColor(presenter.normalBgColor())
+        top_select_view.setBackgroundColor(selectedBgColor())
+        bottom_select_view.setBackgroundColor(normalBgColor())
         search_bar_button.setOnClickListener {
-            when(presenter.searchMode) {
-                SearchLocationPresenter.SearchMode.Map -> {
-                    appStore.dispatch(geoCodeAddressAction(
-                        requireContext(),search_editText.text.toString()))
+            when(searchMode) {
+                SearchMode.Map -> {
                 }
-                SearchLocationPresenter.SearchMode.Google -> {
+                SearchMode.Google -> {
                     google_search_webView.visibility = View.VISIBLE
                     val webViewClient = WebViewClient()
                     google_search_webView.webViewClient = webViewClient
-                    google_search_webView.loadUrl(
-                        presenter.googleSearchUrl(
-                            search_editText.text.toString()))
+                    google_search_webView.loadUrl("")
                 }
             }
         }
+    }
+    private fun createCoverView(
+        context: Context, coverSuperLayout: ConstraintLayout
+    ): View {
+        val coverView = View(context)
+        coverView.id = View.generateViewId()
+        coverView.setBackgroundColor(Color.parseColor("#00000000"))
+        coverSuperLayout.addView(coverView)
+        val set = ConstraintSet()
+        set.clone(coverSuperLayout)
+        set.match(coverView, coverSuperLayout)
+        coverView.setOnClickListener {
+            appStore.dispatch(ViewOnClickAction(it))
+        }
+        return coverView
+    }
+    private fun setViewDefaultStyle(selectView: View) {
+        val gradientDrawable = GradientDrawable()
+        gradientDrawable.setColor(normalBgColor())
+        gradientDrawable.setStroke(
+            2.toDp(selectView.context),normalBgColor())
+        selectView.background = gradientDrawable
+    }
+    private fun setViewSelectedStyle(selectView: View) {
+        val gradientDrawable = GradientDrawable()
+        gradientDrawable.setColor(normalBgColor())
+        gradientDrawable.setStroke(
+            2.toDp(selectView.context),selectedBgColor())
+        selectView.background = gradientDrawable
+    }
+    private fun normalBgColor(): Int{
+        return Color.parseColor("#F5FFFA")
+    }
+    private fun selectedBgColor():Int {
+        return Color.RED
     }
 
     private val stateChangedListener = object : ActivityStateListener {
@@ -91,58 +130,17 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback {
                     val action = state.currentAction as ViewOnClickAction
                     if (action.clickedView.parent === top_select_view) {
                         top_select_view.removeView(mCoverView)
-                        top_select_view.setBackgroundColor(presenter.selectedBgColor())
-                        presenter.setViewDefaultStyle(bottom_select_view)
-                        mCoverView = presenter.createCoverView(context!!,bottom_select_view)
-                        presenter.searchMode = SearchLocationPresenter.SearchMode.Map
+                        top_select_view.setBackgroundColor(selectedBgColor())
+                        setViewDefaultStyle(bottom_select_view)
+                        mCoverView = createCoverView(context!!,bottom_select_view)
+                        searchMode = SearchMode.Map
                     }
                     if (action.clickedView.parent === bottom_select_view) {
                         bottom_select_view.removeView(mCoverView)
-                        presenter.setViewSelectedStyle(bottom_select_view)
-                        top_select_view.setBackgroundColor(presenter.normalBgColor())
-                        mCoverView = presenter.createCoverView(context!!,top_select_view)
-                        presenter.searchMode = SearchLocationPresenter.SearchMode.Google
-                    }
-                }
-                is GeoCodeAddressAction -> {
-                    val action = state.currentAction as GeoCodeAddressAction
-                    when(action.status) {
-                        GeoActionStatus.Started -> {
-                            // To-Do remove annotation
-                            mMap.clear()
-                        }
-                        GeoActionStatus.Completed -> {
-                            val willCheckLoc = Location("Google")
-                            willCheckLoc.latitude = action.address?.latitude ?: 0.0
-                            willCheckLoc.longitude = action.address?.longitude ?: 0.0
-                            appStore.dispatch(reverseLocationAction(context!!,willCheckLoc))
-                        }
-                        else -> {}
-                    }
-                }
-                is ReverseLocationAction -> {
-                    val action = state.currentAction as ReverseLocationAction
-                    if (action.address != null) {
-                        appStore.dispatch(ParseAndQueryLocAction(true,action.address!!))
-                    }
-                }
-                is LocationsDynamicQueryAction -> {
-                    val action = state.currentAction as LocationsDynamicQueryAction
-                    when(action.status) {
-                        NetWorkStatus.SUCCESS -> {
-                            if (action.responseData?.size ?: 0 > 0) {
-                                print("parse to input")
-                            }
-                        }
-                        else -> {}
-                    }
-                }
-                is MarLocationOnMapAction -> {
-                    val action = state.currentAction as MarLocationOnMapAction
-                    if (action.status == GeoActionStatus.Completed) {
-                        for (marker in action.annotations) {
-                            mMap.addMarker(marker)
-                        }
+                        setViewSelectedStyle(bottom_select_view)
+                        top_select_view.setBackgroundColor(normalBgColor())
+                        mCoverView = createCoverView(context!!,top_select_view)
+                        searchMode = SearchMode.Google
                     }
                 }
             }

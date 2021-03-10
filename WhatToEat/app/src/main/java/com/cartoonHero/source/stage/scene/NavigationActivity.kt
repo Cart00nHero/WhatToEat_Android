@@ -2,9 +2,9 @@ package com.cartoonHero.source.stage.scene
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.cartoonHero.source.extensionTools.addFragment
-import com.cartoonHero.source.extensionTools.removeFragment
-import com.cartoonHero.source.extensionTools.replaceFragment
+import com.cartoonHero.source.dslMethods.addFragment
+import com.cartoonHero.source.dslMethods.removeFragment
+import com.cartoonHero.source.dslMethods.replaceFragment
 
 open class NavigationActivity : AppCompatActivity() {
 

@@ -5,23 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
 import com.cartoonHero.source.agent.ActivityStateListener
-import com.cartoonHero.source.enities.LRTemplate
-import com.cartoonHero.source.extensionTools.screenSizeInDp
 import com.cartoonHero.source.redux.states.ActivityState
-import com.cartoonHero.source.stage.scene.addGourmets.presenters.AddGourmetPresenter
-import com.cartoonHero.source.stage.scenery.specialEffects.bounceRecyclerView.BounceRecyclerAdapter
-import com.cartoonHero.source.stage.scenery.specialEffects.bounceRecyclerView.makeBounceEffect
-import com.cartoonHero.source.stage.scenery.specialEffects.rvItemDragDrop.ItemTouchHelperCallback
-import com.cartoonHero.source.stage.scenery.listItems.AddGourmetLRItem
 import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.R
 import kotlinx.android.synthetic.main.fragment_add_gourmet.*
 
 class AddGourmetFragment: Fragment() {
-
-    val presenter = AddGourmetPresenter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,11 +25,12 @@ class AddGourmetFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*
         val rvAdapter = RecyclerAdapter()
         agRecyclerView.adapter = rvAdapter
         agRecyclerView.edgeEffectFactory = makeBounceEffect(requireContext())
         val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(rvAdapter))
-        itemTouchHelper.attachToRecyclerView(agRecyclerView)
+        itemTouchHelper.attachToRecyclerView(agRecyclerView)*/
     }
 
     override fun onStart() {
@@ -55,6 +46,7 @@ class AddGourmetFragment: Fragment() {
         super.onPause()
         (activity as MainActivity).removeStateListener(stateChangedListener)
     }
+    /*
     private inner class RecyclerAdapter: BounceRecyclerAdapter() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             addViewHolderListener(vhListener)
@@ -93,7 +85,7 @@ class AddGourmetFragment: Fragment() {
                 }
             }
         }
-    }
+    }*/
 
     private val stateChangedListener = object : ActivityStateListener {
         override fun onNewState(state: ActivityState) {

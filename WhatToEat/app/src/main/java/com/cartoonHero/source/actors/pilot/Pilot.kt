@@ -23,12 +23,13 @@ class Pilot constructor(context: Context) : Actor() {
             beCheckPermission(sender,activity, complete)
         }
     }
-    fun toBeRequestCurrentLocation(
-        sender: Actor,
+    fun toBeRequestLocationUpdates(
+        sender: Actor,minTime: Long,minDistance: Float,
         complete: (enable:Boolean,location:Location?) -> Unit) {
         send {
-            beRequestCurrentLocation(sender,complete)
+            beRequestLocationUpdates(sender,minTime,minDistance,complete)
         }
+
     }
 
     // behaviors
@@ -46,7 +47,8 @@ class Pilot constructor(context: Context) : Actor() {
         }
     }
 
-    private fun beRequestCurrentLocation(sender: Actor,
+    private fun beRequestLocationUpdates(
+        sender: Actor,minTime: Long,minDistance: Float,
         complete: (enable:Boolean,location:Location?) -> Unit) {
         if (!checkPermission()) {
             sender.send {
@@ -60,7 +62,7 @@ class Pilot constructor(context: Context) : Actor() {
             when {
                 gps -> {
                     locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,0L,0.0f
+                        LocationManager.GPS_PROVIDER,minTime,minDistance
                     ) {
                         send {
                             complete(true,it)
@@ -69,7 +71,7 @@ class Pilot constructor(context: Context) : Actor() {
                 }
                 network -> {
                     locationManager.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER,0L,0.0f) {
+                        LocationManager.NETWORK_PROVIDER,minTime,minDistance) {
                         send {
                             complete(true,it)
                         }

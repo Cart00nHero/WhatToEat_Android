@@ -3,6 +3,7 @@ package com.cartoonHero.source.redux.actions
 import LocationsDynamicQuery
 import SearchForRangeQuery
 import com.apollographql.apollo.api.Input
+import com.apollographql.apollo.api.toJson
 import com.apollographql.apollo.coroutines.await
 import com.cartoonHero.source.actors.network.apolloClient
 import com.cartoonHero.source.redux.appStore

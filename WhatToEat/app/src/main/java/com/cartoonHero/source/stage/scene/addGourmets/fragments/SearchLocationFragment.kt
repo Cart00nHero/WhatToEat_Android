@@ -17,15 +17,20 @@ import com.cartoonHero.source.dslMethods.toDp
 import com.cartoonHero.source.redux.actions.*
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
+import com.cartoonHero.source.stage.scene.addGourmets.scenarios.SearchLocationScenario
 import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.R
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.Marker
 import kotlinx.android.synthetic.main.fragment_search_location.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
-class SearchLocationFragment: Fragment(), OnMapReadyCallback {
+@ExperimentalCoroutinesApi
+@ObsoleteCoroutinesApi
+class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
+    private lateinit var scenario: SearchLocationScenario
     private lateinit var mMap: GoogleMap
     private lateinit var mCoverView: View
     private enum class SearchMode {
@@ -33,6 +38,11 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback {
     }
     private var searchMode: SearchMode = SearchMode.Map
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        scenario = SearchLocationScenario(
+            requireContext(),requireActivity())
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,20 +53,16 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback {
             R.layout.fragment_search_location, container,
             false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mCoverView =
             createCoverView(requireContext(),bottom_select_view)
         initFragmentView()
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        scenario.toBeCheckGPSPermission {
+            if (it) {
+                scenario.toBeRequestCurrentLocation()
+            }
+        }
     }
 
     override fun onResume() {
@@ -71,18 +77,41 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback {
             .removeStateListener(stateChangedListener)
     }
 
+    override fun onStop() {
+        super.onStop()
+        scenario.toBeCancelFoundLocParcel()
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+    }
+    override fun onMarkerClick(marker: Marker?): Boolean {
+        scenario.toBePrepareGoFoundLocScenario {
+            if (it) {
+                TODO("Found")
+            } else {
+                TODO("Add")
+            }
+        }
+        return true
+    }
+
     private fun initFragmentView() {
         top_select_view.setBackgroundColor(selectedBgColor())
         bottom_select_view.setBackgroundColor(normalBgColor())
         search_bar_button.setOnClickListener {
             when(searchMode) {
                 SearchMode.Map -> {
+                    scenario.toBeInquireIntoAddressesLocation(
+                        search_editText.text.toString())
                 }
                 SearchMode.Google -> {
-                    google_search_webView.visibility = View.VISIBLE
-                    val webViewClient = WebViewClient()
-                    google_search_webView.webViewClient = webViewClient
-                    google_search_webView.loadUrl("")
+                    scenario.toBeGoogleSearchUrl(search_editText.text.toString()) {
+                        google_search_webView.visibility = View.VISIBLE
+                        val webViewClient = WebViewClient()
+                        google_search_webView.webViewClient = webViewClient
+                        google_search_webView.loadUrl(it)
+                    }
                 }
             }
         }
@@ -142,6 +171,32 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback {
                         mCoverView = createCoverView(context!!,top_select_view)
                         searchMode = SearchMode.Google
                     }
+                }
+                is LocationsDynamicQueryAction -> {
+                    val action = state.currentAction as LocationsDynamicQueryAction
+                    when(action.status) {
+                        NetWorkStatus.SUCCESS -> {
+                            if (action.responseData?.size ?: 0 > 0) {
+                                scenario.toBeGetQueryDataMarker(action.responseData!!) {
+                                    appStore.dispatch(MapClearAndShowMarkersAction(it))
+                                }
+                            } else {
+                                scenario.toBeGetFoundPlacesMarkers {
+                                    appStore.dispatch(MapClearAndShowMarkersAction(it))
+                                }
+                            }
+                        }
+                        else -> {}
+                    }
+                }
+                is MapClearAndShowMarkersAction -> {
+                    val action = state.currentAction as MapClearAndShowMarkersAction
+                    mMap.clear()
+                    for (marker in action.markers) {
+                        mMap.addMarker(marker)
+                    }
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(
+                        action.markers.first().position))
                 }
             }
         }

@@ -4,30 +4,45 @@ import android.app.Activity
 import android.content.Context
 import android.location.Location
 import android.location.LocationManager
+import com.cartoonHero.source.actors.dataManger.DataManager
+import com.cartoonHero.source.actors.express.LogisticsCenter
 import com.cartoonHero.source.actors.pilot.GeoCoder
 import com.cartoonHero.source.actors.pilot.Pilot
+import com.cartoonHero.source.dslMethods.isoNationCodeToLocale
+import com.cartoonHero.source.enities.Parcel
+import com.cartoonHero.source.enities.initGQInputObject
+import com.cartoonHero.source.redux.actions.FoundLocationsAddressAction
 import com.cartoonHero.source.redux.actions.MapRemoveAllAnnotationsAction
+import com.cartoonHero.source.redux.actions.locationsDynamicQueryAction
 import com.cartoonHero.source.redux.appStore
 import com.cartoonhero.source.actormodel.Actor
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.*
 import java.util.*
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-
-class SearchLocationScenario
-constructor(context: Context,activity: Activity): Actor() {
+class SearchLocationScenario constructor(
+    context: Context,activity: Activity): Actor() {
     private val mContext = context
     private val mActivity = activity
+    private var queryDataParcel: Parcel? = null
+    private var markedGQInput = initGQInputObject()
 
+    fun toBeGoogleSearchUrl(queryText: String, complete: (String) -> Unit) {
+        send {
+            beGoogleSearchUrl(queryText, complete)
+        }
+    }
     fun toBeCheckGPSPermission(complete: (Boolean) -> Unit) {
         send {
             beCheckGPSPermission(complete)
         }
     }
-    fun toBeRequestCurrentLocation(complete: (Location) -> Unit) {
+    fun toBeRequestCurrentLocation() {
         send {
-            beRequestCurrentLocation(complete)
+            beRequestCurrentLocation()
         }
     }
     fun toBeInquireIntoAddressesLocation(addressText: String) {
@@ -35,9 +50,33 @@ constructor(context: Context,activity: Activity): Actor() {
             beInquireIntoAddressesLocation(addressText)
         }
     }
-    fun toBeInquireIntoLocationsAddress(location: Location,locale: Locale){
+    fun toBeInquireIntoLocationAddress(
+        location: Location,locale: Locale) {
         send {
-            beInquireIntoLocationsAddress(location, locale)
+            beInquireIntoLocationAddress(location, locale)
+        }
+    }
+    fun toBeGetQueryDataMarker(
+        queryData: List<LocationsDynamicQuery.LocationsDynamicQuery?>,
+        complete: (List<MarkerOptions>) -> Unit) {
+        send {
+            beGetQueryDataMarker(queryData, complete)
+        }
+    }
+    fun toBeGetFoundPlacesMarkers(
+        complete: (List<MarkerOptions>) -> Unit) {
+        send {
+            beGetFoundPlacesMarkers(complete)
+        }
+    }
+    fun toBePrepareGoFoundLocScenario(complete: (Boolean) -> Unit) {
+        send {
+            bePrepareGoFoundLocScenario(complete)
+        }
+    }
+    fun toBeCancelFoundLocParcel() {
+        send {
+            beCancelFoundLocParcel()
         }
     }
 
@@ -56,14 +95,12 @@ constructor(context: Context,activity: Activity): Actor() {
         }
     }
 
-    private fun beRequestCurrentLocation(complete: (Location) -> Unit) {
+    private fun beRequestCurrentLocation() {
         Pilot(mContext).toBeRequestLocationUpdates(
             this,0L,0.0F) {
             enable: Boolean, location: Location? ->
             if (enable && location != null) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    complete(location)
-                }
+                beInquireIntoLocationAddress(location, Locale.ROOT)
             }
         }
     }
@@ -72,15 +109,86 @@ constructor(context: Context,activity: Activity): Actor() {
             val location = Location(LocationManager.GPS_PROVIDER)
             location.latitude = it.latitude
             location.longitude = it.longitude
-            beInquireIntoLocationsAddress(location,it.locale)
+            beInquireIntoLocationAddress(location,it.locale)
             CoroutineScope(Dispatchers.Main).launch {
                 appStore.dispatch(MapRemoveAllAnnotationsAction())
+                send {
+                    beInquireIntoLocationAddress(location,
+                        isoNationCodeToLocale(it.countryCode))
+                }
             }
         }
     }
-    private fun beInquireIntoLocationsAddress(location: Location,locale: Locale) {
-        GeoCoder(mContext).toBeGetFromLocation(this,location,locale) {
-
+    private fun beInquireIntoLocationAddress(location: Location,locale: Locale) {
+        GeoCoder(mContext).toBeGetFromLocation(
+            this,location,locale) {
+            DataManager().toBeConvertAddressesToInputAddresses(
+                this, listOf(it)) { result ->
+                if (result.isNotEmpty()) {
+                    val inputObj = initGQInputObject()
+                    inputObj.address = result.first()
+                    markedGQInput = inputObj
+                    CoroutineScope(Dispatchers.Main).launch {
+                        appStore.dispatch(FoundLocationsAddressAction(
+                            markedGQInput
+                        ))
+                    }
+                }
+            }
+            DataManager().toBeConvertAddressToAddressDqCmd(this,it) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    appStore.dispatch(
+                        locationsDynamicQueryAction(null,it)
+                    )
+                }
+            }
+        }
+    }
+    private fun beGetQueryDataMarker(
+        queryData: List<LocationsDynamicQuery.LocationsDynamicQuery?>,
+        complete: (List<MarkerOptions>) -> Unit) {
+        DataManager().toBeConvertLocDQDataToGQInputObjects(this,queryData) {
+            queryDataParcel = LogisticsCenter.applyExpressService(
+                this,"FoundLocScenario",it)
+            val data = it.first()
+            val latitude = data.address.latitude as Double
+            val longitude = data.address.longitude as Double
+            val position = LatLng(latitude,longitude)
+            val marker = MarkerOptions()
+            marker.position(position)
+            CoroutineScope(Dispatchers.Main).launch {
+                complete(listOf(marker))
+            }
+        }
+    }
+    private fun beGetFoundPlacesMarkers(complete: (List<MarkerOptions>) -> Unit) {
+        val latitude = markedGQInput.address.latitude as Double
+        val longitude = markedGQInput.address.longitude as Double
+        val position = LatLng(latitude,longitude)
+        val marker = MarkerOptions()
+        marker.position(position)
+        CoroutineScope(Dispatchers.Main).launch {
+            complete(listOf(marker))
+        }
+    }
+    private fun bePrepareGoFoundLocScenario(complete: (Boolean) -> Unit) {
+        var isPrepared = false
+        if (queryDataParcel != null) {
+            queryDataParcel = null
+            isPrepared = true
+        } else {
+            LogisticsCenter
+                .applyExpressService(this,"AddGourmetScenario",markedGQInput)
+        }
+        CoroutineScope(Dispatchers.Main).launch {
+            complete(isPrepared)
+        }
+    }
+    private fun beCancelFoundLocParcel() {
+        if (queryDataParcel != null) {
+            LogisticsCenter.cancelService(
+                "FoundLocScenario", queryDataParcel!!)
+            queryDataParcel = null
         }
     }
 }

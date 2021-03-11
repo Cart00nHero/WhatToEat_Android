@@ -44,15 +44,10 @@ mutation CreateGourmet(
       subAdministrativeArea
       thoroughfare
       subThoroughfare
-      premise
-      subpremise
       floor
-      zone
       room
-      place
       latitude
       longitude
-      annotation
     }
   }
 }
@@ -84,15 +79,10 @@ mutation UpdateGourmet($foodieId: String!,$branchId: String!,$branch: InputBranc
       subAdministrativeArea
       thoroughfare
       subThoroughfare
-      premise
-      subpremise
       floor
-      zone
       room
-      place
       latitude
       longitude
-      annotation
     }
   }
 }
@@ -124,15 +114,10 @@ mutation DislikeGourmet($foodieId: String!,$branchId: String!){
       subAdministrativeArea
       thoroughfare
       subThoroughfare
-      premise
-      subpremise
       floor
-      zone
       room
-      place
       latitude
       longitude
-      annotation
     }
   }
 }
@@ -151,15 +136,10 @@ query LocationsDynamicQuery($foodieId: String,$whereAnd: AddressDqCmd!) {
     subAdministrativeArea
     thoroughfare
     subThoroughfare
-    premise
-    subpremise
     floor
-    zone
     room
-    place
     latitude
     longitude
-    annotation
     shopBranch{
       uniqueId
       orderId
@@ -191,15 +171,10 @@ query SearchForRange($foodieId: String,$minCoordinate: InputCoordinate!,$maxCoor
     subAdministrativeArea
     thoroughfare
     subThoroughfare
-    premise
-    subpremise
     floor
-    zone
     room
-    place
     latitude
     longitude
-    annotation
     shopBranch{
       uniqueId
       orderId

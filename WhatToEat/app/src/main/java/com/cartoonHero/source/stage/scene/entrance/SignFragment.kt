@@ -1,13 +1,11 @@
 package com.cartoonHero.source.stage.scene.entrance
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cartoonHero.source.agent.ActivityStateListener
-import com.cartoonHero.source.dslMethods.convertModelToJson
 import com.cartoonHero.source.redux.actions.NetWorkStatus
 import com.cartoonHero.source.redux.actions.SceneGoForwardAction
 import com.cartoonHero.source.redux.actions.SignFoodieAction
@@ -19,7 +17,6 @@ import com.cartoonHero.source.whatToEat.R
 import kotlinx.android.synthetic.main.fragment_sign.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import type.InputShop
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -32,11 +29,6 @@ class SignFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bbb = InputShop(
-            title = "",
-            underPrice = 0.0
-        )
-        Log.d("AAAAAa",convertModelToJson(bbb))
         fb_sign_button.setOnClickListener { _ ->
             sss.sendTestMessage()
         }

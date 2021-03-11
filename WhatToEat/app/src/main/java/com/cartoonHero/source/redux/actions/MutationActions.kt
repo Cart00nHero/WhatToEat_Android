@@ -6,9 +6,9 @@ import SignFoodieMutation
 import UpdateGourmetMutation
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
+import com.apollographql.apollo.api.toInput
 import com.apollographql.apollo.exception.ApolloException
-import com.cartoonHero.source.enities.GQCreateObject
-import com.cartoonHero.source.enities.GQUpdateObject
+import com.cartoonHero.source.enities.GQInputObject
 import com.cartoonHero.source.actors.network.apolloClient
 import com.cartoonHero.source.redux.appStore
 import org.rekotlin.Action
@@ -44,7 +44,7 @@ class CreateGourmetAction: Action {
     var status: NetWorkStatus = NetWorkStatus.STARTED
     var responseData: CreateGourmetMutation.CreateGourmet? = null
 }
-fun createGourmetAction(foodieId: String,inputObj: GQCreateObject): CreateGourmetAction {
+fun createGourmetAction(foodieId: String,inputObj: GQInputObject): CreateGourmetAction {
     val action = CreateGourmetAction()
     val mutation = CreateGourmetMutation(
         foodieId = foodieId,
@@ -73,14 +73,14 @@ class UpdateGourmetAction: Action {
     var responseData:
             UpdateGourmetMutation.UpdateGourmet? = null
 }
-fun updateGourmetAction(foodieId: String,inputObj: GQUpdateObject): UpdateGourmetAction {
+fun updateGourmetAction(foodieId: String,inputObj: GQInputObject): UpdateGourmetAction {
     val action = UpdateGourmetAction()
     val mutation = UpdateGourmetMutation(
         foodieId = foodieId,
         branchId = inputObj.branchId,
-        address = inputObj.address,
+        address = inputObj.address.toInput(),
         branch = inputObj.shopBranch,
-        shop = inputObj.shop
+        shop = inputObj.shop.toInput()
     )
     apolloClient.mutate(mutation).enqueue(
         object : ApolloCall.Callback<UpdateGourmetMutation.Data>(){

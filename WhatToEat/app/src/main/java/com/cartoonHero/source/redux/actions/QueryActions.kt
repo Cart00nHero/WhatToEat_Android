@@ -3,7 +3,6 @@ package com.cartoonHero.source.redux.actions
 import LocationsDynamicQuery
 import SearchForRangeQuery
 import com.apollographql.apollo.api.Input
-import com.apollographql.apollo.api.toJson
 import com.apollographql.apollo.coroutines.await
 import com.cartoonHero.source.actors.network.apolloClient
 import com.cartoonHero.source.redux.appStore
@@ -21,11 +20,18 @@ class LocationsDynamicQueryAction : Action {
             List<LocationsDynamicQuery.LocationsDynamicQuery?>? = null
 }
 
-fun locationsDynamicQueryAction(whereCMD: AddressDqCmd): LocationsDynamicQueryAction {
+fun locationsDynamicQueryAction(
+    foodieId: String?,whereCMD: AddressDqCmd): LocationsDynamicQueryAction {
     val action = LocationsDynamicQueryAction()
     CoroutineScope(Dispatchers.IO).launch {
+        val query: LocationsDynamicQuery = if (foodieId != null) {
+            LocationsDynamicQuery(
+                foodieId = Input.optional(foodieId),whereAnd = whereCMD)
+        } else {
+            LocationsDynamicQuery(whereAnd = whereCMD)
+        }
         val response =
-            apolloClient.query(LocationsDynamicQuery(whereAnd = whereCMD)).await()
+            apolloClient.query(query).await()
         withContext(Dispatchers.Main) {
             when {
                 response.hasErrors() -> {

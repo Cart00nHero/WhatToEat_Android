@@ -1,7 +1,7 @@
 package com.cartoonHero.source.stage.scene.addGourmets.scenarios
 
-import com.cartoonHero.source.actorModel.Actor
 import com.cartoonHero.source.actors.express.LogisticsCenter
+import com.cartoonhero.source.actormodel.Actor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 

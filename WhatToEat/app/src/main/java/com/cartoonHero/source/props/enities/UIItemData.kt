@@ -1,4 +1,4 @@
-package com.cartoonHero.source.enities
+package com.cartoonHero.source.props.enities
 
 import android.graphics.Color
 import android.view.View

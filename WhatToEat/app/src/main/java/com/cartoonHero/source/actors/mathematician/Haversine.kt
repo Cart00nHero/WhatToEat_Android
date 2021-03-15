@@ -2,7 +2,7 @@ package com.cartoonHero.source.actors.mathematician
 
 import android.location.Location
 import com.apollographql.apollo.api.Input
-import com.cartoonHero.source.enities.GQSearchRange
+import com.cartoonHero.source.props.enities.GQSearchRange
 import type.InputCoordinate
 import kotlin.math.PI
 import kotlin.math.asin

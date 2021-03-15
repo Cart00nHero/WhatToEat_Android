@@ -1,4 +1,4 @@
-package com.cartoonHero.source.dslMethods
+package com.cartoonHero.source.props
 
 import android.content.SharedPreferences
 

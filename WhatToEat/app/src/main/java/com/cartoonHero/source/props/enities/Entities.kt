@@ -1,4 +1,4 @@
-package com.cartoonHero.source.enities
+package com.cartoonHero.source.props.enities
 
 data class Parcel(
     val contentType: String,

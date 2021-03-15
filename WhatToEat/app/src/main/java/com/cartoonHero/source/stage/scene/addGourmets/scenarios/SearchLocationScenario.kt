@@ -8,9 +8,9 @@ import com.cartoonHero.source.actors.dataManger.DataManager
 import com.cartoonHero.source.actors.express.LogisticsCenter
 import com.cartoonHero.source.actors.pilot.GeoCoder
 import com.cartoonHero.source.actors.pilot.Pilot
-import com.cartoonHero.source.dslMethods.isoNationCodeToLocale
-import com.cartoonHero.source.enities.Parcel
-import com.cartoonHero.source.enities.initGQInputObject
+import com.cartoonHero.source.props.isoNationCodeToLocale
+import com.cartoonHero.source.props.enities.Parcel
+import com.cartoonHero.source.props.enities.initGQInputObject
 import com.cartoonHero.source.redux.actions.FoundLocationsAddressAction
 import com.cartoonHero.source.redux.actions.MapRemoveAllAnnotationsAction
 import com.cartoonHero.source.redux.actions.locationsDynamicQueryAction

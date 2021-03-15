@@ -1,4 +1,4 @@
-package com.cartoonHero.source.actors.network
+package com.cartoonHero.source.network
 
 import com.apollographql.apollo.ApolloClient
 

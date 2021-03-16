@@ -7,11 +7,12 @@ import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.helper.ItemTouchHelperAdapter
 
-open class BounceRecyclerAdapter :
-    RecyclerView.Adapter<BounceRecyclerAdapter.ViewHolder>(), ItemTouchHelperAdapter {
+abstract class BounceRecyclerAdapter :
+    RecyclerView.Adapter<BounceRecyclerAdapter.BounceViewHolder>(),
+    ItemTouchHelperAdapter {
 
     interface ViewHolderListener {
-        fun onBindViewHolder(itemView: View, position: Int)
+        fun onHolderBound(itemView: View, position: Int)
     }
     private var mListener: ViewHolderListener? = null
 
@@ -20,16 +21,8 @@ open class BounceRecyclerAdapter :
             mListener = listener
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
-    }
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        mListener?.let { holder.bindViewHolderListener(it,position) }
-    }
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    abstract class BounceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val springAnimY: SpringAnimation = SpringAnimation(itemView, SpringAnimation.TRANSLATION_Y)
             .setSpring(SpringForce().apply {
                 finalPosition = 0f
@@ -37,15 +30,7 @@ open class BounceRecyclerAdapter :
                 stiffness = SpringForce.STIFFNESS_VERY_LOW
             })
         fun bindViewHolderListener(listener: ViewHolderListener,position: Int) {
-            listener.onBindViewHolder(itemView,position)
+            listener.onHolderBound(itemView,position)
         }
-    }
-
-    override fun onMoveItem(from: Int, to: Int) {
-        notifyItemMoved(from, to)
-    }
-
-    override fun onRemoveItem(from: Int) {
-        TODO("Not yet implemented")
     }
 }

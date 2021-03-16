@@ -7,12 +7,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cartoonHero.source.agent.ActivityStateListener
 import com.cartoonHero.source.redux.states.ActivityState
+import com.cartoonHero.source.stage.scene.addGourmets.scenarios.AddGourmetScenario
+import com.cartoonHero.source.stage.scenery.specialEffects.bounceRecyclerView.BounceRecyclerAdapter
+import com.cartoonHero.source.stage.scenery.specialEffects.bounceRecyclerView.makeBounceEffect
 import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.R
 import kotlinx.android.synthetic.main.fragment_add_gourmet.*
+import kotlinx.coroutines.*
 
+@ObsoleteCoroutinesApi
+@ExperimentalCoroutinesApi
 class AddGourmetFragment: Fragment() {
+    private val scenario: AddGourmetScenario = AddGourmetScenario()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        scenario.toBeCollectGQInputParcel()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,12 +36,13 @@ class AddGourmetFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*
-        val rvAdapter = RecyclerAdapter()
-        agRecyclerView.adapter = rvAdapter
-        agRecyclerView.edgeEffectFactory = makeBounceEffect(requireContext())
-        val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(rvAdapter))
-        itemTouchHelper.attachToRecyclerView(agRecyclerView)*/
+        scenario.toBeGetInputData {
+            CoroutineScope(Dispatchers.Main).launch {
+                val rvAdapter = RecyclerAdapter()
+                agRecyclerView.adapter = rvAdapter
+                agRecyclerView.edgeEffectFactory = makeBounceEffect(requireContext())
+            }
+        }
     }
 
     override fun onStart() {
@@ -46,49 +58,37 @@ class AddGourmetFragment: Fragment() {
         super.onPause()
         (activity as MainActivity).removeStateListener(stateChangedListener)
     }
-    /*
-    private inner class RecyclerAdapter: BounceRecyclerAdapter() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            addViewHolderListener(vhListener)
-            val itemData = presenter.listData.dataSource[viewType]
-            val itemView =
-                when(itemData.templateStyle) {
-                    else -> LayoutInflater.from(parent.context).inflate(
-                        R.layout.view_addgourmet_lr_item, parent, false)
-                }
-            return ViewHolder(itemView)
-        }
-
-        override fun getItemCount(): Int {
-            return presenter.listData.dataSource.size
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            super.onBindViewHolder(holder, position)
-            holder.itemView.tag = position
-        }
-        private val vhListener = object : ViewHolderListener {
-            override fun onBindViewHolder(itemView: View, position: Int) {
-                var screenWidth = 0
-                activity?.screenSizeInDp?.apply {
-                    screenWidth = x
-                }
-                val data =
-                    presenter.listData.dataSource[position]
-                when(data.templateStyle) {
-                    else -> {
-                        itemView.layoutParams.height = screenWidth * 200/375
-                        (data as LRTemplate).leftLayoutWidth = screenWidth/2
-                        (itemView as AddGourmetLRItem).template = data
-                        itemView.initializeLayout()
-                    }
-                }
-            }
-        }
-    }*/
 
     private val stateChangedListener = object : ActivityStateListener {
         override fun onNewState(state: ActivityState) {
+        }
+    }
+
+    private inner class RecyclerAdapter: BounceRecyclerAdapter() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BounceViewHolder {
+            TODO("Not yet implemented")
+        }
+
+        override fun onBindViewHolder(holder: BounceViewHolder, position: Int) {
+            addViewHolderListener(vhListener)
+        }
+
+        override fun getItemCount(): Int {
+            TODO("Not yet implemented")
+        }
+
+        override fun onMoveItem(from: Int, to: Int) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onRemoveItem(from: Int) {
+            TODO("Not yet implemented")
+        }
+        private val vhListener = object : ViewHolderListener {
+            override fun onHolderBound(itemView: View, position: Int) {
+                TODO("Not yet implemented")
+            }
+
         }
     }
 }

@@ -5,3 +5,7 @@ data class Parcel(
     var sender: String = "",
     var content: Any
 )
+
+class AddGourmetsListData {
+
+}

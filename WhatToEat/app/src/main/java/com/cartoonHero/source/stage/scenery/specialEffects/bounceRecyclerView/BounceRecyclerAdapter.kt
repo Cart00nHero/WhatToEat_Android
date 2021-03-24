@@ -1,7 +1,6 @@
 package com.cartoonHero.source.stage.scenery.specialEffects.bounceRecyclerView
 
 import android.view.View
-import android.view.ViewGroup
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView

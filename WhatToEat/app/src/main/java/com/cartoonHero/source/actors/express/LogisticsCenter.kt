@@ -1,6 +1,6 @@
 package com.cartoonHero.source.actors.express
 
-import com.cartoonHero.source.enities.Parcel
+import com.cartoonHero.source.props.enities.Parcel
 import com.cartoonhero.source.actormodel.Actor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi

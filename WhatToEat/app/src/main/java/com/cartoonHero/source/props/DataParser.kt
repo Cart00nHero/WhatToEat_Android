@@ -1,4 +1,4 @@
-package com.cartoonHero.source.dslMethods
+package com.cartoonHero.source.props
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi

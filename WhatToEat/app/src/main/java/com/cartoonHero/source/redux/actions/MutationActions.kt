@@ -8,8 +8,8 @@ import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.api.toInput
 import com.apollographql.apollo.exception.ApolloException
-import com.cartoonHero.source.enities.GQInputObject
-import com.cartoonHero.source.actors.network.apolloClient
+import com.cartoonHero.source.props.enities.GQInputObject
+import com.cartoonHero.source.network.apolloClient
 import com.cartoonHero.source.redux.appStore
 import org.rekotlin.Action
 import type.SignData

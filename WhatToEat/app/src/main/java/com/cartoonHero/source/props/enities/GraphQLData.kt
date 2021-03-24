@@ -1,6 +1,5 @@
-package com.cartoonHero.source.enities
+package com.cartoonHero.source.props.enities
 
-import com.apollographql.apollo.api.Input
 import type.InputAddress
 import type.InputBranch
 import type.InputCoordinate

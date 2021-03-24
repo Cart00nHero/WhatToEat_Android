@@ -4,10 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.cartoonHero.source.enities.FragmentContainerTemplate
-import com.cartoonHero.source.dslMethods.findFragment
-import com.cartoonHero.source.dslMethods.removeFragment
-import com.cartoonHero.source.dslMethods.replaceFragment
+import com.cartoonHero.source.props.enities.FragmentContainerTemplate
+import com.cartoonHero.source.props.findFragment
+import com.cartoonHero.source.props.removeFragment
+import com.cartoonHero.source.props.replaceFragment
 import com.cartoonHero.source.whatToEat.R
 import kotlinx.android.synthetic.main.layout_fragment_container.view.*
 

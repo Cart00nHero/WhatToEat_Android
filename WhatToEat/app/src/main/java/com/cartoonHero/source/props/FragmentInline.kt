@@ -1,4 +1,4 @@
-package com.cartoonHero.source.dslMethods
+package com.cartoonHero.source.props
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

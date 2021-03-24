@@ -8,8 +8,8 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import com.cartoonHero.source.enities.LRTemplate
-import com.cartoonHero.source.dslMethods.toDp
+import com.cartoonHero.source.props.enities.LRTemplate
+import com.cartoonHero.source.props.toDp
 import com.cartoonHero.source.actors.toolMan.match
 import com.cartoonHero.source.whatToEat.R
 import kotlinx.android.synthetic.main.layout_lr_item.view.*

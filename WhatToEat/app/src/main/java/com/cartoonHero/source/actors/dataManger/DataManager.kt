@@ -2,14 +2,14 @@ package com.cartoonHero.source.actors.dataManger
 
 import android.location.Address
 import com.apollographql.apollo.api.Input
-import com.cartoonHero.source.dslMethods.convertAnyToJson
-import com.cartoonHero.source.dslMethods.toAny
-import com.cartoonHero.source.dslMethods.toJson
-import com.cartoonHero.source.dslMethods.toMap
-import com.cartoonHero.source.enities.GQInputObject
-import com.cartoonHero.source.enities.initInputAddress
-import com.cartoonHero.source.enities.initInputBranch
-import com.cartoonHero.source.enities.initInputShop
+import com.cartoonHero.source.props.convertAnyToJson
+import com.cartoonHero.source.props.toAny
+import com.cartoonHero.source.props.toJson
+import com.cartoonHero.source.props.toMap
+import com.cartoonHero.source.props.enities.GQInputObject
+import com.cartoonHero.source.props.enities.initInputAddress
+import com.cartoonHero.source.props.enities.initInputBranch
+import com.cartoonHero.source.props.enities.initInputShop
 import com.cartoonhero.source.actormodel.Actor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi

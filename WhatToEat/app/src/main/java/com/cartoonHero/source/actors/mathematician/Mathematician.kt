@@ -1,7 +1,7 @@
 package com.cartoonHero.source.actors.mathematician
 
 import android.location.Location
-import com.cartoonHero.source.enities.GQSearchRange
+import com.cartoonHero.source.props.enities.GQSearchRange
 import com.cartoonhero.source.actormodel.Actor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi

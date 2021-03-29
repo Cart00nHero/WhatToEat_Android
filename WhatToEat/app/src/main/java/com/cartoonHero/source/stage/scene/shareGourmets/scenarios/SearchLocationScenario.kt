@@ -1,4 +1,4 @@
-package com.cartoonHero.source.stage.scene.addGourmets.scenarios
+package com.cartoonHero.source.stage.scene.shareGourmets.scenarios
 
 import android.app.Activity
 import android.content.Context
@@ -94,7 +94,6 @@ class SearchLocationScenario constructor(
             }
         }
     }
-
     private fun beRequestCurrentLocation() {
         Pilot(mContext).toBeRequestLocationUpdates(
             this,0L,0.0F) {

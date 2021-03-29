@@ -4,32 +4,43 @@ mutation SignFoodie($signData: SignData!) {
     email
     name
     gender
-    token {
-      type
-      token
+    auth{
+      facebook{
+        email
+        token
+      }
+    }
+  }
+}
+mutation SignFoodieWithApple($signData: SignData!) {
+  signFoodieWithApple(signData: $signData) {
+    uniqueId
+    email
+    name
+    gender
+    auth{
+      apple{
+        uid
+        email
+      }
     }
   }
 }
 
 mutation CreateGourmet(
-  $foodieId: String!,
+  $foodieId: String,
   $address: InputAddress!,
-  $shopBranch:InputBranch!,
-  $shop:InputShop!
+  $shopBranch:InputBranch!
 ) {
-  createGourmet(foodieId:$foodieId,address:$address,shopBranch: $shopBranch,shop:$shop) {
+  createGourmet(foodieId:$foodieId,address:$address,shopBranch: $shopBranch) {
     uniqueId
     orderId
-    name
+    title
+    subtitle
     tel
-    shop{
-      uniqueId
-      title
-      style
-      type
-      underPrice
-      status
-    }
+    style
+    type
+    underPrice
     address{
       ownerId
       completeInfo
@@ -51,20 +62,16 @@ mutation CreateGourmet(
     }
   }
 }
-mutation UpdateGourmet($foodieId: String!,$branchId: String!,$branch: InputBranch!,$shop: InputShop,$address: InputAddress){
-  updateGourmet(foodieId:$foodieId,branchId: $branchId,branch: $branch,shop :$shop, address: $address){
+mutation UpdateGourmet($foodieId: String,$branchId: String!,$branch: InputBranch!,$address: InputAddress){
+  updateGourmet(foodieId:$foodieId,branchId: $branchId,branch: $branch,address: $address){
     uniqueId
     orderId
-    name
+    title
+    subtitle
     tel
-    shop{
-      uniqueId
-      title
-      style
-      type
-      underPrice
-      status
-    }
+    style
+    type
+    underPrice
     address{
       ownerId
       completeInfo
@@ -90,14 +97,15 @@ mutation DislikeGourmet($foodieId: String!,$branchId: String!){
   dislikeGourmet(foodieId:$foodieId,branchId:$branchId){
     uniqueId
     orderId
-    name
+    title
+    subtitle
     tel
+    style
+    type
+    underPrice
     shop{
       uniqueId
-      title
-      style
-      type
-      underPrice
+      name
       status
     }
     address{
@@ -143,14 +151,15 @@ query LocationsDynamicQuery($foodieId: String,$whereAnd: AddressDqCmd!) {
     shopBranch{
       uniqueId
       orderId
-      name
+      title
+      subtitle
       tel
+      style
+      type
+      underPrice
       shop{
         uniqueId
-        title
-        style
-        type
-        underPrice
+        name
         status
       }
     }
@@ -178,14 +187,15 @@ query SearchForRange($foodieId: String,$minCoordinate: InputCoordinate!,$maxCoor
     shopBranch{
       uniqueId
       orderId
-      name
+      title
+      subtitle
       tel
+      style
+      type
+      underPrice
       shop{
         uniqueId
-        title
-        style
-        type
-        underPrice
+        name
         status
       }
     }

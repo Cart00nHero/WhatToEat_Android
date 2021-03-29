@@ -9,14 +9,12 @@ import com.cartoonHero.source.props.toMap
 import com.cartoonHero.source.props.enities.GQInputObject
 import com.cartoonHero.source.props.enities.initInputAddress
 import com.cartoonHero.source.props.enities.initInputBranch
-import com.cartoonHero.source.props.enities.initInputShop
 import com.cartoonhero.source.actormodel.Actor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import type.AddressDqCmd
 import type.InputAddress
 import type.InputBranch
-import type.InputShop
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
@@ -99,8 +97,6 @@ class DataManager: Actor() {
         if (queryData.isNotEmpty()) {
             val result = mutableListOf<GQInputObject>()
             for (data in queryData) {
-                val shopJson = convertAnyToJson(data?.shopBranch?.shop)
-                val inputShop = shopJson.toAny<InputShop>()
                 val branchJson = convertAnyToJson(data?.shopBranch)
                 val inputBranch = branchJson.toAny<InputBranch>()
                 val dataJsonMap = convertAnyToJson(data).toMap<Any>()?.toMutableMap()
@@ -108,11 +104,9 @@ class DataManager: Actor() {
                 val addressJson = dataJsonMap?.toJson()
                 val inputAddress = addressJson?.toAny<InputAddress>()
                 val inputObj = GQInputObject(
-                    shopId = data?.shopBranch?.shop?.uniqueId ?: "",
                     branchId = data?.shopBranch?.uniqueId ?: "",
                     address = inputAddress ?: initInputAddress(),
-                    shopBranch = inputBranch ?: initInputBranch(),
-                    shop = inputShop ?: initInputShop()
+                    shopBranch = inputBranch ?: initInputBranch()
                 )
                 result.add(inputObj)
             }

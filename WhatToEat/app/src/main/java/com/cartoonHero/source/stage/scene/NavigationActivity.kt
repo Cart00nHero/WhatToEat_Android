@@ -45,7 +45,7 @@ open class NavigationActivity : AppCompatActivity() {
         }
     }
 
-    fun currentFragment(): Fragment{
+    private fun currentFragment(): Fragment{
         return fragmentList.last()
     }
 

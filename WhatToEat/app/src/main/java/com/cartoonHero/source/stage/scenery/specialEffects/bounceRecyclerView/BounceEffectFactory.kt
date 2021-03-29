@@ -19,7 +19,7 @@ fun makeBounceEffect(context: Context): RecyclerView.EdgeEffectFactory {
                     for (i in 0 until view.childCount) {
                         view.apply {
                             val holder =
-                                getChildViewHolder(getChildAt(i)) as BounceRecyclerAdapter.ViewHolder
+                                getChildViewHolder(getChildAt(i)) as BounceRecyclerAdapter.BounceViewHolder
                             holder.springAnimY.cancel()
                             holder.itemView.translationY += deltaY
                         }
@@ -31,7 +31,7 @@ fun makeBounceEffect(context: Context): RecyclerView.EdgeEffectFactory {
                     for (i in 0 until view.childCount) {
                         view.apply {
                             val holder =
-                                getChildViewHolder(getChildAt(i)) as BounceRecyclerAdapter.ViewHolder
+                                getChildViewHolder(getChildAt(i)) as BounceRecyclerAdapter.BounceViewHolder
                             holder.springAnimY.start()
                         }
                     }
@@ -44,7 +44,7 @@ fun makeBounceEffect(context: Context): RecyclerView.EdgeEffectFactory {
                     for (i in 0 until view.childCount) {
                         view.apply {
                             val holder =
-                                getChildViewHolder(getChildAt(i)) as BounceRecyclerAdapter.ViewHolder
+                                getChildViewHolder(getChildAt(i)) as BounceRecyclerAdapter.BounceViewHolder
                             holder.springAnimY
                                 .setStartVelocity(translationVelocity)
                                 .start()

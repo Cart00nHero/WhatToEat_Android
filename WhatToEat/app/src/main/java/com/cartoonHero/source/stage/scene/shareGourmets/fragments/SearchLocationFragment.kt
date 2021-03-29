@@ -1,4 +1,4 @@
-package com.cartoonHero.source.stage.scene.addGourmets.fragments
+package com.cartoonHero.source.stage.scene.shareGourmets.fragments
 
 import android.content.Context
 import android.graphics.Color
@@ -17,7 +17,7 @@ import com.cartoonHero.source.props.toDp
 import com.cartoonHero.source.redux.actions.*
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
-import com.cartoonHero.source.stage.scene.addGourmets.scenarios.SearchLocationScenario
+import com.cartoonHero.source.stage.scene.shareGourmets.scenarios.SearchLocationScenario
 import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.R
 import com.google.android.gms.maps.*
@@ -40,8 +40,6 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        scenario = SearchLocationScenario(
-            requireContext(),requireActivity())
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +53,8 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        scenario = SearchLocationScenario(
+            requireContext(),requireActivity())
         mCoverView =
             createCoverView(requireContext(),bottom_select_view)
         initFragmentView()
@@ -85,12 +85,15 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
     }
+
+    @Suppress("UNREACHABLE_CODE")
     override fun onMarkerClick(marker: Marker?): Boolean {
         scenario.toBePrepareGoFoundLocScenario {
             if (it) {
                 TODO("Found")
             } else {
                 TODO("Add")
+                (activity as MainActivity).goForward(listOf(ShareGourmetFragment()))
             }
         }
         return true

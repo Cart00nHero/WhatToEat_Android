@@ -12,6 +12,10 @@ import kotlin.math.roundToInt
 fun Int.toDp(context: Context):Int = TypedValue.applyDimension(
     TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),context.resources.displayMetrics
 ).toInt()
+fun Float.toSp(context: Context):Float = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_SP, this,context.resources.displayMetrics
+)
+
 // extension property to get display metrics instance
 val Activity.displayMetrics: DisplayMetrics
     get() {
@@ -20,9 +24,12 @@ val Activity.displayMetrics: DisplayMetrics
         val displayMetrics = DisplayMetrics()
 
         if (Build.VERSION.SDK_INT >= 30) {
-            windowManager.defaultDisplay.apply {
-                getRealMetrics(displayMetrics)
+            display.apply {
+                this?.getRealMetrics(displayMetrics)
             }
+//            windowManager.defaultDisplay.apply {
+//                getRealMetrics(displayMetrics)
+//            }
 
         } else {
             // getMetrics() method was deprecated in api level 30

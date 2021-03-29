@@ -11,17 +11,16 @@ import com.cartoonHero.source.redux.actions.SceneGoForwardAction
 import com.cartoonHero.source.redux.actions.SignFoodieAction
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
-import com.cartoonHero.source.stage.scene.addGourmets.scenarios.AddGourmetScenario
+import com.cartoonHero.source.stage.scene.shareGourmets.scenarios.ShareGourmetScenario
 import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.R
-import kotlinx.android.synthetic.main.fragment_sign.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 class SignFragment: Fragment() {
-    private val sss = AddGourmetScenario()
+    private val sss = ShareGourmetScenario()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.fragment_sign, container, false)
@@ -29,9 +28,8 @@ class SignFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fb_sign_button.setOnClickListener { _ ->
-            sss.sendTestMessage()
-        }
+//        fb_sign_button.setOnClickListener { _ ->
+//        }
     }
 
     override fun onResume() {

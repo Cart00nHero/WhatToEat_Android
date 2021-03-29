@@ -65,9 +65,7 @@ open class LRLayout: ConstraintLayout {
                 val set = ConstraintSet()
                 set.clone(this.rightLayout)
                 set.match(content, this.rightLayout)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    TransitionManager.beginDelayedTransition(this)
-                }
+                TransitionManager.beginDelayedTransition(this)
                 set.applyTo(this.rightLayout)
             }
         }

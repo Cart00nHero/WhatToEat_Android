@@ -17,11 +17,14 @@ import type.SignData
 enum class NetWorkStatus {
     NONE, STARTED, SUCCESS, FAILED
 }
-
-class SignFoodieAction: Action {
+open class MutationAction<T>: Action {
     var status: NetWorkStatus = NetWorkStatus.STARTED
-    var responseData: SignFoodieMutation.SignFoodie? = null
+    var responseData: T? = null
 }
+class SignWithAppleAction:
+    MutationAction<SignFoodieMutation.SignFoodie>()
+class SignFoodieAction:
+    MutationAction<SignFoodieMutation.SignFoodie>()
 fun signFoodieAction(signData: SignData):SignFoodieAction {
     val action = SignFoodieAction()
     val mutation = SignFoodieMutation(signData = signData)
@@ -40,17 +43,14 @@ fun signFoodieAction(signData: SignData):SignFoodieAction {
     return action
 }
 
-class CreateGourmetAction: Action {
-    var status: NetWorkStatus = NetWorkStatus.STARTED
-    var responseData: CreateGourmetMutation.CreateGourmet? = null
-}
-fun createGourmetAction(foodieId: String,inputObj: GQInputObject): CreateGourmetAction {
+class CreateGourmetAction:
+    MutationAction<CreateGourmetMutation.CreateGourmet>()
+
+fun createGourmetAction(inputObj: GQInputObject): CreateGourmetAction {
     val action = CreateGourmetAction()
     val mutation = CreateGourmetMutation(
-        foodieId = foodieId,
         address = inputObj.address,
-        shopBranch = inputObj.shopBranch,
-        shop = inputObj.shop
+        shopBranch = inputObj.shopBranch
     )
     apolloClient.mutate(mutation).enqueue(
         object : ApolloCall.Callback<CreateGourmetMutation.Data>() {
@@ -68,19 +68,15 @@ fun createGourmetAction(foodieId: String,inputObj: GQInputObject): CreateGourmet
     return action
 }
 
-class UpdateGourmetAction: Action {
-    var status: NetWorkStatus = NetWorkStatus.STARTED
-    var responseData:
-            UpdateGourmetMutation.UpdateGourmet? = null
-}
-fun updateGourmetAction(foodieId: String,inputObj: GQInputObject): UpdateGourmetAction {
+class UpdateGourmetAction:
+    MutationAction<UpdateGourmetMutation.UpdateGourmet>()
+
+fun updateGourmetAction(inputObj: GQInputObject): UpdateGourmetAction {
     val action = UpdateGourmetAction()
     val mutation = UpdateGourmetMutation(
-        foodieId = foodieId,
         branchId = inputObj.branchId,
         address = inputObj.address.toInput(),
-        branch = inputObj.shopBranch,
-        shop = inputObj.shop.toInput()
+        branch = inputObj.shopBranch
     )
     apolloClient.mutate(mutation).enqueue(
         object : ApolloCall.Callback<UpdateGourmetMutation.Data>(){
@@ -99,11 +95,8 @@ fun updateGourmetAction(foodieId: String,inputObj: GQInputObject): UpdateGourmet
     return action
 }
 
-class DislikeGourmetAction:Action {
-    var status: NetWorkStatus = NetWorkStatus.STARTED
-    var responseData:
-            DislikeGourmetMutation.DislikeGourmet? = null
-}
+class DislikeGourmetAction:
+    MutationAction<DislikeGourmetMutation.DislikeGourmet>()
 fun dislikeGourmetAction(foodieId: String, branchId: String): DislikeGourmetAction {
     val action = DislikeGourmetAction()
     val mutation = DislikeGourmetMutation(

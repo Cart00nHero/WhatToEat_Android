@@ -3,6 +3,7 @@ package com.cartoonHero.source.whatToEat
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import com.cartoonHero.source.agent.ActivityStateListener
 import com.cartoonHero.source.redux.actions.ActivityOnBackPressed
 import com.cartoonHero.source.redux.actions.SceneGoBackAction
@@ -10,25 +11,28 @@ import com.cartoonHero.source.redux.actions.SceneGoForwardAction
 import com.cartoonHero.source.redux.actions.SetRootSceneAction
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
-import com.cartoonHero.source.stage.scene.entrance.SignFragment
 import com.cartoonHero.source.stage.scene.NavigationActivity
+import com.cartoonHero.source.stage.scene.shareGourmets.fragments.ShareGourmetFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.rekotlin.StoreSubscriber
 
-const val mainFragmentContainerId = R.id.main_container
-const val RootSceneBundleKey = "rootSceneBundleKey"
+const val RootSceneBundleKey = "ROOT_SCENE_BUNDLE_KEY"
 
 class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
 
     private val stateListeners = hashSetOf<ActivityStateListener>()
 
+    @ExperimentalCoroutinesApi
+    @ObsoleteCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         val sceneName = intent.getStringExtra(RootSceneBundleKey)
         if (sceneName.isNullOrEmpty()) {
-            setRootFragment(SignFragment(),R.id.main_container)
+            setRootFragment(ShareGourmetFragment(),R.id.main_container)
         }
     }
 
@@ -74,20 +78,29 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
     fun removeStateListener(listener: ActivityStateListener) {
         stateListeners.remove(listener)
     }
+    fun goForward(fragments: List<Fragment>) {
+        goForward(fragments,R.id.main_container)
+    }
+    fun goBack() {
+        goBack(R.id.main_container)
+    }
+    fun backToPage(page:Int) {
+        backToPage(page,R.id.main_container)
+    }
 
     override fun newState(state: ActivityState?) {
         state.apply {
             when(state?.currentAction) {
                 is SetRootSceneAction -> {
                     val action = state.currentAction as SetRootSceneAction
-                    setRootFragment(action.rootFragment, mainFragmentContainerId)
+                    setRootFragment(action.rootFragment, R.id.main_container)
                 }
                 is SceneGoForwardAction -> {
                     val action = state.currentAction as SceneGoForwardAction
-                    goForward(action.fragments, mainFragmentContainerId)
+                    goForward(action.fragments, R.id.main_container)
                 }
                 is SceneGoBackAction -> {
-                    goBack(mainFragmentContainerId)
+                    goBack(R.id.main_container)
                 }
                 else -> {
                     for (listener in stateListeners) {

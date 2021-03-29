@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/loc_search_bar">
+
         <fragment
             android:id="@+id/search_map_container"
             android:name="com.google.android.gms.maps.MapFragment"
@@ -24,6 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            tools:context="com.cartoonHero.source.whatToEat.MapsActivity"
             tools:ignore="FragmentTagUsage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -33,6 +36,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/loc_search_bar"
         android:layout_width="0dp"
@@ -68,7 +72,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/search_bar_button"
-            android:autofillHints=""
+            android:imeOptions="actionDone"
+            android:autofillHints="請輸入地址或網頁搜尋關鍵字"
             android:inputType="text"
             tools:ignore="LabelFor" />
     </androidx.constraintlayout.widget.ConstraintLayout>

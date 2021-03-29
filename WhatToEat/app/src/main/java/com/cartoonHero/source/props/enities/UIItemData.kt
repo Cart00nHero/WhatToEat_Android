@@ -1,6 +1,7 @@
 package com.cartoonHero.source.props.enities
 
 import android.graphics.Color
+import android.text.InputType
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -17,7 +18,7 @@ interface TemplateInterface {
 data class LRTemplate (
     val leftViewItem: ViewItemInterface?,
     val rightViewItem: ViewItemInterface?,
-    var leftLayoutWidth: Int = 64,
+    var leftLayoutWidth: Int = 66,
     override var itemHeight: Int = 100
 
 ): TemplateInterface {
@@ -52,7 +53,7 @@ data class FragmentContainerTemplate(
 /***** Items ******/
 enum class ViewType {
     TextView,TabText,EditText,ImageView,
-    Spinner,HorizontalTextViews,TabMenu,ViewPager
+    Spinner,TabMenu,ViewPager,Button
 }
 
 interface ViewItemInterface {
@@ -62,6 +63,7 @@ data class TextViewItem (
     var text: String = "",
     var numberOfLines: Int = 1,
     var textColor: Int = Color.WHITE,
+    var textSize: Float = 14.0F,
     var alignment: Int = View.TEXT_ALIGNMENT_CENTER
 ): ViewItemInterface {
     override val viewType: ViewType
@@ -70,7 +72,8 @@ data class TextViewItem (
 
 data class EditTextItem (
     var hint: String = "",
-    var text: String = ""
+    var text: String = "",
+    var inputType: Int = InputType.TYPE_CLASS_TEXT
 ): ViewItemInterface {
     override val viewType: ViewType
         get() = ViewType.EditText
@@ -90,12 +93,6 @@ data class SpinnerViewItem (
         get() = ViewType.Spinner
 }
 
-data class HorizontalTextViewsViewItem (
-    val textItems: MutableList<TextViewItem> = mutableListOf()
-): ViewItemInterface {
-    override val viewType: ViewType
-        get() = ViewType.HorizontalTextViews
-}
 data class TabMenuViewItem(
     val tabItems: MutableList<TabTextViewItem> = mutableListOf(),
     var vpItem: ViewPagerItem = ViewPagerItem(),
@@ -123,4 +120,13 @@ data class ViewPagerItem(
 ): ViewItemInterface {
     override val viewType: ViewType
         get() = ViewType.ViewPager
+}
+
+data class ButtonItem(
+    var title: String = "",
+    var backgroundColor: Int = Color.parseColor("#FF4D40"),
+    var textColor: Int = Color.WHITE
+): ViewItemInterface {
+    override val viewType: ViewType
+        get() = ViewType.Button
 }

@@ -33,7 +33,8 @@ class CustomTabLayout @JvmOverloads constructor(
     private fun setTabPosition(position: Int) {
         if (position < template.viewItem.tabItems.size) {
             template.viewItem.selectedIndex = position
-            val selectedTab = this.menuTabLayout.getTabAt(template.viewItem.selectedIndex)
+            val selectedTab =
+                this.menuTabLayout.getTabAt(template.viewItem.selectedIndex)
             selectedTab?.select()
         }
     }
@@ -47,7 +48,8 @@ class CustomTabLayout @JvmOverloads constructor(
             template.viewItem.vpItem.isUserInputEnabled
     }
 
-    private inner class VP2FragmentStateAdapter(activity: AppCompatActivity): FragmentStateAdapter(activity) {
+    private inner class VP2FragmentStateAdapter(
+        activity: AppCompatActivity): FragmentStateAdapter(activity) {
 
         override fun getItemCount(): Int {
             return getFragments().size

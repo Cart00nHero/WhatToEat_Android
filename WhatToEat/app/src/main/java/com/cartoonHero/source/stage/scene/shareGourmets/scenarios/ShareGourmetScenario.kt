@@ -1,5 +1,7 @@
 package com.cartoonHero.source.stage.scene.shareGourmets.scenarios
 
+import android.util.Log
+import com.apollographql.apollo.api.Input
 import com.cartoonHero.source.actors.express.LogisticsCenter
 import com.cartoonHero.source.props.convertAnyToJson
 import com.cartoonHero.source.props.enities.*
@@ -54,21 +56,24 @@ class ShareGourmetScenario: Actor() {
                 convertAnyToJson(queryData.shopBranch).toMap<Any>()?.toMutableMap()
             when(posPath.position) {
                 1 -> branchMap?.set("title", newValue)
-                2 -> branchMap?.set("subtitle",newValue)
-                3 -> branchMap?.set("underPrice",newValue.toFloat())
-                4 -> branchMap?.set("tel",newValue)
+                2 -> branchMap?.set(
+                    "subtitle",Input.optional(newValue).toMap())
+                3 -> branchMap?.set(
+                    "underPrice",Input.optional(newValue.toFloat()).toMap())
+                4 -> branchMap?.set("tel",Input.optional(newValue).toMap())
             }
             newInput.shopBranch =
                 branchMap?.toJson()?.toAny<InputBranch>() ?: initInputBranch()
+            Log.d("Hello",newInput.shopBranch.subtitle.value ?: "")
         }
         if (posPath.section == 1) {
-            val locMap = convertAnyToJson(queryData.address).toMap<Any>()?.toMutableMap()
+            val addressMap = convertAnyToJson(queryData.address).toMap<Any>()?.toMutableMap()
             when(posPath.position) {
-                2 -> locMap?.set("floor", newValue)
-                3 -> locMap?.set("room",newValue)
+                2 -> addressMap?.set("floor", Input.optional(newValue).toMap())
+                3 -> addressMap?.set("room",Input.optional(newValue).toMap())
             }
             newInput.address =
-                locMap?.toJson()?.toAny<InputAddress>() ?: initInputAddress()
+                addressMap?.toJson()?.toAny<InputAddress>() ?: initInputAddress()
         }
         queryData = newInput
     }

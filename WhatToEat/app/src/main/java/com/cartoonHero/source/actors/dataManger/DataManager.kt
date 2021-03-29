@@ -101,8 +101,7 @@ class DataManager: Actor() {
                 val inputBranch = branchJson.toAny<InputBranch>()
                 val dataJsonMap = convertAnyToJson(data).toMap<Any>()?.toMutableMap()
                 dataJsonMap?.remove("shopBranch")
-                val addressJson = dataJsonMap?.toJson()
-                val inputAddress = addressJson?.toAny<InputAddress>()
+                val inputAddress = dataJsonMap?.toJson()?.toAny<InputAddress>()
                 val inputObj = GQInputObject(
                     branchId = data?.shopBranch?.uniqueId ?: "",
                     address = inputAddress ?: initInputAddress(),

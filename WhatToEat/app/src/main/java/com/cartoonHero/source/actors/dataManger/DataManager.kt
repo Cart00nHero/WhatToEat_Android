@@ -2,13 +2,8 @@ package com.cartoonHero.source.actors.dataManger
 
 import android.location.Address
 import com.apollographql.apollo.api.Input
-import com.cartoonHero.source.props.convertAnyToJson
-import com.cartoonHero.source.props.toAny
-import com.cartoonHero.source.props.toJson
-import com.cartoonHero.source.props.toMap
-import com.cartoonHero.source.props.enities.GQInputObject
-import com.cartoonHero.source.props.enities.initInputAddress
-import com.cartoonHero.source.props.enities.initInputBranch
+import com.cartoonHero.source.props.*
+import com.cartoonHero.source.props.enities.*
 import com.cartoonhero.source.actormodel.Actor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
@@ -117,19 +112,18 @@ class DataManager: Actor() {
     private fun beSearchRangeDataToLocDqCmd(
         sender: Actor,searchData: SearchForRangeQuery.SearchForRange,
         complete: (AddressDqCmd) -> Unit) {
-        val dqCmd = AddressDqCmd(
-            nation = Input.optional(searchData.nation),
-            isoNationCode = Input.optional(searchData.isoNationCode),
-            locality = Input.optional(searchData.locality),
-            subLocality = Input.optional(searchData.subLocality),
-            administrativeArea = Input.optional(searchData.administrativeArea),
-            subAdministrativeArea = Input.optional(searchData.subAdministrativeArea),
-            postalCode = Input.optional(searchData.postalCode),
-            thoroughfare = Input.optional(searchData.thoroughfare),
-            subThoroughfare = Input.optional(searchData.subThoroughfare)
-        )
-        sender.send {
-            complete(dqCmd)
+        val searchMap = convertAnyToJson(searchData).toMap<Any>()
+        val cmdMap = convertAnyToJson(AddressDqCmd()).toMap<Any>()?.toMutableMap()
+        for (key in cmdMap?.keys!!) {
+            if (searchMap?.get(key) != null) {
+                cmdMap[key] = searchMap[key]!!
+            }
+        }
+        val dqCmd = cmdMap.toJson().toAny<AddressDqCmd>()
+        if (dqCmd != null) {
+            sender.send {
+                complete(dqCmd)
+            }
         }
     }
 

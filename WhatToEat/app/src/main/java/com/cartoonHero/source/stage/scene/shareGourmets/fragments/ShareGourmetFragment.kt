@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ConcatAdapter
-import com.apollographql.apollo.api.Input
 import com.cartoonHero.source.agent.ActivityStateListener
 import com.cartoonHero.source.props.*
 import com.cartoonHero.source.props.enities.*
@@ -21,8 +20,6 @@ import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.R
 import kotlinx.android.synthetic.main.fragment_share_gourmet.*
 import kotlinx.coroutines.*
-import type.InputAddress
-import type.InputBranch
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -78,30 +75,7 @@ class ShareGourmetFragment : Fragment() {
     }
 
     private fun updateEditedInputData(newValue: String, posPath:ConcatPosition) {
-        scenario.toBeGetInputData {
-            val newInput = it
-            if (posPath.section == 0) {
-                val branchMap =
-                    convertAnyToJson(it.shopBranch).toMap<Any>()?.toMutableMap()
-                when(posPath.position) {
-                    1 -> branchMap?.set("title", newValue)
-                    2 -> branchMap?.set("subtitle",newValue)
-                    3 -> branchMap?.set("underPrice",newValue.toFloat())
-                    4 -> branchMap?.set("tel",newValue)
-                }
-                newInput.shopBranch =
-                    branchMap?.toJson()?.toAny<InputBranch>() ?: initInputBranch()
-            }
-            if (posPath.section == 1) {
-                val locMap = convertAnyToJson(it.address).toMap<Any>()?.toMutableMap()
-                when(posPath.position) {
-                    2 -> locMap?.set("floor", newValue)
-                    3 -> locMap?.set("room",newValue)
-                }
-                newInput.address =
-                    locMap?.toJson()?.toAny<InputAddress>() ?: initInputAddress()
-            }
-        }
+        scenario.toBeUpdateInputData(newValue,posPath)
     }
 
     private val stateChangedListener = object : ActivityStateListener {
@@ -126,6 +100,12 @@ class ShareGourmetFragment : Fragment() {
                     }
                 }
                 is ViewOnClickAction -> {
+                    scenario.toBeGetInputData {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Log.d("Test title",it.shopBranch.title)
+                            Log.d("Test subtitle",it.shopBranch.subtitle.value ?: "")
+                        }
+                    }
                 }
             }
         }

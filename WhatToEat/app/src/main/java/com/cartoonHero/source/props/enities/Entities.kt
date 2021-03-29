@@ -66,9 +66,14 @@ class GourmetsListData constructor(inputObject: GQInputObject) {
                 editItemTemplate(
                     "Under\nPrice",
                     inObject.shopBranch.underPrice.value.toString()),
-                editItemTemplate(
-                    "Tel",
-                    inObject.shopBranch.tel.value ?: "")
+                LRTemplate(
+                    itemHeight = itemHeight,
+                    leftLayoutWidth = leftLayoutWidth,
+                    leftViewItem = titleTextViewItem("Tel"),
+                    rightViewItem = EditTextItem(
+                        inputType = InputType.TYPE_CLASS_PHONE,
+                        text = inObject.shopBranch.tel.value ?: "")
+                )
             ),
             mutableListOf(
                 LRTemplate(

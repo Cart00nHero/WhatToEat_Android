@@ -44,7 +44,7 @@ class ShareGourmetLRItem @JvmOverloads constructor(
         when(template.leftViewItem?.viewType) {
             ViewType.TextView -> {
                 val textView = TextView(context)
-                buildConstraints(textView, LayoutSide.Left)
+                buildConstraints(textView, LeftRightSide.Left)
                 textView.layoutParams.width = 0
                 textView.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
                 val data = template.leftViewItem as TextViewItem
@@ -63,7 +63,7 @@ class ShareGourmetLRItem @JvmOverloads constructor(
         when(template.rightViewItem?.viewType) {
             ViewType.TextView -> {
                 val textView = TextView(context)
-                buildConstraints(textView, LayoutSide.Right)
+                buildConstraints(textView, LeftRightSide.Right)
                 val data = template.rightViewItem as TextViewItem
                 textView.text = data.text
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,data.textSize)
@@ -75,7 +75,7 @@ class ShareGourmetLRItem @JvmOverloads constructor(
             }
             ViewType.EditText -> {
                 val editText = EditText(context)
-                buildConstraints(editText,LayoutSide.Right)
+                buildConstraints(editText,LeftRightSide.Right)
                 editText.layoutParams.width = 0
                 editText.layoutParams.height = 0
                 val data = template.rightViewItem as EditTextItem
@@ -108,7 +108,7 @@ class ShareGourmetLRItem @JvmOverloads constructor(
             }
             ViewType.Button -> {
                 val button = Button(context)
-                buildConstraints(button,LayoutSide.Right)
+                buildConstraints(button,LeftRightSide.Right)
                 val data = template.rightViewItem as ButtonItem
                 button.text = data.title
                 button.setTextColor(data.textColor)

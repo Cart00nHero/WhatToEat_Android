@@ -5,10 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.cartoonHero.source.props.enities.GQInputObject
+import com.cartoonHero.source.props.enities.ImageViewItem
+import com.cartoonHero.source.props.enities.TextViewItem
+import com.cartoonHero.source.props.enities.UDTemplate
+import com.cartoonHero.source.stage.scene.shareGourmets.scenarios.FoundLocScenario
+import com.cartoonHero.source.stage.scenery.listItems.GridUDItemView
 import com.cartoonHero.source.stage.scenery.specialEffects.bounceRecyclerView.BounceRecyclerAdapter
 import com.cartoonHero.source.whatToEat.R
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
+@ObsoleteCoroutinesApi
+@ExperimentalCoroutinesApi
 class FoundLocFragment: Fragment() {
+
+    private val scenario = FoundLocScenario()
+    private var dataSource = mutableListOf<GQInputObject>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -18,9 +32,19 @@ class FoundLocFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_found_location,container,false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        scenario.toBeCollectParcel {
+            dataSource.clear()
+            dataSource.addAll(it)
+        }
+    }
+
     private inner class RecyclerAdapter(): BounceRecyclerAdapter() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BounceViewHolder {
-            TODO("Not yet implemented")
+            val itemView = LayoutInflater.from(parent.context)
+                .inflate(R.layout.view_grid_ud_item, parent, false)
+            return BounceViewHolder(itemView)
         }
 
         override fun onBindViewHolder(holder: BounceViewHolder, position: Int) {
@@ -28,18 +52,15 @@ class FoundLocFragment: Fragment() {
         }
 
         override fun getItemCount(): Int {
-            TODO("Not yet implemented")
-        }
-
-        override fun onMoveItem(from: Int, to: Int) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onRemoveItem(from: Int) {
-            TODO("Not yet implemented")
+            return dataSource.size
         }
 
         private fun onHolderBound(itemView: View, position: Int) {
+            (itemView as GridUDItemView).template = UDTemplate(
+                upViewItem = ImageViewItem(),
+                downViewItem = TextViewItem()
+            )
+            itemView.initializeLayout()
         }
     }
 }

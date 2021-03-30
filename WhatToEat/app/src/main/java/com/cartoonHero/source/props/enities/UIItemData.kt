@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 
 enum class TemplateStyle {
-    LeftRight,TabMenu,ViewPager,FragmentContainer
+    LeftRight,UpDown,TabMenu,ViewPager,FragmentContainer
 }
 
 /***** Templates ******/
@@ -24,6 +24,16 @@ data class LRTemplate (
 ): TemplateInterface {
     override val templateStyle: TemplateStyle
         get() = TemplateStyle.LeftRight
+}
+data class UDTemplate (
+    val upViewItem: ViewItemInterface?,
+    val downViewItem: ViewItemInterface?,
+    var bottomHeight: Int = 66,
+    override var itemHeight: Int = 100
+
+): TemplateInterface {
+    override val templateStyle: TemplateStyle
+        get() = TemplateStyle.UpDown
 }
 
 data class TabMenuTemplate(

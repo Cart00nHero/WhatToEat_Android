@@ -12,6 +12,7 @@ import com.cartoonHero.source.redux.actions.SetRootSceneAction
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
 import com.cartoonHero.source.stage.scene.NavigationActivity
+import com.cartoonHero.source.stage.scene.shareGourmets.fragments.FoundLocFragment
 import com.cartoonHero.source.stage.scene.shareGourmets.fragments.ShareGourmetFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +33,7 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
         setSupportActionBar(toolbar)
         val sceneName = intent.getStringExtra(RootSceneBundleKey)
         if (sceneName.isNullOrEmpty()) {
-            setRootFragment(ShareGourmetFragment(),R.id.main_container)
+            setRootFragment(FoundLocFragment(),R.id.main_container)
         }
     }
 

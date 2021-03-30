@@ -22,7 +22,7 @@ open class LRLayout: ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
             super(context, attrs, defStyleAttr)
 
-    enum class LayoutSide {
+    enum class LeftRightSide {
         Left,Right
     }
 
@@ -45,9 +45,9 @@ open class LRLayout: ConstraintLayout {
         }
     }
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    fun buildConstraints(content: View, side: LayoutSide) {
+    fun buildConstraints(content: View, side: LeftRightSide) {
         when(side) {
-            LayoutSide.Left -> {
+            LeftRightSide.Left -> {
                 this.leftLayout.removeAllViews()
                 content.id = View.generateViewId()
                 this.leftLayout.addView(content)
@@ -58,7 +58,7 @@ open class LRLayout: ConstraintLayout {
                 TransitionManager.beginDelayedTransition(this)
                 set.applyTo(this.leftLayout)
             }
-            LayoutSide.Right -> {
+            LeftRightSide.Right -> {
                 this.rightLayout.removeAllViews()
                 content.id = View.generateViewId()
                 this.rightLayout.addView(content)

@@ -3,11 +3,12 @@ package com.cartoonHero.source.props.enities
 import android.graphics.Color
 import android.text.InputType
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 
 enum class TemplateStyle {
-    LeftRight,TabMenu,ViewPager,FragmentContainer
+    LeftRight,UpDown,TabMenu,ViewPager,FragmentContainer
 }
 
 /***** Templates ******/
@@ -24,6 +25,16 @@ data class LRTemplate (
 ): TemplateInterface {
     override val templateStyle: TemplateStyle
         get() = TemplateStyle.LeftRight
+}
+data class UDTemplate (
+    val upViewItem: ViewItemInterface?,
+    val downViewItem: ViewItemInterface?,
+    var bottomHeight: Int = 66,
+    override var itemHeight: Int = 100
+
+): TemplateInterface {
+    override val templateStyle: TemplateStyle
+        get() = TemplateStyle.UpDown
 }
 
 data class TabMenuTemplate(
@@ -79,7 +90,9 @@ data class EditTextItem (
         get() = ViewType.EditText
 }
 data class ImageViewItem(
-    var imageDrawable: Int = 0
+    var imageDrawable: Int = 0,
+    var scaleType: ImageView.ScaleType =
+        ImageView.ScaleType.CENTER
 ): ViewItemInterface {
     override val viewType: ViewType
         get() = ViewType.ImageView

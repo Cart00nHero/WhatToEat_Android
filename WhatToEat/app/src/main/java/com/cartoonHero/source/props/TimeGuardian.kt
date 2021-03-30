@@ -13,7 +13,9 @@ fun String.toTimeStamp(datePattern: String = "yyyy/MM/dd HH:mm", locale: Locale)
     return simpleDateFormat.parse(this).time
 }
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-fun String.toDate(dateFormat: String = "yyyy/MM/dd HH:mm", timeZone: TimeZone = TimeZone.getTimeZone("UTC")): Date {
+fun String.toDate(
+    dateFormat: String = "yyyy/MM/dd HH:mm",
+    timeZone: TimeZone = TimeZone.getTimeZone("UTC")): Date {
     val parser = SimpleDateFormat(dateFormat, Locale.getDefault())
     parser.timeZone = timeZone
     return parser.parse(this)

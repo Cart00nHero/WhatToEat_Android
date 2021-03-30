@@ -3,6 +3,7 @@ package com.cartoonHero.source.redux.actions
 import CreateGourmetMutation
 import DislikeGourmetMutation
 import SignFoodieMutation
+import SignFoodieWithAppleMutation
 import UpdateGourmetMutation
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
@@ -22,7 +23,28 @@ open class MutationAction<T>: Action {
     var responseData: T? = null
 }
 class SignWithAppleAction:
-    MutationAction<SignFoodieMutation.SignFoodie>()
+    MutationAction<SignFoodieWithAppleMutation.SignFoodieWithApple>()
+fun signWithAppleAction(signData: SignData): SignWithAppleAction {
+    val action = SignWithAppleAction()
+    val mutation = SignFoodieWithAppleMutation(signData)
+    apolloClient.mutate(mutation).enqueue(
+        object : ApolloCall.Callback<SignFoodieWithAppleMutation.Data>() {
+            override fun onResponse(
+                response: Response<SignFoodieWithAppleMutation.Data>) {
+                action.responseData = response.data?.signFoodieWithApple
+                action.status = NetWorkStatus.SUCCESS
+                appStore.dispatch(action)
+            }
+
+            override fun onFailure(e: ApolloException) {
+                action.status = NetWorkStatus.FAILED
+                appStore.dispatch(action)
+            }
+
+        }
+    )
+    return action
+}
 class SignFoodieAction:
     MutationAction<SignFoodieMutation.SignFoodie>()
 fun signFoodieAction(signData: SignData):SignFoodieAction {

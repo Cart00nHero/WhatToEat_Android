@@ -1,6 +1,5 @@
 package com.cartoonHero.source.stage.scene.shareGourmets.scenarios
 
-import android.util.Log
 import com.apollographql.apollo.api.Input
 import com.cartoonHero.source.actors.express.LogisticsCenter
 import com.cartoonHero.source.props.convertAnyToJson
@@ -64,7 +63,6 @@ class ShareGourmetScenario: Actor() {
             }
             newInput.shopBranch =
                 branchMap?.toJson()?.toAny<InputBranch>() ?: initInputBranch()
-            Log.d("Hello",newInput.shopBranch.subtitle.value ?: "")
         }
         if (posPath.section == 1) {
             val addressMap = convertAnyToJson(queryData.address).toMap<Any>()?.toMutableMap()

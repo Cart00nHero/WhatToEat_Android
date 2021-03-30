@@ -74,10 +74,6 @@ class ShareGourmetFragment : Fragment() {
         (activity as MainActivity).removeStateListener(stateChangedListener)
     }
 
-    private fun updateEditedInputData(newValue: String, posPath:ConcatPosition) {
-        scenario.toBeUpdateInputData(newValue,posPath)
-    }
-
     private val stateChangedListener = object : ActivityStateListener {
         override fun onNewState(state: ActivityState) {
             when(state.currentAction) {
@@ -90,10 +86,10 @@ class ShareGourmetFragment : Fragment() {
                             listData.dataSource[posPath.section][posPath.position]
                         when(data.templateStyle) {
                             TemplateStyle.LeftRight -> {
+                                scenario.toBeUpdateInputData(action.text,posPath)
                                 val item =
                                     (data as LRTemplate).rightViewItem as EditTextItem
                                 item.text = action.text
-                                updateEditedInputData(action.text,posPath)
                             }
                             else -> {}
                         }

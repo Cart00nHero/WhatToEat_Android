@@ -27,10 +27,6 @@ val Activity.displayMetrics: DisplayMetrics
             display.apply {
                 this?.getRealMetrics(displayMetrics)
             }
-//            windowManager.defaultDisplay.apply {
-//                getRealMetrics(displayMetrics)
-//            }
-
         } else {
             // getMetrics() method was deprecated in api level 30
             windowManager.defaultDisplay.getMetrics(displayMetrics)

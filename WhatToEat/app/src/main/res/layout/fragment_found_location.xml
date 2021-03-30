@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="@+id/foundLoc_bg_imageView"
         app:layout_constraintEnd_toEndOf="@+id/foundLoc_bg_imageView"
         android:background="#80F5FFFA"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

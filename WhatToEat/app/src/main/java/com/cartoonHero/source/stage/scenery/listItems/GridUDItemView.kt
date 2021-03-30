@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.widget.ImageView
 import android.widget.TextView
+import com.cartoonHero.source.props.enities.ImageViewItem
 import com.cartoonHero.source.props.enities.TextViewItem
 import com.cartoonHero.source.props.enities.ViewType
 import com.cartoonHero.source.props.toDp
@@ -25,8 +26,11 @@ class GridUDItemView @JvmOverloads constructor(
     private fun createTop() {
         when(template.upViewItem?.viewType) {
             ViewType.ImageView -> {
+                val data = template.upViewItem as ImageViewItem
                 val imageView = ImageView(context)
                 buildConstraints(imageView, UpDownSide.Up)
+                imageView.scaleType = ImageView.ScaleType.FIT_XY
+                imageView.setImageResource(data.imageDrawable)
             }
             else -> {}
         }

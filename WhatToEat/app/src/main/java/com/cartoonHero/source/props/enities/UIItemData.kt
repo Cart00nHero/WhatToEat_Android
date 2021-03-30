@@ -3,6 +3,7 @@ package com.cartoonHero.source.props.enities
 import android.graphics.Color
 import android.text.InputType
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 
@@ -89,7 +90,9 @@ data class EditTextItem (
         get() = ViewType.EditText
 }
 data class ImageViewItem(
-    var imageDrawable: Int = 0
+    var imageDrawable: Int = 0,
+    var scaleType: ImageView.ScaleType =
+        ImageView.ScaleType.CENTER
 ): ViewItemInterface {
     override val viewType: ViewType
         get() = ViewType.ImageView

@@ -39,9 +39,6 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
     }
     private var searchMode: SearchMode = SearchMode.Map
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,26 +55,10 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
         scenario = SearchLocationScenario(
             requireContext(), requireActivity()
         )
-        mCoverView =
-            createCoverView(requireContext(), bottom_select_view)
+        searchLoc_mapView.onCreate(savedInstanceState)
+        searchLoc_mapView.onStart()
+        searchLoc_mapView.getMapAsync(this)
         initFragmentView()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        (activity as MainActivity)
-            .addStateListener(stateChangedListener)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        (activity as MainActivity)
-            .removeStateListener(stateChangedListener)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        scenario.toBeCancelFoundLocParcel()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -87,6 +68,26 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
                 scenario.toBeRequestCurrentLocation()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity)
+            .addStateListener(stateChangedListener)
+        searchLoc_mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as MainActivity)
+            .removeStateListener(stateChangedListener)
+        searchLoc_mapView.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        scenario.toBeCancelFoundLocParcel()
+        searchLoc_mapView.onStop()
     }
 
     @Suppress("UNREACHABLE_CODE")
@@ -104,6 +105,8 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     private fun initFragmentView() {
+        mCoverView =
+            createCoverView(requireContext(), bottom_select_view)
         top_select_view.setBackgroundColor(selectedBgColor())
         bottom_select_view.setBackgroundColor(normalBgColor())
         search_editText.setUnderlineColor(Color.WHITE)

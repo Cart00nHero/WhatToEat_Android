@@ -27,6 +27,7 @@ class SearchLocationScenario constructor(
     private val context: Context,private val activity: Activity): Actor() {
     private var queryDataParcel: Parcel? = null
     private var markedGQInput = initGQInputObject()
+    private val pilot = Pilot(context)
 
     fun toBeGoogleSearchUrl(queryText: String, complete: (String) -> Unit) {
         send {
@@ -48,7 +49,7 @@ class SearchLocationScenario constructor(
             beInquireIntoAddressesLocation(addressText)
         }
     }
-    fun toBeInquireIntoLocationAddress(
+    private fun toBeInquireIntoLocationAddress(
         location: Location,locale: Locale) {
         send {
             beInquireIntoLocationAddress(location, locale)
@@ -86,14 +87,14 @@ class SearchLocationScenario constructor(
         }
     }
     private fun beCheckGPSPermission(complete: (Boolean) -> Unit) {
-        Pilot(context).toBeCheckPermission(this,activity) {
+        pilot.toBeCheckPermission(this,activity) {
             CoroutineScope(Dispatchers.Main).launch {
                 complete(it)
             }
         }
     }
     private fun beRequestCurrentLocation() {
-        Pilot(context).toBeRequestLocationUpdates(
+        pilot.toBeRequestLocationUpdates(
             this,0L,0.0F) {
             enable: Boolean, location: Location? ->
             if (enable && location != null) {
@@ -109,10 +110,8 @@ class SearchLocationScenario constructor(
             beInquireIntoLocationAddress(location,it.locale)
             CoroutineScope(Dispatchers.Main).launch {
                 appStore.dispatch(MapRemoveAllAnnotationsAction())
-                send {
-                    beInquireIntoLocationAddress(location,
-                        isoNationCodeToLocale(it.countryCode))
-                }
+                toBeInquireIntoLocationAddress(
+                    location,isoNationCodeToLocale(it.countryCode))
             }
         }
     }

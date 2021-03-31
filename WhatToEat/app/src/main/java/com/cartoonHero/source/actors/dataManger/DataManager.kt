@@ -53,14 +53,14 @@ class DataManager: Actor() {
                 completeInfo = combineAddressCompleteInfo(address),
                 latitude = address.latitude,
                 longitude = address.longitude,
-                nation = address.countryName,
-                isoNationCode = address.countryCode,
-                locality = address.locality,
-                subLocality = address.subLocality,
-                administrativeArea = address.adminArea,
-                subAdministrativeArea = address.subAdminArea,
-                thoroughfare = address.thoroughfare,
-                subThoroughfare = address.subThoroughfare
+                nation = address.countryName ?:"",
+                isoNationCode = address.countryCode ?:"",
+                locality = address.locality ?: "",
+                subLocality = address.subLocality ?:"",
+                administrativeArea = address.adminArea ?:"",
+                subAdministrativeArea = address.subAdminArea ?:"",
+                thoroughfare = address.thoroughfare ?:"",
+                subThoroughfare = address.subThoroughfare ?:""
             )
             result.add(newAddress)
         }

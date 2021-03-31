@@ -1,8 +1,10 @@
 package com.cartoonHero.source.whatToEat
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.cartoonHero.source.agent.ActivityStateListener
 import com.cartoonHero.source.redux.actions.ActivityOnBackPressed
@@ -34,6 +36,9 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
         if (sceneName.isNullOrEmpty()) {
             setRootFragment(OptionalFragment(),R.id.main_container)
         }
+        val window = this.window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.parseColor("#FF4D40")
     }
 
     override fun onStart() {
@@ -65,6 +70,10 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        goBack()
+        return super.onSupportNavigateUp()
+    }
     override fun onBackPressed() {
         goBack()
         appStore.dispatch(ActivityOnBackPressed())

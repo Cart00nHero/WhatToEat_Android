@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import com.cartoonHero.source.stage.scenery.specialEffects.bounceRecyclerView.BounceRecyclerAdapter
 import com.cartoonHero.source.whatToEat.R
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
+import kotlinx.android.synthetic.main.fragment_find_food.*
 
-class FindFoodFragment: Fragment(), OnMapReadyCallback {
+class FindFoodFragment: Fragment() {
+
+    private lateinit var mMap: GoogleMap
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,10 +24,16 @@ class FindFoodFragment: Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fmf_mapView.onCreate(savedInstanceState)
+        fmf_mapView.getMapAsync {
+            fmf_mapView.onStart()
+            mMap = it
+        }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fmf_mapView.onDestroy()
     }
 
     private inner class RecyclerAdapter: BounceRecyclerAdapter() {

@@ -16,18 +16,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/loc_search_bar">
 
-        <fragment
-            android:id="@+id/search_map"
-            android:name="com.google.android.gms.maps.MapFragment"
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/searchLoc_mapView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="2dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:context="com.cartoonHero.source.whatToEat.MapsActivity"
-            tools:ignore="FragmentTagUsage" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.Guideline
@@ -73,6 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/search_bar_button"
             android:imeOptions="actionDone"
+            android:text="新北市板橋區中山路一段161號"
             android:hint="請輸入地址或網頁搜尋關鍵字"
             android:autofillHints=""
             android:inputType="text"

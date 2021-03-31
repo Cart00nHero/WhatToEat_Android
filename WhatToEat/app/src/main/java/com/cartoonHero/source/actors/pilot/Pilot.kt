@@ -60,19 +60,26 @@ class Pilot constructor(private val context: Context) : Actor() {
         if (gps || network) {
             when {
                 gps -> {
-                    locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,minTime,minDistance
-                    ) {
-                        send {
-                            complete(true,it)
+                    // fix:
+                    // Can't create handler inside thread Thread[DefaultDispatcher-worker-2,5,main]
+                    // that has not called Looper.prepare()
+                    CoroutineScope(Dispatchers.Main).launch {
+                        locationManager.requestLocationUpdates(
+                            LocationManager.GPS_PROVIDER,minTime,minDistance
+                        ) {
+                            sender.send {
+                                complete(true,it)
+                            }
                         }
                     }
                 }
                 network -> {
-                    locationManager.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER,minTime,minDistance) {
-                        send {
-                            complete(true,it)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        locationManager.requestLocationUpdates(
+                            LocationManager.NETWORK_PROVIDER,minTime,minDistance) {
+                            sender.send {
+                                complete(true,it)
+                            }
                         }
                     }
                 }

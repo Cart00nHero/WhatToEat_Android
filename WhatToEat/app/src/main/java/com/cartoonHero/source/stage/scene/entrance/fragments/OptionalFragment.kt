@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.cartoonHero.source.agent.ActivityStateListener
 import com.cartoonHero.source.redux.states.ActivityState
+import com.cartoonHero.source.stage.scene.findMyFood.fragments.FindFoodFragment
 import com.cartoonHero.source.stage.scene.shareGourmets.fragments.SearchLocationFragment
 import com.cartoonHero.source.whatToEat.MainActivity
 import com.cartoonHero.source.whatToEat.R
@@ -25,8 +27,10 @@ class OptionalFragment: Fragment() {
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity)
+            .supportActionBar?.setDisplayHomeAsUpEnabled(false)
         this.opt_find_button.setOnClickListener {
-
+            (activity as MainActivity).goForward(listOf(FindFoodFragment()))
         }
         this.opt_share_button.setOnClickListener {
             (activity as MainActivity).goForward(listOf(SearchLocationFragment()))
@@ -43,6 +47,11 @@ class OptionalFragment: Fragment() {
         super.onPause()
         (activity as MainActivity)
             .removeStateListener(stateChangedListener)
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as MainActivity)
+            .supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private val stateChangedListener = object : ActivityStateListener {

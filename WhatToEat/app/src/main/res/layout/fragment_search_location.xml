@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toTopOf="@+id/loc_search_bar">
 
         <fragment
-            android:id="@+id/search_map_container"
+            android:id="@+id/search_map"
             android:name="com.google.android.gms.maps.MapFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -41,7 +41,7 @@
         android:id="@+id/loc_search_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#228B22"
+        android:background="#FF4D40"
         app:layout_constraintBottom_toTopOf="@+id/centerGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,9 +73,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/search_bar_button"
             android:imeOptions="actionDone"
-            android:autofillHints="請輸入地址或網頁搜尋關鍵字"
+            android:hint="請輸入地址或網頁搜尋關鍵字"
+            android:autofillHints=""
             android:inputType="text"
-            tools:ignore="LabelFor" />
+            android:textColor="#FFFFFF"
+            tools:ignore="HardcodedText,LabelFor" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,18 +88,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loc_search_bar"
         app:layout_constraintBottom_toBottomOf="parent">
-        <TextView
-            android:id="@+id/bottom_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="#FF3B30"
-            android:text="Tap me search in Google"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchLoc_nav_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="HardcodedText" />
+            app:layout_constraintBottom_toBottomOf="parent">
+            <ImageView
+                android:id="@+id/searchLoc_nav_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/searchLoc_nav_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#FF3B30"
+                android:text="點擊上下區域可選擇地圖或網頁模式在地圖上找到要新增的地點"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/searchLoc_nav_imageView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                tools:ignore="HardcodedText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <WebView
             android:id="@+id/google_search_webView"
             android:layout_width="0dp"

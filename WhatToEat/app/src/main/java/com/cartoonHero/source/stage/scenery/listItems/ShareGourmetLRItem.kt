@@ -12,7 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.cartoonHero.source.props.enities.*
-import com.cartoonHero.source.props.toDp
+import com.cartoonHero.source.props.*
 import com.cartoonHero.source.redux.actions.ItemEditTextDidChangedAction
 import com.cartoonHero.source.redux.actions.ViewOnClickAction
 import com.cartoonHero.source.redux.appStore
@@ -82,6 +82,9 @@ class ShareGourmetLRItem @JvmOverloads constructor(
                 editText.hint = data.hint
                 editText.inputType = data.inputType
                 editText.imeOptions = EditorInfo.IME_ACTION_DONE
+                editText.setUnderlineColor(
+                    Color.parseColor("#704214"))
+                editText.setCursorColor(Color.parseColor("#704214"))
                 editText.addTextChangedListener(object : TextWatcher{
                     override fun beforeTextChanged(s: CharSequence?, start: Int,
                         count: Int, after: Int) {

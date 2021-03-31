@@ -12,8 +12,7 @@ import com.cartoonHero.source.redux.actions.SetRootSceneAction
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
 import com.cartoonHero.source.stage.scene.NavigationActivity
-import com.cartoonHero.source.stage.scene.shareGourmets.fragments.FoundLocFragment
-import com.cartoonHero.source.stage.scene.shareGourmets.fragments.ShareGourmetFragment
+import com.cartoonHero.source.stage.scene.entrance.fragments.OptionalFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
@@ -33,7 +32,7 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
         setSupportActionBar(toolbar)
         val sceneName = intent.getStringExtra(RootSceneBundleKey)
         if (sceneName.isNullOrEmpty()) {
-            setRootFragment(FoundLocFragment(),R.id.main_container)
+            setRootFragment(OptionalFragment(),R.id.main_container)
         }
     }
 
@@ -67,7 +66,7 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        goBack()
         appStore.dispatch(ActivityOnBackPressed())
     }
 
@@ -82,7 +81,7 @@ class MainActivity : NavigationActivity(), StoreSubscriber<ActivityState?> {
     fun goForward(fragments: List<Fragment>) {
         goForward(fragments,R.id.main_container)
     }
-    fun goBack() {
+    private fun goBack() {
         goBack(R.id.main_container)
     }
     fun backToPage(page:Int) {

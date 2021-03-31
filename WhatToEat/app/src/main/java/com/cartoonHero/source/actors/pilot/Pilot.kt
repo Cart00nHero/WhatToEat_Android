@@ -12,8 +12,7 @@ import kotlinx.coroutines.*
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class Pilot constructor(context: Context) : Actor() {
-    private val mContext = context
+class Pilot constructor(private val context: Context) : Actor() {
     private val locationManager =
         context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -93,10 +92,10 @@ class Pilot constructor(context: Context) : Actor() {
     }
     private fun checkPermission(): Boolean {
         if (ActivityCompat.checkSelfPermission(
-                mContext,
+                context,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                mContext,
+                context,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {

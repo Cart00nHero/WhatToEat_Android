@@ -50,7 +50,7 @@ class FoundLocFragment: Fragment() {
 //        }
     }
 
-    private inner class RecyclerAdapter(): BounceRecyclerAdapter() {
+    private inner class RecyclerAdapter: BounceRecyclerAdapter() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BounceViewHolder {
             val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.view_grid_ud_item, parent, false)

@@ -15,6 +15,10 @@ fun Int.toDp(context: Context):Int = TypedValue.applyDimension(
 fun Float.toSp(context: Context):Float = TypedValue.applyDimension(
     TypedValue.COMPLEX_UNIT_SP, this,context.resources.displayMetrics
 )
+// extension function to convert dp to equivalent pixels
+fun Int.dpToPixels(context: Context):Int = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics
+).toInt()
 
 // extension property to get display metrics instance
 val Activity.displayMetrics: DisplayMetrics

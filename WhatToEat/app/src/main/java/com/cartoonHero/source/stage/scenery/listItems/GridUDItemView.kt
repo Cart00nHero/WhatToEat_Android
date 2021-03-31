@@ -29,6 +29,8 @@ class GridUDItemView @JvmOverloads constructor(
                 val data = template.upViewItem as ImageViewItem
                 val imageView = ImageView(context)
                 buildConstraints(imageView, UpDownSide.Up)
+                imageView.layoutParams.width = 0
+                imageView.layoutParams.height = 0
                 imageView.scaleType = ImageView.ScaleType.FIT_XY
                 imageView.setImageResource(data.imageDrawable)
             }

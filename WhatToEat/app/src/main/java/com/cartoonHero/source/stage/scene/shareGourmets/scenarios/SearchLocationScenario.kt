@@ -24,9 +24,7 @@ import java.util.*
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
 class SearchLocationScenario constructor(
-    context: Context,activity: Activity): Actor() {
-    private val mContext = context
-    private val mActivity = activity
+    private val context: Context,private val activity: Activity): Actor() {
     private var queryDataParcel: Parcel? = null
     private var markedGQInput = initGQInputObject()
 
@@ -88,14 +86,14 @@ class SearchLocationScenario constructor(
         }
     }
     private fun beCheckGPSPermission(complete: (Boolean) -> Unit) {
-        Pilot(mContext).toBeCheckPermission(this,mActivity) {
+        Pilot(context).toBeCheckPermission(this,activity) {
             CoroutineScope(Dispatchers.Main).launch {
                 complete(it)
             }
         }
     }
     private fun beRequestCurrentLocation() {
-        Pilot(mContext).toBeRequestLocationUpdates(
+        Pilot(context).toBeRequestLocationUpdates(
             this,0L,0.0F) {
             enable: Boolean, location: Location? ->
             if (enable && location != null) {
@@ -104,7 +102,7 @@ class SearchLocationScenario constructor(
         }
     }
     private fun beInquireIntoAddressesLocation(addressText: String) {
-        GeoCoder(mContext).toBeGetFromLocationName(this,addressText) {
+        GeoCoder(context).toBeGetFromLocationName(this,addressText) {
             val location = Location(LocationManager.GPS_PROVIDER)
             location.latitude = it.latitude
             location.longitude = it.longitude
@@ -119,7 +117,7 @@ class SearchLocationScenario constructor(
         }
     }
     private fun beInquireIntoLocationAddress(location: Location,locale: Locale) {
-        GeoCoder(mContext).toBeGetFromLocation(
+        GeoCoder(context).toBeGetFromLocation(
             this,location,locale) {
             DataManager().toBeConvertAddressesToInputAddresses(
                 this, listOf(it)) { result ->

@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F5FFFA"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#FFF8DC"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/findButton"
+        android:id="@+id/opt_find_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/middle_H_guideline"
@@ -17,10 +18,11 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        android:background="#228B22"
-        android:text="Find My Food"
+        android:background="#FF4D40"
+        android:text="尋找好料"
         android:textStyle="bold"
-        android:textColor="#FFFFFFFF" />
+        android:textColor="#FFFFFFFF"
+        tools:ignore="HardcodedText" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/middle_H_guideline"
@@ -30,18 +32,19 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/opt_share_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:background="#228B22"
-        android:text="Add Gourmets"
+        android:background="#FF4D40"
+        android:text="分享好店"
         android:textColor="#FFFFFFFF"
         android:textStyle="bold"
         app:layout_constraintDimensionRatio="8:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/middle_H_guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/middle_H_guideline"
+        tools:ignore="HardcodedText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,7 +21,7 @@ class FoundLocScenario: Actor() {
             bePrepareNewParcel(inputObj)
         }
     }
-    fun toBePackageParcel(inputObj: GQInputObject) {
+    private fun toBePackageParcel(inputObj: GQInputObject) {
         send {
             bePackageParcel(inputObj)
         }

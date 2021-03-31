@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.cartoonHero.source.actors.toolMan.match
 import com.cartoonHero.source.agent.ActivityStateListener
-import com.cartoonHero.source.props.toDp
+import com.cartoonHero.source.props.*
 import com.cartoonHero.source.redux.actions.*
 import com.cartoonHero.source.redux.appStore
 import com.cartoonHero.source.redux.states.ActivityState
@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.Marker
 import kotlinx.android.synthetic.main.fragment_search_location.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
+
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
@@ -49,20 +50,17 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(
             R.layout.fragment_search_location, container,
-            false)
+            false
+        )
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         scenario = SearchLocationScenario(
-            requireContext(),requireActivity())
+            requireContext(), requireActivity()
+        )
         mCoverView =
-            createCoverView(requireContext(),bottom_select_view)
+            createCoverView(requireContext(), bottom_select_view)
         initFragmentView()
-        scenario.toBeCheckGPSPermission {
-            if (it) {
-                scenario.toBeRequestCurrentLocation()
-            }
-        }
     }
 
     override fun onResume() {
@@ -84,6 +82,11 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        scenario.toBeCheckGPSPermission {
+            if (it) {
+                scenario.toBeRequestCurrentLocation()
+            }
+        }
     }
 
     @Suppress("UNREACHABLE_CODE")
@@ -91,6 +94,7 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
         scenario.toBePrepareGoFoundLocScenario {
             if (it) {
                 TODO("Found")
+                (activity as MainActivity).goForward(listOf(FoundLocFragment()))
             } else {
                 TODO("Add")
                 (activity as MainActivity).goForward(listOf(ShareGourmetFragment()))
@@ -102,11 +106,14 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
     private fun initFragmentView() {
         top_select_view.setBackgroundColor(selectedBgColor())
         bottom_select_view.setBackgroundColor(normalBgColor())
+        search_editText.setUnderlineColor(Color.WHITE)
+        search_editText.setCursorColor(Color.WHITE)
         search_bar_button.setOnClickListener {
             when(searchMode) {
                 SearchMode.Map -> {
                     scenario.toBeInquireIntoAddressesLocation(
-                        search_editText.text.toString())
+                        search_editText.text.toString()
+                    )
                 }
                 SearchMode.Google -> {
                     scenario.toBeGoogleSearchUrl(search_editText.text.toString()) {
@@ -138,21 +145,23 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
         val gradientDrawable = GradientDrawable()
         gradientDrawable.setColor(normalBgColor())
         gradientDrawable.setStroke(
-            2.toDp(selectView.context),normalBgColor())
+            2.toDp(selectView.context), normalBgColor()
+        )
         selectView.background = gradientDrawable
     }
     private fun setViewSelectedStyle(selectView: View) {
         val gradientDrawable = GradientDrawable()
         gradientDrawable.setColor(normalBgColor())
         gradientDrawable.setStroke(
-            2.toDp(selectView.context),selectedBgColor())
+            2.toDp(selectView.context), selectedBgColor()
+        )
         selectView.background = gradientDrawable
     }
     private fun normalBgColor(): Int{
-        return Color.parseColor("#F5FFFA")
+        return Color.parseColor("#FFF8DC")
     }
     private fun selectedBgColor():Int {
-        return Color.RED
+        return Color.parseColor("#470024")
     }
 
     private val stateChangedListener = object : ActivityStateListener {
@@ -164,20 +173,20 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
                         top_select_view.removeView(mCoverView)
                         top_select_view.setBackgroundColor(selectedBgColor())
                         setViewDefaultStyle(bottom_select_view)
-                        mCoverView = createCoverView(context!!,bottom_select_view)
+                        mCoverView = createCoverView(context!!, bottom_select_view)
                         searchMode = SearchMode.Map
                     }
                     if (action.clickedView.parent === bottom_select_view) {
                         bottom_select_view.removeView(mCoverView)
                         setViewSelectedStyle(bottom_select_view)
                         top_select_view.setBackgroundColor(normalBgColor())
-                        mCoverView = createCoverView(context!!,top_select_view)
+                        mCoverView = createCoverView(context!!, top_select_view)
                         searchMode = SearchMode.Google
                     }
                 }
                 is LocationsDynamicQueryAction -> {
                     val action = state.currentAction as LocationsDynamicQueryAction
-                    when(action.status) {
+                    when (action.status) {
                         NetWorkStatus.SUCCESS -> {
                             if (action.responseData?.size ?: 0 > 0) {
                                 scenario.toBeGetQueryDataMarker(action.responseData!!) {
@@ -189,7 +198,8 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
                                 }
                             }
                         }
-                        else -> {}
+                        else -> {
+                        }
                     }
                 }
                 is MapClearAndShowMarkersAction -> {
@@ -198,8 +208,11 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
                     for (marker in action.markers) {
                         mMap.addMarker(marker)
                     }
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(
-                        action.markers.first().position))
+                    mMap.moveCamera(
+                        CameraUpdateFactory.newLatLng(
+                            action.markers.first().position
+                        )
+                    )
                 }
             }
         }

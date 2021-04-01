@@ -65,7 +65,7 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
         mMap = googleMap
         scenario.toBeCheckGPSPermission {
             if (it) {
-                scenario.toBeRequestCurrentLocation()
+//                scenario.toBeRequestCurrentLocation()
             }
         }
     }
@@ -90,15 +90,16 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
         searchLoc_mapView.onStop()
     }
 
-    @Suppress("UNREACHABLE_CODE")
     override fun onMarkerClick(marker: Marker?): Boolean {
         scenario.toBePrepareGoFoundLocScenario {
-            if (it) {
-                TODO("Found")
-                (activity as MainActivity).goForward(listOf(FoundLocFragment()))
-            } else {
-                TODO("Add")
-                (activity as MainActivity).goForward(listOf(ShareGourmetFragment()))
+            if (activity is MainActivity) {
+                if (it) {
+                    (activity as MainActivity)
+                        .goForward(listOf(FoundLocFragment()))
+                } else {
+                    (activity as MainActivity)
+                        .goForward(listOf(ShareGourmetFragment()))
+                }
             }
         }
         return true

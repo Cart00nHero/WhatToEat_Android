@@ -28,6 +28,7 @@ class SearchLocationScenario constructor(
     private var queryDataParcel: Parcel? = null
     private var markedGQInput = initGQInputObject()
     private val pilot = Pilot(context)
+    private val coder = GeoCoder(context)
 
     fun toBeGoogleSearchUrl(queryText: String, complete: (String) -> Unit) {
         send {
@@ -103,7 +104,7 @@ class SearchLocationScenario constructor(
         }
     }
     private fun beInquireIntoAddressesLocation(addressText: String) {
-        GeoCoder(context).toBeGetFromLocationName(this,addressText) {
+        coder.toBeGetFromLocationName(this,addressText) {
             val location = Location(LocationManager.GPS_PROVIDER)
             location.latitude = it.latitude
             location.longitude = it.longitude
@@ -116,26 +117,35 @@ class SearchLocationScenario constructor(
         }
     }
     private fun beInquireIntoLocationAddress(location: Location,locale: Locale) {
-        GeoCoder(context).toBeGetFromLocation(
+        coder.toBeGetFromLocation(
             this,location,locale) {
             DataManager().toBeConvertAddressesToInputAddresses(
                 this, listOf(it)) { result ->
                 if (result.isNotEmpty()) {
                     val inputObj = initGQInputObject()
                     inputObj.address = result.first()
-                    markedGQInput = inputObj
-                    CoroutineScope(Dispatchers.Main).launch {
-                        appStore.dispatch(FoundLocationsAddressAction(
-                            markedGQInput
-                        ))
+                    when(locale) {
+                        Locale.ROOT -> {
+                            toBeInquireIntoAddressesLocation(inputObj.address.completeInfo)
+                        }
+                        else -> {
+                            markedGQInput = inputObj
+                            CoroutineScope(Dispatchers.Main).launch {
+                                appStore.dispatch(FoundLocationsAddressAction(
+                                    markedGQInput
+                                ))
+                            }
+                        }
                     }
                 }
             }
-            DataManager().toBeConvertAddressToAddressDqCmd(this,it) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    appStore.dispatch(
-                        locationsDynamicQueryAction(null,it)
-                    )
+            if (locale != Locale.ROOT) {
+                DataManager().toBeConvertAddressToAddressDqCmd(this,it) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        appStore.dispatch(
+                            locationsDynamicQueryAction(null,it)
+                        )
+                    }
                 }
             }
         }

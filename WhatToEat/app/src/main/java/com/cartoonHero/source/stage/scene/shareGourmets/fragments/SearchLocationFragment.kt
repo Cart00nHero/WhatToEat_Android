@@ -29,7 +29,8 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class SearchLocationFragment: Fragment(),
+    OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var scenario: SearchLocationScenario
     private lateinit var mMap: GoogleMap
@@ -56,13 +57,13 @@ class SearchLocationFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarker
             requireContext(), requireActivity()
         )
         searchLoc_mapView.onCreate(savedInstanceState)
-        searchLoc_mapView.onStart()
         searchLoc_mapView.getMapAsync(this)
         initFragmentView()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        searchLoc_mapView.onStart()
         scenario.toBeCheckGPSPermission {
             if (it) {
 //                scenario.toBeRequestCurrentLocation()

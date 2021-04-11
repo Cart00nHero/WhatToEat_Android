@@ -16,17 +16,6 @@ class FoundLocScenario: Actor() {
             beCollectParcel(complete)
         }
     }
-    fun toBePrepareNewParcel(inputObj: GQInputObject) {
-        send {
-            bePrepareNewParcel(inputObj)
-        }
-    }
-    private fun toBePackageParcel(inputObj: GQInputObject) {
-        send {
-            bePackageParcel(inputObj)
-        }
-    }
-
     private fun beCollectParcel(complete:(List<GQInputObject>) -> Unit) {
         LogisticsCenter.collectParcels(this) {
             if (it.count() > 0) {
@@ -39,10 +28,22 @@ class FoundLocScenario: Actor() {
             }
         }
     }
+
+    fun toBePrepareNewParcel(inputObj: GQInputObject) {
+        send {
+            bePrepareNewParcel(inputObj)
+        }
+    }
     private fun bePrepareNewParcel(inputObj: GQInputObject) {
         val newData = initGQInputObject()
         newData.address = inputObj.address
         toBePackageParcel(newData)
+    }
+
+    private fun toBePackageParcel(inputObj: GQInputObject) {
+        send {
+            bePackageParcel(inputObj)
+        }
     }
     private fun bePackageParcel(inputObj: GQInputObject) {
         LogisticsCenter.applyExpressService(

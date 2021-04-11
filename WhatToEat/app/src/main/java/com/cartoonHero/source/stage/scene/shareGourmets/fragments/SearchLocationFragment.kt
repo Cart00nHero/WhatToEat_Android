@@ -107,6 +107,8 @@ class SearchLocationFragment: Fragment(),
     }
 
     private fun initFragmentView() {
+        searchLoc_store_clerk.layoutParams.height =
+            bottom_select_view.measuredHeight/2
         mCoverView =
             createCoverView(requireContext(), bottom_select_view)
         top_select_view.setBackgroundColor(selectedBgColor())

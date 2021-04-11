@@ -95,11 +95,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
-                android:id="@+id/searchLoc_nav_imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/searchLoc_store_clerk"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:2"
+                android:scaleType="fitCenter"
+                android:src="@drawable/image_store_clerk"
                 tools:ignore="ContentDescription" />
             <TextView
                 android:id="@+id/searchLoc_nav_textView"
@@ -109,7 +112,7 @@
                 android:textColor="#FF3B30"
                 android:text="點擊上下區域可選擇地圖或網頁模式在地圖上找到要新增的地點"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/searchLoc_nav_imageView"
+                app:layout_constraintEnd_toStartOf="@+id/searchLoc_store_clerk"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="2dp"

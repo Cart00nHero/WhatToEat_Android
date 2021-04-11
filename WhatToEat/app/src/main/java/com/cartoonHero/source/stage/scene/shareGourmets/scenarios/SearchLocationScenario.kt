@@ -33,56 +33,17 @@ class SearchLocationScenario constructor(
             beGoogleSearchUrl(queryText, complete)
         }
     }
-    fun toBeCheckGPSPermission(complete: (Boolean) -> Unit) {
-        send {
-            beCheckGPSPermission(complete)
-        }
-    }
-    fun toBeRequestCurrentLocation() {
-        send {
-            beRequestCurrentLocation()
-        }
-    }
-    fun toBeInquireIntoAddressesLocation(addressText: String) {
-        send {
-            beInquireIntoAddressesLocation(addressText)
-        }
-    }
-    private fun toBeInquireIntoLocationAddress(
-        location: Location,locale: Locale) {
-        send {
-            beInquireIntoLocationAddress(location, locale)
-        }
-    }
-    fun toBeGetQueryDataMarker(
-        queryData: List<LocationsDynamicQuery.LocationsDynamicQuery?>,
-        complete: (List<MarkerOptions>) -> Unit) {
-        send {
-            beGetQueryDataMarker(queryData, complete)
-        }
-    }
-    fun toBeGetFoundPlacesMarkers(
-        complete: (List<MarkerOptions>) -> Unit) {
-        send {
-            beGetFoundPlacesMarkers(complete)
-        }
-    }
-    fun toBePrepareGoFoundLocScenario(complete: (Boolean) -> Unit) {
-        send {
-            bePrepareGoFoundLocScenario(complete)
-        }
-    }
-    fun toBeCancelFoundLocParcel() {
-        send {
-            beCancelFoundLocParcel()
-        }
-    }
-
     private fun beGoogleSearchUrl(queryText: String, complete: (String) -> Unit) {
         val query = queryText.replace(" ", "+")
         val url = "https://www.google.co.in/search?q=$query"
         CoroutineScope(Dispatchers.Main).launch {
             complete(url)
+        }
+    }
+
+    fun toBeCheckGPSPermission(complete: (Boolean) -> Unit) {
+        send {
+            beCheckGPSPermission(complete)
         }
     }
     private fun beCheckGPSPermission(complete: (Boolean) -> Unit) {
@@ -92,13 +53,25 @@ class SearchLocationScenario constructor(
             }
         }
     }
+
+    fun toBeRequestCurrentLocation() {
+        send {
+            beRequestCurrentLocation()
+        }
+    }
     private fun beRequestCurrentLocation() {
         Pilot(context).toBeRequestLocationUpdates(
             this,0L,0.0F) {
-            enable: Boolean, location: Location? ->
+                enable: Boolean, location: Location? ->
             if (enable && location != null) {
                 beInquireIntoLocationAddress(location, Locale.ROOT)
             }
+        }
+    }
+
+    fun toBeInquireIntoAddressesLocation(addressText: String) {
+        send {
+            beInquireIntoAddressesLocation(addressText)
         }
     }
     private fun beInquireIntoAddressesLocation(addressText: String) {
@@ -112,6 +85,12 @@ class SearchLocationScenario constructor(
                 toBeInquireIntoLocationAddress(
                     location,isoNationCodeToLocale(it.countryCode))
             }
+        }
+    }
+    private fun toBeInquireIntoLocationAddress(
+        location: Location,locale: Locale) {
+        send {
+            beInquireIntoLocationAddress(location, locale)
         }
     }
     private fun beInquireIntoLocationAddress(location: Location,locale: Locale) {
@@ -148,6 +127,14 @@ class SearchLocationScenario constructor(
             }
         }
     }
+
+    fun toBeGetQueryDataMarker(
+        queryData: List<LocationsDynamicQuery.LocationsDynamicQuery?>,
+        complete: (List<MarkerOptions>) -> Unit) {
+        send {
+            beGetQueryDataMarker(queryData, complete)
+        }
+    }
     private fun beGetQueryDataMarker(
         queryData: List<LocationsDynamicQuery.LocationsDynamicQuery?>,
         complete: (List<MarkerOptions>) -> Unit) {
@@ -165,6 +152,13 @@ class SearchLocationScenario constructor(
             }
         }
     }
+
+    fun toBeGetFoundPlacesMarkers(
+        complete: (List<MarkerOptions>) -> Unit) {
+        send {
+            beGetFoundPlacesMarkers(complete)
+        }
+    }
     private fun beGetFoundPlacesMarkers(complete: (List<MarkerOptions>) -> Unit) {
         val latitude = markedGQInput.address.latitude as Double
         val longitude = markedGQInput.address.longitude as Double
@@ -173,6 +167,12 @@ class SearchLocationScenario constructor(
         marker.position(position)
         CoroutineScope(Dispatchers.Main).launch {
             complete(listOf(marker))
+        }
+    }
+
+    fun toBePrepareGoFoundLocScenario(complete: (Boolean) -> Unit) {
+        send {
+            bePrepareGoFoundLocScenario(complete)
         }
     }
     private fun bePrepareGoFoundLocScenario(complete: (Boolean) -> Unit) {
@@ -186,6 +186,12 @@ class SearchLocationScenario constructor(
         }
         CoroutineScope(Dispatchers.Main).launch {
             complete(isPrepared)
+        }
+    }
+
+    fun toBeCancelFoundLocParcel() {
+        send {
+            beCancelFoundLocParcel()
         }
     }
     private fun beCancelFoundLocParcel() {

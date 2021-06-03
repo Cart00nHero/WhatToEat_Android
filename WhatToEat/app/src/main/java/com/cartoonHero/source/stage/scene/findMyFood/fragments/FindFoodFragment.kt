@@ -5,13 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.cartoonHero.source.stage.scene.findMyFood.scenarios.FindFoodScenario
 import com.cartoonHero.source.stage.scenery.specialEffects.bounceRecyclerView.BounceRecyclerAdapter
 import com.cartoonHero.source.whatToEat.R
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.fragment_find_food.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
+@ObsoleteCoroutinesApi
+@ExperimentalCoroutinesApi
 class FindFoodFragment: Fragment() {
 
+    private lateinit var scenario: FindFoodScenario
     private lateinit var mMap: GoogleMap
 
     override fun onCreateView(
@@ -24,6 +30,8 @@ class FindFoodFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        scenario = FindFoodScenario(
+            requireContext(), requireActivity())
         fmf_mapView.onCreate(savedInstanceState)
         fmf_mapView.getMapAsync {
             fmf_mapView.onStart()

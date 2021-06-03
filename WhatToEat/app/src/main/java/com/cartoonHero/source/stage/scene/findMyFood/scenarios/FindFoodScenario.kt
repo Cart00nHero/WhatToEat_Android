@@ -7,7 +7,6 @@ import com.cartoonHero.source.actors.mathematician.Mathematician
 import com.cartoonHero.source.actors.pilot.Pilot
 import com.cartoonhero.source.actormodel.Actor
 import kotlinx.coroutines.*
-import java.util.*
 
 data class CenterPoint (
     var location: Location? = null,
@@ -18,29 +17,84 @@ data class CenterPoint (
 class FindFoodScenario constructor(
     private val context: Context, private val activity: Activity
 ): Actor() {
+    private val pilot = Pilot(context)
     private var centerPt = CenterPoint()
+    private var lastSearchPt = CenterPoint()
+    private var lastQueryData:
+            List<SearchForRangeQuery.SearchForRange?>? = null
+
+    fun toBeCheckGPSPermission(complete: (Boolean) -> Unit) {
+        send {
+            beCheckGPSPermission(complete)
+        }
+    }
     private fun beCheckGPSPermission(complete: (Boolean) -> Unit) {
-        Pilot(context).toBeCheckPermission(this,activity) {
+        pilot.toBeCheckPermission(this,activity) {
             CoroutineScope(Dispatchers.Main).launch {
                 complete(it)
             }
         }
     }
+
+    fun toBeRequestCurrentLocation() {
+        send {
+            beRequestCurrentLocation()
+        }
+    }
     private fun beRequestCurrentLocation() {
-        Pilot(context).toBeRequestLocationUpdates(
+        pilot.toBeRequestLocationUpdates(
             this,0L,0.0F) {
                 enable: Boolean, location: Location? ->
             if (enable && location != null) {
                 centerPt.location = location
                 Mathematician().toBeCalculateRange(
-                    this,location,searchRange()) {
-
+                    this,location,searchRange(16)) {
                 }
             }
         }
     }
 
-    private fun searchRange(): Float {
+    fun toBeStoreQueryData(
+        queryData: List<SearchForRangeQuery.SearchForRange?>) {
+        send {
+            toBeStoreQueryData(queryData)
+        }
+    }
+    private fun beStoreQueryData(
+        queryData: List<SearchForRangeQuery.SearchForRange?>) {
+        lastQueryData = queryData
+    }
+
+    fun toBeUpdateCenterPoint(
+        zoomLevel: Int, location: Location?,
+        complete: (CenterPoint) -> Unit?) {
+        send {
+            beUpdateCenterPoint(zoomLevel, location, complete)
+        }
+    }
+    private fun beUpdateCenterPoint(
+        zoomLevel: Int, location: Location?, complete: (CenterPoint) -> Unit?) {
+        if (zoomLevel > -1) {
+            centerPt.zoomLevel = zoomLevel
+        }
+        if (location != null) {
+            centerPt.location = location
+        }
+        complete(centerPt)
+    }
+
+    @Suppress("SameParameterValue")
+    private fun searchRange(zoomLevel: Int): Float {
+        // KM
+        if (zoomLevel >= 17) {
+            return 0.2F
+        }
+        if (zoomLevel == 16) {
+            return 0.5F
+        }
+        if (zoomLevel <= 15) {
+            return 1.0F
+        }
         return 0.0F
     }
 }

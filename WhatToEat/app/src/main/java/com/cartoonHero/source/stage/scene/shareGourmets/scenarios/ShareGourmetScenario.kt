@@ -23,16 +23,6 @@ class ShareGourmetScenario: Actor() {
             beCollectGQInputParcel()
         }
     }
-    fun toBeGetInputData(complete: (GQInputObject) -> Unit) {
-        send {
-            beGetInputData(complete)
-        }
-    }
-    fun toBeUpdateInputData(newValue: String, posPath: ConcatPosition) {
-        send {
-            beUpdateInputData(newValue,posPath)
-        }
-    }
     private fun beCollectGQInputParcel() {
         LogisticsCenter.collectParcels(this) {
             if (it.count() > 0) {
@@ -45,8 +35,20 @@ class ShareGourmetScenario: Actor() {
             }
         }
     }
+
+    fun toBeGetInputData(complete: (GQInputObject) -> Unit) {
+        send {
+            beGetInputData(complete)
+        }
+    }
     private fun beGetInputData(complete: (GQInputObject) -> Unit) {
         complete(queryData)
+    }
+
+    fun toBeUpdateInputData(newValue: String, posPath: ConcatPosition) {
+        send {
+            beUpdateInputData(newValue,posPath)
+        }
     }
     private fun beUpdateInputData(newValue: String, posPath: ConcatPosition) {
         val newInput = queryData
